@@ -1,32 +1,32 @@
 package com.arsyux.arrow.controller;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+//import org.modelmapper.ModelMapper;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+//import org.springframework.validation.BindingResult;
+//import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.arsyux.arrow.domain.UserVO;
-import com.arsyux.arrow.dto.ResponseDTO;
-import com.arsyux.arrow.dto.UserDTO;
-import com.arsyux.arrow.dto.UserDTO.InsertUserValidationGroup;
-import com.arsyux.arrow.service.UserService;
+//import com.arsyux.arrow.domain.UserVO;
+//import com.arsyux.arrow.dto.ResponseDTO;
+//import com.arsyux.arrow.dto.UserDTO;
+//import com.arsyux.arrow.dto.UserDTO.InsertUserValidationGroup;
+//import com.arsyux.arrow.service.UserService;
 
 @Controller
 public class UserController {
 	
-	@Autowired
-	private UserService userService;
+	//@Autowired
+	//private UserService userService;
 
-	@Autowired
-	private ModelMapper modelMapper;
+	//@Autowired
+	//private ModelMapper modelMapper;
 	
 	// ========================================
 	// 1. 로그인
@@ -42,10 +42,7 @@ public class UserController {
 		return "user/loginUser";
 	}
 	
-	// ========================================
-	// 2. 회원가입
-	// ========================================
-	
+	/*
 	// 회원 가입 이동
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
@@ -62,8 +59,6 @@ public class UserController {
 		userService.insertUser(user);
 		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 환영합니다!");		
 	}
-	
-	
-	
+	*/
 	
 }

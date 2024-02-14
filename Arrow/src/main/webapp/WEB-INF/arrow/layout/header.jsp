@@ -38,12 +38,8 @@
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	
 	<!-- 제목 -->
-	<title>영집궁시박물관 안내</title>
+	<title>영집 궁시박물관 안내</title>
 	
 </head>
 <body>
-
-	<header>
-		
-		
-	</header>
+	<header><!-- 키오스크이므로 헤더 및 푸터는 구현하지않았음 --></header>

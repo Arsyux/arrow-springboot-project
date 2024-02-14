@@ -34,4 +34,8 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 50MB
-
+   # 시큐리티 테스트
+  security:
+    user:
+      name: ${ADMIN_ID}
+      password: ${ADMIN_PASSWORD}
