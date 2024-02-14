@@ -1,14 +1,14 @@
 package com.arsyux.arrow.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 //import com.arsyux.arrow.security.UserDetailsServiceImpl;
@@ -42,15 +42,15 @@ public class ArrowWebSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/font/**", "/message/**", "/", "/auth/**").permitAll()
+			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/font/**", "/message/**", "/", "/adm", "/securitylogin", "/logout").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/auth/loginUser").failureHandler(customFailureHandler)
-			.loginProcessingUrl("/auth/securitylogin")
+			.loginPage("/adm").failureHandler(customFailureHandler)
+			.loginProcessingUrl("/securitylogin")
 			.and()
 			.logout()
-			.logoutUrl("/auth/logout")
+			.logoutUrl("/logout")
 			.logoutSuccessUrl("/")
 			.and()
 			.csrf().disable();

@@ -14,16 +14,10 @@ public class PostController {
 	// 기본 화면 설정
 	// ========================================
 	
-	// 메인 화면
+	// 메인 화면이동
 	@GetMapping({ "", "/" })
 	public String getHome(Model model) {
 		return "index";
-	}
-	
-	// 메인 화면
-	@GetMapping({ "/adm" })
-	public String getAdminLogin(Model model) {
-		return "user/loginUser";
 	}
 	
 }

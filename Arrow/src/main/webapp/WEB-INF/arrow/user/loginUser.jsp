@@ -26,7 +26,7 @@
 		<div class="col-sm-0 col-md-8 col-lg-4">
 
 			<div class="row mb-3" style="border-style: solid; border-color: #DDDDDD; border-radius: 5px; border-width: 1px;">
-				<form action="/auth/securitylogin" method="post">
+				<form action="/securitylogin" method="post">
 					<c:if test="${empty principal }">
 						<!-- ID -->
 						<div class="input-group mt-3 mb-3">
@@ -45,7 +45,7 @@
 					</c:if>
 					<c:if test="${!empty principal }">
 						<div class="col-12 mt-3 mb-3">
-							<a class="btn w-100" href="/auth/logout" style="background-color: #279731; color: #ffffff">로그아웃</a>
+							<a class="btn w-100" href="/logout" style="background-color: #279731; color: #ffffff">로그아웃</a>
 						</div>
 					</c:if>
 				</form>

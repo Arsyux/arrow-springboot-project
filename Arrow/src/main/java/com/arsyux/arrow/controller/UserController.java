@@ -33,7 +33,7 @@ public class UserController {
 	// ========================================
 	
 	// 로그인 이동
-	@GetMapping("/auth/loginUser")
+	@GetMapping("/adm")
 	public String login(@RequestParam(value = "error", required = false)String error,
 						@RequestParam(value = "exception", required = false)String exception,
 						Model model) {
