@@ -38,44 +38,12 @@
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	
 	<!-- 제목 -->
-	<title>영집궁시 박물관</title>
+	<title>영집궁시박물관 안내</title>
+	
 </head>
 <body>
 
 	<header>
-		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-			
-			<div class="container">
-				
-				<!-- 메인 로고 높이 40px -->
-				<a class="navbar-brand" href="/">
-					<img id="mainLogo" alt="logo" src="/image/main/logo.svg" height="40px">
-				</a>
-				
-				<!-- 검색바 -->
-				<form>
-					<input type="search" placeholder="Search...">
-  					<button type="submit">Search</button>
-				</form>
-				
-				<!-- 접히는 영역 -->
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-					<img alt="toggler" src="/image/main/icon.svg" height="30px" width="30px">
-				</button>
-				
-				<div class="collapse navbar-collapse" id="mynavbar">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<c:if test="${empty principal }">
-								<a class="nav-link" href="/auth/loginUser">로그인</a>
-							</c:if>
-							<c:if test="${ principal }">
-								<a class="nav-link" href="/auth/loginUser">로그아웃</a>
-							</c:if>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		
 		
 	</header>

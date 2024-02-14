@@ -15,8 +15,6 @@
 		<div class="col-sm-0 col-md-4"></div>
 	</div>
 	
-	<h3 align="center" style="font-weight: bold;">로그인</h3>
-	
 	<!-- 로그인 실패시 exception 출력 -->
 	<c:if test="${ error != null}">
 			<h6 class="mt-3 mb-3" style="text-align: center; font-weight: bold; color: CRIMSON;">${exception}</h6>
@@ -48,14 +46,6 @@
 				</form>
 			</div>
 
-			<div class="row mb-3">
-				<div class="col-12" style="text-align: center;">
-					<a class="loginTag" href="/auth/findUsername" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">아이디 찾기</a>
-					<a class="loginTag" href="/auth/findPassword" style="border-right: solid; border-width: 1px; border-color: #555555; padding-right: 10px; padding-left: 10px;">비밀번호 찾기</a>
-					<a class="loginTag" href="/auth/insertUser" style="padding-right: 10px; padding-left: 10px;">회원가입</a>
-				</div>
-			</div>
-
 		</div>
 
 		<div class="col-sm-0 col-md-2 col-lg-4"></div>
@@ -63,7 +53,5 @@
 	</div>
 
 </div>
-
-<script src="/js/findUser.js"></script>
 
 <%@ include file="../layout/footer.jsp" %>

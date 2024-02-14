@@ -3,9 +3,8 @@
 <%@ include file="./layout/header.jsp"%>
 
 	<article>
-		<div id="mainContent" class="container">
-		
-			<h1>Hello, World!</h1>
+		<div class="container-fluid p-0">
+			<img alt="background" src="/image/main/background.png" width="100%">
 		</div>
 		
 		

@@ -16,8 +16,14 @@ public class PostController {
 	
 	// 메인 화면
 	@GetMapping({ "", "/" })
-	public String getPostList(Model model) {
+	public String getHome(Model model) {
 		return "index";
+	}
+	
+	// 메인 화면
+	@GetMapping({ "/adm" })
+	public String getAdminLogin(Model model) {
+		return "user/loginUser";
 	}
 	
 }
