@@ -8,7 +8,6 @@
 			<a href="#">오류/건의</a>
 			<a href="#">광고/후원문의</a>
             <p>© 2024. arsyux All rights reserved.</p>
-            <p>This site is not associated with Smilegate RPG &amp; Smilegate Stove.</p>
 		</div>
 	</footer>
 </body>

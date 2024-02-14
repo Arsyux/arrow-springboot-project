@@ -38,7 +38,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	
 	<!-- 제목 -->
-	<title>로스트아크 달동네</title>
+	<title>영집궁시 박물관</title>
 </head>
 <body>
 
