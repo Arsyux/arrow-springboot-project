@@ -49,7 +49,7 @@
 				
 				<!-- 메인 로고 높이 40px -->
 				<a class="navbar-brand" href="/">
-					<img id="mainLogo" alt="logo" src="/image/main/logo-white.svg" height="40px">
+					<img id="mainLogo" alt="logo" src="/image/main/logo.svg" height="40px">
 				</a>
 				
 				<!-- 검색바 -->
@@ -60,7 +60,7 @@
 				
 				<!-- 접히는 영역 -->
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-					<img alt="toggler" src="/image/main/navbar-toggler-icon-white.svg" height="30px" width="30px">
+					<img alt="toggler" src="/image/main/icon.svg" height="30px" width="30px">
 				</button>
 				
 				<div class="collapse navbar-collapse" id="mynavbar">
