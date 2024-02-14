@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/* 글꼴 삽입 */
+@font-face {
+	font-family: 'Nanum Gothic';
+	src: url('../font/NanumGothic-Regular.ttf') format('truetype');
+}
+
+body {
+	font-family: 'Nanum Gothic', 맑은 고딕; /* 메인 글꼴 */
+}
+
+#mainContent {
+	min-height: calc(100vh - 202px);
+}
+
+#footer {
+	text-align: center;
+	color: dimgray;
+}
+
