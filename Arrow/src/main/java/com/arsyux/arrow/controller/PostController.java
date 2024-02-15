@@ -14,10 +14,16 @@ public class PostController {
 	// 기본 화면 설정
 	// ========================================
 	
-	// 메인 화면이동
+	// 메인 화면 이동
 	@GetMapping({ "", "/" })
-	public String getHome(Model model) {
+	public String getHome() {
 		return "index";
+	}
+	
+	// 박물관 장소 페이지 이동
+	@GetMapping("/post/arrowInfo")
+	public String getArrowInfo() {
+		return "post/arrowInfo";
 	}
 	
 }

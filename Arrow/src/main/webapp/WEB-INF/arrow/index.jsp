@@ -3,20 +3,22 @@
 <%@ include file="./layout/header.jsp"%>
 
 	<article>
+	
 		<div class="container-fluid p-0" style="position: relative;">
 			<c:if test="${!empty principal }">
-			<div align="center" class="p-3" 
-				 style="position: absolute; 
-				 color: #000000; background-color: rgba(0, 0, 0, 0.5); 
-				 top: 5%; left: 80%;
-				 font-weight: bold; 
-				 border-color: black;
-				 border-width: 1px;
-				 border-radius: 25%">
-				<a href="/logout">
-					<i class="bi bi-box-arrow-right" style="color: #FFFFFF;"></i>
-				</a>
-			</div>
+				<!-- 로그인 되어있을 경우 -->
+				<div align="center" class="p-3" 
+					 style="position: absolute; 
+					 color: #000000; background-color: rgba(0, 0, 0, 0.5); 
+					 top: 5%; left: 80%;
+					 font-weight: bold; 
+					 border-color: black;
+					 border-width: 1px;
+					 border-radius: 25%">
+					<a href="/logout">
+						<i class="bi bi-box-arrow-right" style="color: #FFFFFF;"></i>
+					</a>
+				</div>
 			</c:if>
 			
 			<div align="center" class="p-2" 
@@ -41,7 +43,7 @@
 				 border-color: black; 
 				 border-style: solid; 
 				 border-width: 1px;"
-				 onclick="location.href='/adm'">
+				 onclick="location.href='/post/arrowInfo'">
 				<h1>입장하기</h1>
 			</div>
 			
