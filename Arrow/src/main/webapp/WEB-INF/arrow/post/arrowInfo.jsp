@@ -14,7 +14,6 @@
 				 width: 75%;">
 				
 				<div class="row">
-					<div class="col-1"></div>
 					<div class="col-2" style="background-color: black;">
 						<img alt="icon" src="/image/main/icon.svg" width="100%">
 					</div>
@@ -26,7 +25,11 @@
 				</div>
 			
 		
-			
+				<div class="row" style="">
+					<div style="background-image: url('/image/image.png'); 
+					background-size: cover; width: 10%; height: 20px; padding-bottom: 10%;"></div>			
+				
+				</div>
 			</div>
 		</div>
 		
