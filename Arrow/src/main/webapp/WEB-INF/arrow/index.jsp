@@ -49,7 +49,7 @@
 			
 			<div align="center" 
 				 style="position: absolute; 
-				 color: #000000; background-color: rgba(255, 255, 255, 1.0); 
+				 color: #000000; background-color: rgba(21, 96, 130, 1.0); 
 				 top: 85%; left: 37.5%;
 				 width: 25%; 
 				 font-weight: bold; 
