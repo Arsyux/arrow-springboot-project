@@ -1,0 +1,39 @@
+-- arrow.arrow_exhibition definition
+
+CREATE TABLE `arrow_exhibition` (
+  `name_exhibit` varchar(256) NOT NULL COMMENT '전시글 제목',
+  `subname_exhibit` varchar(256) DEFAULT NULL COMMENT '전시글 부제목',
+  `space_exhibit` varchar(100) DEFAULT NULL COMMENT '전시공간',
+  `startDate_exhibit` time DEFAULT NULL COMMENT '전시 시작날짜',
+  `endDate_exhibit` time DEFAULT NULL COMMENT '전시 마지막날',
+  `createDt` timestamp NULL DEFAULT current_timestamp() COMMENT '게시글생성 일자',
+  `tag_exhibit` varchar(256) DEFAULT NULL COMMENT '태그',
+  `image_exhibhit` mediumblob DEFAULT NULL COMMENT '이미지 저장'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+
+-- arrow.arrow_admin definition
+
+CREATE TABLE `arrow_admin` (
+  `userId` varchar(100) NOT NULL,
+  `userPw` varchar(256) NOT NULL,
+  `creatDt` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+
+-- arrow.arrow_collection definition
+
+CREATE TABLE `arrow_collection` (
+  `name_collect` varchar(256) NOT NULL COMMENT '소장품 이름',
+  `codename_collect` varchar(256) DEFAULT NULL COMMENT '소장품 코드',
+  `period_collect` varchar(100) DEFAULT NULL COMMENT '소장품 국적, 시대',
+  `tag_exhibit` varchar(256) DEFAULT NULL COMMENT '태그',
+  `metarial_collect` varchar(256) DEFAULT NULL COMMENT '소장품 재질',
+  `size_collect` varchar(100) DEFAULT NULL COMMENT '소장품 크기',
+  `usage_collect` varchar(100) DEFAULT NULL COMMENT '소장품 용도',
+  `feature_collect` varchar(100) DEFAULT NULL COMMENT '소장품 특징',
+  `descript_collect` varchar(512) DEFAULT NULL COMMENT '상세 설명',
+  `createDt` time DEFAULT current_timestamp() COMMENT '게시글 생성일',
+  `img_collect` mediumblob DEFAULT NULL COMMENT '소장품 이미지'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
