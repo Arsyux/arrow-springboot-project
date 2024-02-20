@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-	/*날짜 조회 조건처리 S*/
-	$('.SvyComptStartDt').on('change', function (event) {
+/*	날짜 조회 조건처리 S
+	$('.startDateExhibit').on('change', function (event) {
 	//	var name = event.target.id.substr(0,3);
 		var name = $(this).attr('name').substr(0,3);
 		var startDateInput = document.getElementById(name+"SvyComptStartDt");
@@ -19,7 +19,7 @@ $(document).ready(function(){
 	    
 		});
 		
-	$('.SvyComptEndDt').on('change', function (event) {
+	$('.endDateExhibit').on('change', function (event) {
 	//	var name = event.target.id.substr(0,3);
 		var name = $(this).attr('name').substr(0,3);
 		var startDateInput = document.getElementById(name+"SvyComptStartDt");
@@ -36,9 +36,9 @@ $(document).ready(function(){
 	    } 
 		
 	});	
-	/*날짜 조회 조건처리 E*/
+	날짜 조회 조건처리 E
 	
-
+*/
 	
 	/*조사 상세검색  조회 처리  S*/
 	$(".SvyComptBtn").on("click", function (event) {
@@ -94,7 +94,7 @@ $(document).ready(function(){
  * @returns {JSON}
  * @description 폼 데이터 json 객체로 변환
  */
-function fnSvyComptScheRst(name) {
+/*function fnSvyComptScheRst(name) {
 	// 폼 태그 초기화
 	$("form[name="+name+"SvyComptSchForm]")[0].reset();
 	// 조사유형 초기화
@@ -110,7 +110,7 @@ function fnSvyComptScheRst(name) {
 
 	fnResetDatePicker(name);
 	fnSvyComptFeatureClear();	
-}
+}*/
 
 	//데이트피커 기본 옵션 
 	$.datepicker.setDefaults($.datepicker.regional['ko']);
@@ -147,6 +147,6 @@ function fnSvyComptScheRst(name) {
 	};
 	
 	/*기초조사*/
-	$( "#tStartDt" ).datepicker(dateDefOpts); 	
-	$( "#EndDt" ).datepicker(dateDefOpts); 	
+	$( "#startDateExhibit" ).datepicker(dateDefOpts); 	
+	$( "#endDateExhibit" ).datepicker(dateDefOpts); 	
 });
