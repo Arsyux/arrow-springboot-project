@@ -1,35 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ include file="../layout/header.jsp"%>
+<link rel="stylesheet" type="text/css" href="/css/contents.css">
 <head>
     <title>이미지 2x2 구조</title>
-    <style>
-        .image-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px;
-        }
-        .image-item {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
 </head>
 <body>
-    <div class="image-container">
-        <div class="image-item">
-            <img src="" class="image-item" alt="이미지 1">
+<article>
+<!-- 관리자 로그인시 div 노출 -->
+<c:if test="${!empty principal }">
+	<section style = "margin-top:100px; margin-left:65%; position: relative; ">
+	<button type="button" class="write-btn" onclick="location.href='exhibitionWrite'">등록</button>
+	<button type="button" class="modify-btn" onclick="javascript:fnUpdateCnrsSpceView('<c:out value=""/>');">수정</button>
+	</section>
+</c:if>
+    <section class="image-container">
+        <div >
+            <img src="/image/image.png" class="image-item" alt="이미지 1">
         </div>
-        <div class="image-item">
-            <img src="" class="image-item" alt="이미지 2">
+        <div>
+            <img src="/image/image.png"  class="image-item"alt="이미지 2">
         </div>
-        <div class="image-item">
-            <img src="" class="image-item" alt="이미지 3">
+        <div  >
+            <img src="/image/image.png"  class="image-item"alt="이미지 3">
         </div>
-        <div class="image-item">
-            <img src="" class="image-item" alt="이미지 4">
+        <div  >
+            <img src="/image/image.png"  class="image-item"alt="이미지 4">
         </div>
-    </div>
+    </section>
+
+</article>
 		
 <%@ include file="../layout/footer.jsp" %>

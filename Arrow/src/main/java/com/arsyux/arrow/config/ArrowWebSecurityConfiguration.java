@@ -25,7 +25,7 @@ public class ArrowWebSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/font/**", "/message/**", "/", "/adm", "/securitylogin", "/logout", "/post/**").permitAll()
+			.antMatchers("/webjars/**", "/js/**", "/image/**", "/css/**", "/font/**", "/message/**", "/", "/adm", "/securitylogin", "/logout", "/post/**", "/contents/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
