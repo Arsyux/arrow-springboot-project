@@ -31,6 +31,19 @@
 				
 				</div>
 			</div>
+			
+			<div align="center" 
+				 style="position: absolute; 
+				 color: #000000; background-color: rgba(255, 255, 255, 1); 
+				 top: 40%; left: 12.5%;
+				 width: 75%;">
+			
+				<div class="row" style="position: relative;">
+					<div style="position: absolute;">
+						<img alt="infoImage" src="/image/infoImage.png">
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		
