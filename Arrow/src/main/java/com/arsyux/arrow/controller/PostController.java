@@ -1,5 +1,6 @@
 package com.arsyux.arrow.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.arsyux.arrow.domain.ContentsVO;
 import com.arsyux.arrow.service.contentsService;
@@ -53,9 +56,7 @@ public class PostController {
 	public String ExhibitWrite(Model model,  @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
 		System.out.println(LoggingSystem.class);;
 		
-		
-		
-		
+
 		model.addAttribute("ContentsVO", contentsVO);
 		
 		
@@ -63,27 +64,57 @@ public class PostController {
 		return "contents/exhibitionWrite";
 	}
 	
-	// 본관 등록 페이지 이동
-	@PostMapping("/post/insertSpce")
-	public String insertSpce(Model model, @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
-		
-		System.out.println("");;
-		
-		try {
-		contentService.insertContent(contentsVO);
-		System.out.println();
-		
-		model.addAttribute("status", 200);
-		model.addAttribute("status", "success");
-		}catch (Exception e) {
-			model.addAttribute("status", 400);
-			model.addAttribute("error", e.getMessage());
-		}
-		model.addAttribute("ContentVo", contentsVO);
-		
-		
-		
-		return "contents/exhibitionWrite";
-	}	
+//	// 본관 등록 페이지 이동
+//	@PostMapping("/post/insertContent")
+//	public String insertSpce(Model model, @ModelAttribute("ContentsVO") ContentsVO contentsVO,
+//			 @RequestBody ContentsVO contentVO) {
+//	
+//		System.out.println("Contents VO "+contentVO);
+//		try {
+//		
+//		model.addAttribute("message", "insert");
+//		model.addAttribute("status", "success");
+//		contentService.insertContent(contentsVO);
+//
+//		model.addAttribute("ContentVo", contentsVO);
+//		
+//		return "contents/exhibitionWrite";
+//		}catch (Exception e) {
+//			model.addAttribute("status", 400);
+//			model.addAttribute("error", e.getMessage());
+//			
+//			return "redirect:/";
+//		}
+//		
+//	}	
+	@PostMapping("/post/insertContent")
+	@ResponseBody
+	public String insertSpce(Model model, @RequestBody String info,
+	                         @RequestParam("name_exhibit") String nameExhibit,
+	                         @RequestParam("subname_exhibit") String subnameExhibit,
+	                         @RequestParam("space_exhibit") String spaceExhibit,
+	                         @RequestParam("startDate_exhibit") Date startDateExhibit,
+	                         @RequestParam("endDate_exhibit") Date endDateExhibit) {
+	    try {
+	        ContentsVO contentsVO = new ContentsVO();
+	        contentsVO.setName_exhibit(nameExhibit);
+	        contentsVO.setSubname_exhibit(subnameExhibit);
+	        contentsVO.setSpace_exhibit(spaceExhibit);
+	        contentsVO.setStartDate_exhibit(startDateExhibit);
+	        contentsVO.setEndDate_exhibit(endDateExhibit);
+
+	        contentService.insertContent(contentsVO);
+
+	        model.addAttribute("ContentVo", contentsVO);
+	        model.addAttribute("message", "insert");
+	        model.addAttribute("status", "success");
+
+	        return "contents/exhibition";
+	    } catch (Exception e) {
+	        model.addAttribute("status", 400);
+	        model.addAttribute("error", e.getMessage());
+	        return "redirect:/";
+	    }
+	}
 	
 }

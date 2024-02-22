@@ -1,29 +1,7 @@
+
+
 $(document).ready(function(){
-
-
-
-
-/**
- * @author shlee
- * @name fncSearch
- * @param {String}
- * url - request url
- * @param {JSON}
- * param - request param
- * @param {Function}
- * callback - callback function
- * @returns
- * @description 공통조회
- */
-function fncSearch(url, param, callback) {
-	$.ajax({
-		url : url,
-		data : param,
-		dataType : 'json',
-		success : callback
-	})
-}
-
+	window.$app = {};
 
 
 	/*날짜 조회 조건처리 S*/
@@ -91,13 +69,6 @@ function fncSearch(url, param, callback) {
 		}
 	});
 	/*조사 상세검색  조회 처리  E*/
-	
-	/*조사완료 초기화 버튼 클릭 이벤트 */
-	$('.SvyComptBtnReset').on('click', function (event) {
-		var name = event.target.name.substr(0,3);
-		
-		fnSvyComptScheRst(name);
-	});
 
 	//데이트피커 기본 옵션 
 	$.datepicker.setDefaults($.datepicker.regional['ko']);
@@ -137,3 +108,91 @@ function fncSearch(url, param, callback) {
 	$( "#startDateExhibit" ).datepicker(dateDefOpts); 	
 	$( "#endDateExhibit" ).datepicker(dateDefOpts); 	
 });
+
+
+/**
+ * @author shlee
+ * @name fncSearch
+ * @param {String}
+ * url - request url
+ * @param {JSON}
+ * param - request param
+ * @param {Function}
+ * callback - callback function
+ * @returns
+ * @description 공통조회
+ */
+function fncSearch(url, param, callback) {
+	$.ajax({
+		url : url,
+		data : param,
+		dataType : 'json',
+		success : callback
+	})
+}
+function fnInsertContent() {
+    // 필요한 데이터 수집
+    var name_exhibit = document.getElementById('name_exhibit').value;
+    var subname_exhibit = document.getElementById('subname_exhibit').value;
+    var space_exhibit = document.getElementById('space_exhibit').value;
+    
+    
+    var startDate_exhibit = document.getElementById('startDateExhibit').value;
+    startDate_exhibit = startDate_exhibit.replace(/-/g, '')
+    var endDate_exhibit = document.getElementById('endDateExhibit').value;
+	endDate_exhibit = endDate_exhibit.replace(/-/g, '')
+    // Ajax 요청을 위한 데이터 객체 생성
+    var data = {
+        name_exhibit: name_exhibit,
+        subname_exhibit: subname_exhibit,
+        space_exhibit: space_exhibit,
+        startDate_exhibit: startDate_exhibit,
+        endDate_exhibit: endDate_exhibit
+    };
+
+    // Ajax 요청
+    $.ajax({
+        type: "POST",
+        url: "/post/insertContent",
+        data: data,
+        dataType:'json',
+        success: function(response) {
+            // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
+            console.log("Success:", response);
+            // 여기에 성공적으로 처리된 후에 할 작업을 추가하세요.
+        },
+        error: function(xhr, status) {
+            // 요청이 실패했을 때 수행할 작업
+            console.error("Error:", "error");
+            // 여기에 오류 발생 시 처리할 작업을 추가하세요.
+        }
+    });
+}
+
+/*function exhibitionWrite(){
+	
+	var aja=$.ajax({
+			url: $("#insertForm")[0].action,
+			type:"POST",
+			data: {"mst_id": mst_id},
+			contentType:false,
+	        processData: false,
+	        cache: false,
+	        data: $app.upload.form,
+	        dataType:"json",
+	        beforeSend: function(){
+	        },
+	        success: function(data){
+	        	if (data.status == "success") {
+	        		alert(data.message);
+	        	}
+	        },
+	        error: function(request, status, error){
+
+	        	alert("code : " + request.status + "\n" + "error : " + error);
+	        }
+		});
+		
+}*/
+
+

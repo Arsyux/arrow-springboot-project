@@ -18,7 +18,7 @@
 <article class = "BoardList">
 <!-- 관리자 로그인시 div 노출 -->
 <c:if test="${!empty principal }">
-<form:form id="insertForm" modelAttribute="ContentsVO" commandName="ContentsVO" method="post" action="/post/insertSpce">
+<form:form id="insertForm" modelAttribute="ContentsVO" commandName="ContentsVO" method="post" action="/post/insertContent">
 	<table class="contentsTable">
 		<tbody>
 	     	  <!-- 제목 -->
@@ -79,7 +79,7 @@
 </form:form>
 	<!-- 등록 버튼 onclick="location.href='exhibitionWrite'"-->
 	<section style = "margin-top:10px; margin-left:80%; position: relative; ">
-		<button type="button" class="writeBtn" class="writeBtn" name="writeBtn" onclick="location.href='exhibitionWrite'">등록</button>
+		<button type="button" class="writeBtn" class="writeBtn" name="writeBtn" onclick="javascript:fnInsertContent(); return false;">등록</button>
 	</section>
 
 
