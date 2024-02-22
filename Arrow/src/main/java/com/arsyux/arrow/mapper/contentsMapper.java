@@ -11,9 +11,9 @@ import com.arsyux.arrow.domain.ContentsVO;
 public interface contentsMapper {
 	
 	
-	@Insert("INSERT INTO arrow_exhibition"
-		  + "FROM tb_user "
-		  + "WHERE userid = #{userid}")
-	public ContentsVO findById(int userid);
+	@Insert("INSERT INTO arrow.arrow_exhibition"
+			+ "(name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, createDt, tag_exhibit, image_exhibhit)"
+			+ "VALUES(#{name_exhibit}, #{subname_exhibit}, #{space_exhibit}, #{startDate_exhibit}, #{endDate_exhibit}, current_timestamp(), NULL, NULL);")
+	public ContentsVO insertContent(ContentsVO contetnt);
 	
 }

@@ -59,9 +59,7 @@
 		<tr>
 			<th>전시 기간</th>
 			<td id = "dateExhibit">
-				<form:input path="startDate_exhibit" type="text" class="startDateExhibit w3" id="startDateExhibit" name="startDateExhibit" title="시작날짜" placeholder="시작일자"/> 
-				 -
-				<form:input path="endDate_exhibit" type="text" class="endDateExhibit w3" id="endDateExhibit" name="endDateExhibit" title="종료날짜" placeholder="종료일자"/>			
+				
 			<div><form:errors path="startDate_exhibit" /></div>
 			</td>
 		</tr>
@@ -81,7 +79,7 @@
 </form:form>
 	<!-- 등록 버튼 onclick="location.href='exhibitionWrite'"-->
 	<section style = "margin-top:10px; margin-left:80%; position: relative; ">
-		<button type="button" class="writeBtn" class="writeBtn" name="writeBtn" >등록</button>
+		<button type="button" class="writeBtn" class="writeBtn" name="writeBtn" onclick="location.href='exhibitionWrite'">등록</button>
 	</section>
 
 
