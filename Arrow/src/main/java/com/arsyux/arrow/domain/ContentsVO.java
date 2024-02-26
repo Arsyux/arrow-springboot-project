@@ -4,7 +4,10 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Data
 @NoArgsConstructor
@@ -19,5 +22,6 @@ public class ContentsVO {
 	private Date createDt;
 	private String tag_exhibit;
 	private String image_exhibhit;
+	private int exh_seq;
 	
 }
