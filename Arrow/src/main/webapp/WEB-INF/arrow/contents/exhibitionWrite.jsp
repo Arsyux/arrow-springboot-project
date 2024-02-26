@@ -57,10 +57,16 @@
 		</tr>
 	<!-- 기간 설정 -->
 		<tr>
-			<th>전시 기간</th>
+			<th>전시 종류</th>
 			<td id = "dateExhibit">
-				
-			<div><form:errors path="startDate_exhibit" /></div>
+			<form:select path="tag_exhibit" >
+				<option value = ""  selected>선택하세요</option>
+				<form:option value = "전시" />
+				<form:option value = "교육"/>
+				<form:option value = "행사"/>
+				<form:option value = "체험"/>
+			</form:select>
+			<div><form:errors path="tag_exhibit"/></div>
 			</td>
 		</tr>
 		</tbody>
@@ -72,12 +78,12 @@
 		</div>
 		<div class="BtnGroup">
 			<div class="BtnRightArea">
-				<button type="button" class="add-btn" onclick="javascript:fnInsertCnrsSpce(); return false;">생성</button>
+				<button type="button" class="add-btn" onclick="javascript:fnInsertFile(); return false;">생성</button>
 			</div>
 		</div>
 	</div>	
 </form:form>
-	<!-- 등록 버튼 onclick="location.href='exhibitionWrite'"-->
+	<!-- 등록 버튼 -->
 	<section style = "margin-top:10px; margin-left:80%; position: relative; ">
 		<button type="button" class="writeBtn" class="writeBtn" name="writeBtn" onclick="javascript:fnInsertContent(); return false;">등록</button>
 	</section>

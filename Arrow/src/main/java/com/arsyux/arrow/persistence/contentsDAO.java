@@ -18,7 +18,7 @@ public class contentsDAO {
  
 	// 회원 번호로 1명 조회
 	public int insertContent(ContentsVO content) {
-		return mybatis.insert("insertContent");
+		return mybatis.insert("insertContent", content);
 	}
  
 	
