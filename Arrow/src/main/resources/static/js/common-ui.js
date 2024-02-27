@@ -1,8 +1,196 @@
+    window.onload = () => {
+        renderPostInfo();
+
+        findAllFile();
+    }
+    // 전체 파일 조회
+    function findAllFile() {
+
+        // 1. 신규 등록/수정 체크
+        const post = [[ '${post}']];
+        if ( !post ) {
+            return false;
+        }
+
+        // 2. API 호출
+        const response = getJson(`/posts/${post.id}/files`);
+
+        // 3. 로직 종료
+        if ( !response.length ) {
+            return false;
+        }
+
+        // 4. 업로드 영역 추가
+        for (let i = 0, len = (response.length - 1); i < len; i++) {
+            addFile();
+        }
+
+        // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
+        const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
+        filenameInputs.forEach((input, i) => {
+            const fileInput = input.nextElementSibling.firstElementChild;
+            const fileRemoveBtn = input.parentElement.nextElementSibling;
+            fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
+            fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
+            input.value = response[i].originalName;
+        })
+    }
+    
+    function addFile() {
+        const fileDiv = document.createElement('div');
+        fileDiv.innerHTML =`
+                <div class="file_list" style = "text-align:left; margin-top:10px">
+	                <div class="file_input">
+	                    <input type="text" readonly  style = "width:15%;"/>
+							<label for = "files" > 첨부파일</label>
+						<input type="file" id = "files" name="files" onchange="selectFile(this);"/>
+					<button type="button" onclick="removeFile(this);" class="del-btn-m btns del_btn"><span>삭제</span></button>
+				</div>
+        `;
+        document.querySelector('.file_list').appendChild(fileDiv);
+    }
+
+ // 파일 선택
+    function selectFile(element) {
+
+        const file = element.files[0];
+        const filename = element.closest('.file_input').firstElementChild;
+
+        // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+        if ( !file ) {
+            filename.value = '';
+            return false;
+        }
+
+        // 2. 파일 크기가 10MB를 초과하는 경우
+        const fileSize = Math.floor(file.size / 1024 / 1024);
+        if (fileSize > 10) {
+            alert('10MB 이하의 파일로 업로드해 주세요.');
+            filename.value = '';
+            element.value = '';
+            return false;
+        }
+
+        // 3. 파일명 지정
+        filename.value = file.name;
+    }
+
+    // 파일 삭제
+    function removeFile(element) {
+        const fileAddBtn = element.nextElementSibling;
+        if (fileAddBtn) {
+            const inputs = element.previousElementSibling.querySelectorAll('input');
+            inputs.forEach(input => input.value = '')
+            return false;
+        }
+        element.parentElement.remove();
+    }
+ 
+
 
 
 $(document).ready(function(){
 	window.$app = {};
-
+	$( ".tag_exhibit" ).selectmenu();
+	
+	//file drag-div start
+	$(document).on({
+		"dragenter":function(e){
+        	$(this).addClass("over");
+        },
+        "dragleave":function(e){
+        	$(this).removeClass("over");
+        },
+        "dragover":function(e){
+        	e.preventDefault();
+        },
+        "drop":function(e){
+        	
+//        	alert("droped!");
+        	var files = e.originalEvent.dataTransfer.files;
+        	if(files.length > 0){
+        		var fd = new FormData($("#insertForm")[0]);
+        		fd.append('file', files[0]); 	
+        		var nm = files[0].name.split(".");
+        		nm.pop();
+        		var filenm = nm.join(".");
+        		var size = files[0].size;
+        		var sizeMb = size ? size/1024/1024 : 0;
+        		
+        		$app.upload.nm = nm;
+        		$app.upload.size = size;
+        		$app.upload.form = fd;
+        		console.log("file name is ",filenm,", file size is ",size);
+        		
+        		var table_html = '<table summary="업로드할 파일의 정보를 출력합니다.">';
+        		table_html += '<caption class="Hidden">업로드파일 목록</caption>';
+        		table_html += '<colgroup>';
+        		table_html += '<col style="width: 60%;">';
+        		table_html += '<col style="width: 30%;">';
+        		table_html += '<col style="width: 10%;">';
+        		table_html += '</colgroup>';
+        		table_html += '<thead>';
+        		table_html += '<tr>';
+        		table_html += '<th>파일명</th>';
+        		table_html += '<th>파일용량</th>';
+        		table_html += '<th></th>';
+        		table_html += '</tr>';
+        		table_html += '</thead>';
+        		table_html += '<tbody>';
+        		table_html += '</tbody>';
+        		table_html += '</table>';
+        		
+        		var $table = $(table_html);
+        		
+        		var $tr = $("<tr></tr>");
+        		
+        		$tr.append("<td>".concat(nm,"</td>"));
+        		$tr.append("<td>".concat(sizeMb.toFixed(2)," Mb</td>"));
+        		
+        		var $td = $("<td><button></button></td>");
+        		//var $del = $("<button></button>");
+        		$td.find("button").attr("type","button").attr("class","del-file-btn");
+        		
+        		$tr.append($td);
+        		$table.find("tbody").append($tr);
+        		
+        		$td.find("button").on("click", function(){
+        			$(".drag-div").addClass("drag-active").removeClass("BoardList");
+        			$(".drag-div").empty().append('<p class="drag-msg noselect">파일을 드래그하세요.</p>');
+        		});
+        		
+        		$(".drag-div").addClass("BoardList").removeClass("drag-active");
+        		$(".drag-div").empty().append($table);
+        	}
+        	$(this).removeClass("over");
+        	e.preventDefault();
+        	e.stopPropagation();
+        }
+    },".drag-div");
+//drag-div end
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/*날짜 조회 조건처리 S*/
 	$('.startDateExhibit').on('change', function (event) {
@@ -49,24 +237,11 @@ $(document).ready(function(){
 		var startDateInput = document.getElementById("startDateExhibit").value;
 		var endDateInput = document.getElementById("endDateExhibit").value;		
 	
-		if(endDateInput.length > 0  && startDateInput.length > 0){
-			
-			
-			alert("설정 한 값 정상");
-			
-			var url = "/";
-			//var param = fnSerializeObject(name.concat('insertForm'));
-			
-			//param = $.extend(param, {type:name});
-			
-			// 벡터 조회
-			//fncCmnSearch(url, param, fnCallbackSvyComptFeature);
-		
-		} else {
-		
+		if(!endDateInput.length > 0  && startDateInput.length > 0){
 		 	alert("날짜 기간을 설정해주세요");
-		
+			return false;		
 		}
+		
 	});
 	/*조사 상세검색  조회 처리  E*/
 
@@ -138,61 +313,33 @@ function fnInsertContent() {
     
     
     var startDate_exhibit = document.getElementById('startDateExhibit').value;
-    startDate_exhibit = startDate_exhibit.replace(/-/g, '')
     var endDate_exhibit = document.getElementById('endDateExhibit').value;
-	endDate_exhibit = endDate_exhibit.replace(/-/g, '')
+    var tag_exhibit = document.getElementById('tag_exhibit').value;
     // Ajax 요청을 위한 데이터 객체 생성
     var data = {
         name_exhibit: name_exhibit,
         subname_exhibit: subname_exhibit,
         space_exhibit: space_exhibit,
         startDate_exhibit: startDate_exhibit,
-        endDate_exhibit: endDate_exhibit
+        endDate_exhibit: endDate_exhibit,
+        tag_exhibit: tag_exhibit
     };
 
     // Ajax 요청
     $.ajax({
         type: "POST",
-        url: "/post/insertContent",
+        url: "/post/exhibitionWrite",
         data: data,
-        dataType:'json',
         success: function(response) {
             // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
-            console.log("Success:", response);
+            alert("작성 완료");
             // 여기에 성공적으로 처리된 후에 할 작업을 추가하세요.
         },
         error: function(xhr, status) {
             // 요청이 실패했을 때 수행할 작업
-            console.error("Error:", "error");
+            alert("등록에 실패 하였습니다.");
             // 여기에 오류 발생 시 처리할 작업을 추가하세요.
         }
     });
 }
-
-/*function exhibitionWrite(){
-	
-	var aja=$.ajax({
-			url: $("#insertForm")[0].action,
-			type:"POST",
-			data: {"mst_id": mst_id},
-			contentType:false,
-	        processData: false,
-	        cache: false,
-	        data: $app.upload.form,
-	        dataType:"json",
-	        beforeSend: function(){
-	        },
-	        success: function(data){
-	        	if (data.status == "success") {
-	        		alert(data.message);
-	        	}
-	        },
-	        error: function(request, status, error){
-
-	        	alert("code : " + request.status + "\n" + "error : " + error);
-	        }
-		});
-		
-}*/
-
 
