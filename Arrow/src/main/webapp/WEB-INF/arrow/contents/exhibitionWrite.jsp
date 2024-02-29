@@ -81,7 +81,7 @@
 	                        <input type="text" readonly  style = "width:15%;"/>
 	                        <label for = "files" > 첨부파일</label>
 	                            <input type="file" id = "files" name="files" onchange="selectFile(this);" />
-	                    <button type="button" onclick="removeFile(this);" class="del-btn-m btns del_btn"><span>삭제</span></button>
+	                    <button type="button" onclick="removeFirstFile(this);" class="del-btn-m btns del_btn"><span>삭제</span></button>
 	                    <button type="button" onclick="addFile();" class="add-btn-m btns fn_add_btn"><span>파일 추가</span></button>
 	                    </div>
 	                </div>
@@ -96,8 +96,5 @@
 </article>
 
 </body>
-<!-- <script>$(function(){
-    $('.datepicker').datepicker();
-})</script> -->
 
 <%@ include file="../layout/footer.jsp" %>
