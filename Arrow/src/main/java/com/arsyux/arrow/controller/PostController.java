@@ -80,20 +80,20 @@ public class PostController {
 	/*
 	 * 게시글 작성 기능
 	 * */
-		@PostMapping("/post/exhibitionWrite")
-		public @ResponseBody ResponseDTO<?> insertUser(@RequestParam("file")MultipartFile uploadFile, @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) {
-			
-			// UserDTO를 통해 유효성 검사
-			ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
-			//FileUpload file = new FileUpload();
-			
-			//fileService.fileUpload(uploadFile);
-			
-			
-			System.out.println("@@@@@@@@@@@@@@@@"+cont.toString());
-			
-			contentService.insertContent(cont);
-			return new ResponseDTO<>(HttpStatus.OK.value(),cont.getName_exhibit()+"작성되었습니다");		
-		}
+	@PostMapping("/post/exhibitionWrite")
+	public @ResponseBody ResponseDTO<?> insertUser(@RequestParam("file")MultipartFile uploadFile, @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) {
+		
+		// UserDTO를 통해 유효성 검사
+		ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
+		//FileUpload file = new FileUpload();
+		
+		//fileService.fileUpload(uploadFile);
+		
+		
+		System.out.println("@@@@@@@@@@@@@@@@"+cont.toString());
+		
+		contentService.insertContent(cont);
+		return new ResponseDTO<>(HttpStatus.OK.value(),cont.getName_exhibit()+"작성되었습니다");		
+	}
 	
 }
