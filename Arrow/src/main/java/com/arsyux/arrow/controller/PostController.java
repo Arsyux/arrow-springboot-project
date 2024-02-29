@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.arsyux.arrow.controller.files.FileService;
 import com.arsyux.arrow.domain.ContentsVO;
 import com.arsyux.arrow.dto.ContentsDTO;
 import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
@@ -34,7 +37,10 @@ public class PostController {
 	@Autowired
 	private contentsService contentService;
 	
-	@Autowired
+    @Autowired
+    FileService fileService;
+	
+    @Autowired
 	private ModelMapper modelMapper;	
 	// ========================================
 	// 기본 화면 설정
@@ -75,10 +81,14 @@ public class PostController {
 	 * 게시글 작성 기능
 	 * */
 		@PostMapping("/post/exhibitionWrite")
-		public @ResponseBody ResponseDTO<?> insertUser(@Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) {
+		public @ResponseBody ResponseDTO<?> insertUser(@RequestParam("file")MultipartFile uploadFile, @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) {
 			
 			// UserDTO를 통해 유효성 검사
 			ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
+			//FileUpload file = new FileUpload();
+			
+			//fileService.fileUpload(uploadFile);
+			
 			
 			System.out.println("@@@@@@@@@@@@@@@@"+cont.toString());
 			

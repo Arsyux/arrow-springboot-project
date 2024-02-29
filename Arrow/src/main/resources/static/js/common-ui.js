@@ -1,7 +1,7 @@
     window.onload = () => {
-        renderPostInfo();
+        //renderPostInfo();
 
-        findAllFile();
+        //findAllFile();
     }
     // 전체 파일 조회
     function findAllFile() {
@@ -36,6 +36,7 @@
         })
     }
     
+    //첨부파일 1 row 추가
     function addFile() {
         const fileDiv = document.createElement('div');
         fileDiv.innerHTML =`
@@ -55,7 +56,25 @@
 
         const file = element.files[0];
         const filename = element.closest('.file_input').firstElementChild;
-
+		
+		 $.ajax({
+        type: "POST",
+        url: "/files/file-upload",
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        data: {'file': filename},
+        success: function(response) {
+            // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
+            alert("파일 정상");
+            // 여기에 성공적으로 처리된 후에 할 작업을 추가하세요.
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 수행할 작업
+            alert("등록에 실패 하였습니다."+error);
+            // 여기에 오류 발생 시 처리할 작업을 추가하세요.
+        	}
+    	});
         // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
         if ( !file ) {
             filename.value = '';
@@ -74,7 +93,21 @@
         // 3. 파일명 지정
         filename.value = file.name;
     }
-
+    // 파일 삭제
+    function removeFirstFile(element) {
+    // 부모 요소
+        var fileInputDiv = element.closest('.file_input');
+        // 첨부 파일 input 요소
+        var fileInput = fileInputDiv.querySelector('input[type="file"]');
+        // 파일을 선택하지 않았을 경우
+        if (!fileInput.files.length) {
+            return false;
+        }
+        // 파일을 비우기
+        fileInput.value = '';
+        // fileInputDiv.querySelector('input[type="text"]').value = '';
+    }
+    
     // 파일 삭제
     function removeFile(element) {
         const fileAddBtn = element.nextElementSibling;

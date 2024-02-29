@@ -12,7 +12,7 @@
 /*button*/
 .write-btn{ color: #fff; background: #000 url(../image/contents/btn_write.png) no-repeat 10px center; padding:5px 10px 5px 30px; border-radius: 5px; margin: 0 3px}
 .del-btn{ color: #fff; background: #000 url(../image/contents/btn_del.png) no-repeat 10px center; padding:5px 10px 5px 30px; border-radius: 5px; margin: 0 3px}
-.del-btn-m{width:50px;height:35px;margin: 0 2px; color: #fff; background: #000 url(../images/contents/btn_del.png) no-repeat 10px center; border-radius: 5px;}
+.del-btn-m{width:70px;height:35px;margin: 0 2px; color: #fff; background: #000 url(../image/contents/btn_del.png) no-repeat 2px center; border-radius: 5px;}
 .modify-btn{ color: #fff; background: #000 url(../image/contents/btn_modify.png) no-repeat 10px center; padding:5px 10px 5px 30px; border-radius: 5px; margin: 0 3px}
 .add-btn{ color: #fff; background: #000 url(../image/contents/btn_add.png) no-repeat 10px center; padding:5px 10px 5px 30px; border-radius: 5px; margin:0 3px}
 .add-btn-m{width:115px;height:35px; color: #fff; background: #000 url(../image/contents/btn_add.png) no-repeat 10px center; padding:5px 10px 5px 30px; border-radius: 5px; margin:0 3px}
@@ -35,9 +35,7 @@ display: inline-table; padding: 10px; border: 1px solid #cccccc; overflow: hidde
 	margin-top: 10%;
 	margin-left: 10%;
 	object-fit: cover;
-	  
-
-
+	 
 }
 
 .image-container {
