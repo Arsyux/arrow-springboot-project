@@ -57,24 +57,28 @@
         const file = element.files[0];
         const filename = element.closest('.file_input').firstElementChild;
 		
-		 $.ajax({
-        type: "POST",
-        url: "/files/file-upload",
-        enctype: 'multipart/form-data',
-        processData: false,
-        contentType: false,
-        data: {'file': filename},
-        success: function(response) {
-            // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
-            alert("파일 정상");
-            // 여기에 성공적으로 처리된 후에 할 작업을 추가하세요.
-        },
-        error: function(xhr, status, error) {
-            // 요청이 실패했을 때 수행할 작업
-            alert("등록에 실패 하였습니다."+error);
-            // 여기에 오류 발생 시 처리할 작업을 추가하세요.
-        	}
-    	});
+		var formData = new FormData();
+		//formData.append("filename", file);
+		formData.append("file", file);
+			
+			 $.ajax({
+	        type: "POST",
+	        url: "/files/file-upload",
+	        contentType: false,
+	        processData: false,
+	        data: formData,
+	 		enctype: 'multipart/form-data',   
+			dataType: "json",
+	        success: function(response) {
+				
+	            alert("파일 정상");
+	            
+	        },
+	        error: function(xhr, status, error) {
+	            alert("등록에 실패 하였습니다."+xhr);
+	        	}
+	    	});
+    	
         // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
         if ( !file ) {
             filename.value = '';
@@ -343,7 +347,6 @@ function fnInsertContent() {
     var name_exhibit = document.getElementById('name_exhibit').value;
     var subname_exhibit = document.getElementById('subname_exhibit').value;
     var space_exhibit = document.getElementById('space_exhibit').value;
-    
     
     var startDate_exhibit = document.getElementById('startDateExhibit').value;
     var endDate_exhibit = document.getElementById('endDateExhibit').value;
