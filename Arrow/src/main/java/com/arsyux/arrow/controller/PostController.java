@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.tomcat.jni.FileInfo;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -32,6 +30,7 @@ import com.arsyux.arrow.controller.files.FileService;
 import com.arsyux.arrow.domain.ContentsVO;
 import com.arsyux.arrow.dto.ContentsDTO;
 import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
+import com.arsyux.arrow.dto.FileDTO;
 import com.arsyux.arrow.dto.ResponseDTO;
 import com.arsyux.arrow.service.contentsService;
 
@@ -90,7 +89,7 @@ public class PostController {
 	 * 게시글 작성 기능
 	 * */
 	@PostMapping("/post/exhibitionWrite")
-	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "files", required = false) MultipartFile[] files,
+	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) MultipartFile[] files,
 			@Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
 		
 		// UserDTO를 통해 유효성 검사 
@@ -99,15 +98,17 @@ public class PostController {
 		
 		//fileService.fileUpload(uploadFile);
 		//String realPath = "/Users/hvvany/Desktop/OISO_BE/last_pjt/trip/src/main/resources/static/imgs";  // 스프링 부트에서 파일 저장 시 상대경로로 하면 경로 못찾음
+		try {
+			
 		
 		String today = new SimpleDateFormat("yyMMdd").format(new Date());
 		File folder = new File(FILE_PATH);
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
-		List<FileInfo> fileInfos = new ArrayList<FileInfo>();
+		List<FileDTO> fileInfos = new ArrayList<FileDTO>();
 		for (MultipartFile mfile : files) {
-			FileInfo fileInfo = new FileInfo();
+			FileDTO fileInfo = new FileDTO();
 			String originalFileName = mfile.getOriginalFilename();
 
 
@@ -115,9 +116,9 @@ public class PostController {
 			if (!originalFileName.isEmpty()) {
 				String saveFileName = UUID.randomUUID().toString()  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
 						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
-//				fileInfo.setSaveFolder(today);
-//				fileInfo.setOriginFile(originalFileName);
-//				fileInfo.setSaveFile(saveFileName);
+				fileInfo.setSaveFolder(today);
+				fileInfo.setOriginFile(originalFileName);
+				fileInfo.setSaveFile(saveFileName);
 
 				mfile.transferTo(new File(folder,saveFileName));
 //			FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
@@ -126,7 +127,9 @@ public class PostController {
 
 			fileInfos.add(fileInfo);
 		}
-		System.out.println("@@@@@@@@@@@@@@@@"+cont.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		contentService.insertContent(cont);
 		return new ResponseDTO<>(HttpStatus.OK.value(),cont.getName_exhibit()+"작성되었습니다");		
