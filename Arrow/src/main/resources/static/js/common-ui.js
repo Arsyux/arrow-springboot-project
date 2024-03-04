@@ -109,7 +109,7 @@
         }
         // 파일을 비우기
         fileInput.value = '';
-        // fileInputDiv.querySelector('input[type="text"]').value = '';
+        fileInputDiv.querySelector('input[type="text"]').value = '';
     }
     
     // 파일 삭제
