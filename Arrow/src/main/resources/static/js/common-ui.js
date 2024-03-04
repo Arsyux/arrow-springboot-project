@@ -133,7 +133,7 @@ $(document).ready(function(){
 	$( ".tag_exhibit" ).selectmenu();
 	
 	//file drag-div start
-	$(document).on({
+/*	$(document).on({
 		"dragenter":function(e){
         	$(this).addClass("over");
         },
@@ -205,25 +205,8 @@ $(document).ready(function(){
         	e.preventDefault();
         	e.stopPropagation();
         }
-    },".drag-div");
+    },".drag-div");*/
 //drag-div end
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -353,6 +336,14 @@ function fnInsertContent() {
     var startDate_exhibit = document.getElementById('startDateExhibit').value;
     var endDate_exhibit = document.getElementById('endDateExhibit').value;
     var tag_exhibit = document.getElementById('tag_exhibit').value;
+
+
+
+	var filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
+	var formData = new FormData();
+
+	formData.append("filename",filenameInputs);
+		
     // Ajax 요청을 위한 데이터 객체 생성
     var data = {
         name_exhibit: name_exhibit,
@@ -362,12 +353,16 @@ function fnInsertContent() {
         endDate_exhibit: endDate_exhibit,
         tag_exhibit: tag_exhibit
     };
-
+	formData.append("data",data);
     // Ajax 요청
     $.ajax({
         type: "POST",
         url: "/post/exhibitionWrite",
-        data: data,
+        data: formData,
+	    contentType: false,
+	    processData: false,
+	 	enctype: 'multipart/form-data',   
+		dataType: "json",
         success: function(response) {
             // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
             alert("작성 완료");
