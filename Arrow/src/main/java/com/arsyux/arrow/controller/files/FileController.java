@@ -3,7 +3,6 @@ package com.arsyux.arrow.controller.files;
 
 
 import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.arsyux.arrow.dto.ResponseDTO;
 
+//image 파일 확장자 invalid check
 @Controller
 public class FileController {
 
@@ -23,7 +23,7 @@ public class FileController {
 
     @GetMapping("/files/file-upload")
     public String mains(@RequestPart(value = "filename", required = false) MultipartFile uploadFile) {
-    	System.out.println("@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    	System.out.println("@#@@@@");
         return "/";
     }
 
@@ -32,9 +32,9 @@ public class FileController {
     MultipartFile uploadFile)throws IOException {
       try {
     	if(!uploadFile.isEmpty()) {
-        	System.out.println("file isn't Empty : "+uploadFile.toString());
+        	System.out.println("file isn't Empty : ");
         	fileService.fileUpload(uploadFile);
-
+        	
         }else {
         	System.out.println("file is Empty : "+uploadFile.toString());
         }
@@ -43,4 +43,14 @@ public class FileController {
 	}
         return ResponseEntity.ok(new ResponseDTO<>());
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

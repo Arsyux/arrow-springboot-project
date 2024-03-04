@@ -15,5 +15,8 @@ import com.arsyux.arrow.persistence.contentsDAO;
 
 @Service
 public interface FileService {
-    void fileUpload(MultipartFile uploadFile);
+    
+	public void fileCheck(MultipartFile uploadFile);
+    
+	public String fileUpload(MultipartFile file);
 }
