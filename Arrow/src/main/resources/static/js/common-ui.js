@@ -60,7 +60,7 @@
 		var formData = new FormData();
 		//formData.append("filename", file);
 		formData.append("file", file);
-			
+			//image check
 			 $.ajax({
 	        type: "POST",
 	        url: "/files/file-upload",
@@ -71,11 +71,13 @@
 			dataType: "json",
 	        success: function(response) {
 				
-	            alert("파일 정상");
+	            alert("파일 확인");
 	            
 	        },
 	        error: function(xhr, status, error) {
-	            alert("등록에 실패 하였습니다."+xhr);
+	            alert("파일 확장자 확인해주세요.");
+	            
+	            return false;
 	        	}
 	    	});
     	

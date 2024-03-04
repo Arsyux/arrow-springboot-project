@@ -21,4 +21,9 @@ public class FilesVO {
 	private String file;
 	private String image_exhibhit;
 	
+	
+	private String SaveFolder;
+	private String OriginFile;
+	private String SaveFile;
+	
 }
