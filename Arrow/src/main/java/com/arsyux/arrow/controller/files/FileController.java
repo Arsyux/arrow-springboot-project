@@ -39,7 +39,7 @@ public class FileController {
         	System.out.println("file is Empty : "+uploadFile.toString());
         }
       }catch (Exception e) {
-		// TODO: handle exception
+		System.out.println(e);
 	}
         return ResponseEntity.ok(new ResponseDTO<>());
     }
