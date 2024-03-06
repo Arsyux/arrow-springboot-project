@@ -1,12 +1,12 @@
 package com.arsyux.arrow.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 
 @Data
@@ -25,5 +25,6 @@ public class FilesVO {
 	private String SaveFolder;
 	private String OriginFile;
 	private String SaveFile;
+	
 	
 }

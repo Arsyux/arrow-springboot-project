@@ -18,5 +18,5 @@ public interface FileService {
     
 	public void fileCheck(MultipartFile uploadFile);
     
-	public String fileUpload(MultipartFile file);
+	public String fileUploads(MultipartFile file);
 }

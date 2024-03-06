@@ -109,9 +109,9 @@
         if (!fileInput.files.length) {
             return false;
         }
+        fileInputDiv.querySelector('input[type="text"]').value = '';
         // 파일을 비우기
-        fileInput.value = '';
-        // fileInputDiv.querySelector('input[type="text"]').value = '';
+        //fileInput.value = '';
     }
     
     // 파일 삭제
@@ -337,23 +337,28 @@ function fnInsertContent() {
     var endDate_exhibit = document.getElementById('endDateExhibit').value;
     var tag_exhibit = document.getElementById('tag_exhibit').value;
 
-
-
-	var filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
+	
+	
+	var fileInputs = document.querySelectorAll('.file_list input[type="file"]');
 	var formData = new FormData();
 
-	formData.append("filename",filenameInputs);
+	// 파일 이름 추가
+	fileInputs.forEach((input, index) => {
 		
-    // Ajax 요청을 위한 데이터 객체 생성
-    var data = {
-        name_exhibit: name_exhibit,
-        subname_exhibit: subname_exhibit,
-        space_exhibit: space_exhibit,
-        startDate_exhibit: startDate_exhibit,
-        endDate_exhibit: endDate_exhibit,
-        tag_exhibit: tag_exhibit
-    };
-	formData.append("data",data);
+		formData.append("filename"+index, input.files[0]);
+	
+		})
+
+	// 기타 데이터 추가
+	formData.append("name_exhibit", name_exhibit);
+	formData.append("subname_exhibit", subname_exhibit);
+	formData.append("space_exhibit", space_exhibit);
+	formData.append("startDate_exhibit", startDate_exhibit);
+	formData.append("endDate_exhibit", endDate_exhibit);
+	formData.append("tag_exhibit", tag_exhibit);
+
+	//formData.append("data", JSON.stringify(data));
+	
     // Ajax 요청
     $.ajax({
         type: "POST",
@@ -363,10 +368,14 @@ function fnInsertContent() {
 	    processData: false,
 	 	enctype: 'multipart/form-data',   
 		dataType: "json",
-        success: function(response) {
-            // 성공적으로 서버로부터 응답을 받았을 때 수행할 작업
-            alert("작성 완료");
-            // 여기에 성공적으로 처리된 후에 할 작업을 추가하세요.
+        success: function(data) {
+    	if (data.status == 200) {
+            alert("작성 완료되었습니다.");
+            
+            //location.href="/post/exhibit";
+        	} else {
+        	}
+            	
         },
         error: function(xhr, status) {
             // 요청이 실패했을 때 수행할 작업

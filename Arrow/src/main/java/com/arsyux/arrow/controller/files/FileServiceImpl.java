@@ -19,7 +19,10 @@ import com.arsyux.arrow.persistence.contentsDAO;
 
 @Service
 public class FileServiceImpl implements FileService {
-
+	
+	   // 파일이 저장되는 경로
+	private static final String FILE_PATH = "C:/NewFolder";
+	
 	@Override
     public void fileCheck(MultipartFile uploadFile) {
         try(InputStream inputStream = uploadFile.getInputStream()) {
@@ -37,12 +40,10 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         }
     }
-	
-	   // 파일이 저장되는 경로
-    private static final String FILE_PATH = "C:/work/resource";
+
 
     // 파일을 업로드
-    public String fileUpload(MultipartFile file) {
+    public String fileUploads(MultipartFile file) {
         Path path = Paths.get(FILE_PATH).toAbsolutePath().normalize();
         String filename = file.getOriginalFilename();
         Path targetPath = path.resolve(filename).normalize();
