@@ -38,7 +38,7 @@ import com.arsyux.arrow.service.contentsService;
 public class PostController {
 	
 	// 파일이 저장되는 경로
-	private static final String FILE_PATH = "C:/work/resource";
+	private static final String FILE_PATH = "C:/NewFolder";
 	//@Autowired
 	//private PostService postService;
 
@@ -89,50 +89,49 @@ public class PostController {
 	 * 게시글 작성 기능
 	 * */
 	@PostMapping("/post/exhibitionWrite")
-	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) MultipartFile[] files,
-			@Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
-		
-		// UserDTO를 통해 유효성 검사 
-		ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
-		//FileUpload file = new FileUpload();
-		
-		//fileService.fileUpload(uploadFile);
-		//String realPath = "/Users/hvvany/Desktop/OISO_BE/last_pjt/trip/src/main/resources/static/imgs";  // 스프링 부트에서 파일 저장 시 상대경로로 하면 경로 못찾음
-		try {
-			
-		
-		String today = new SimpleDateFormat("yyMMdd").format(new Date());
-		File folder = new File(FILE_PATH);
-		if (!folder.exists()) {
-			folder.mkdirs();
-		}
-		List<FileDTO> fileInfos = new ArrayList<FileDTO>();
-		for (MultipartFile mfile : files) {
-			FileDTO fileInfo = new FileDTO();
-			String originalFileName = mfile.getOriginalFilename();
+	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) List<MultipartFile> files,
+	        @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
+
+	    // UserDTO를 통해 유효성 검사 
+	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
+	    //FileUpload file = new FileUpload();
+	    
+	    //fileService.fileUpload(uploadFile);
+	    //String realPath = "/Users/hvvany/Desktop/OISO_BE/last_pjt/trip/src/main/resources/static/imgs";  // 스프링 부트에서 파일 저장 시 상대경로로 하면 경로 못찾음
+	    try {
+	        String today = new SimpleDateFormat("yyMMdd").format(new Date());
+	        File folder = new File(FILE_PATH);
+	        
+	        // 파일 경로 없으면 폴더 생성
+	        if (!folder.exists()) {
+	            folder.mkdirs();
+	        }
+	        List<FileDTO> fileInfos = new ArrayList<FileDTO>();
+	        for (MultipartFile mfile : files) {
+	            FileDTO fileInfo = new FileDTO();
+	            String originalFileName = mfile.getOriginalFilename();
+
+	            
+	            if (!originalFileName.isEmpty()) {
+	                String saveFileName = UUID.randomUUID().toString()  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
+	                        + originalFileName.substring(originalFileName.lastIndexOf('.'));
+	                fileInfo.setSaveFolder(today);
+	                fileInfo.setOriginFile(originalFileName);
+	                fileInfo.setSaveFile(saveFileName);
+	                
+	                mfile.transferTo(new File(folder, saveFileName));
+//	            FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
+	            }
 
 
-			// 파일 경로 없으면 폴더 생성
-			if (!originalFileName.isEmpty()) {
-				String saveFileName = UUID.randomUUID().toString()  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
-						+ originalFileName.substring(originalFileName.lastIndexOf('.'));
-				fileInfo.setSaveFolder(today);
-				fileInfo.setOriginFile(originalFileName);
-				fileInfo.setSaveFile(saveFileName);
-
-				mfile.transferTo(new File(folder,saveFileName));
-//			FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
-			}
-
-
-			fileInfos.add(fileInfo);
-		}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		contentService.insertContent(cont);
-		return new ResponseDTO<>(HttpStatus.OK.value(),cont.getName_exhibit()+"작성되었습니다");		
+	            fileInfos.add(fileInfo);
+	        }
+	    } catch (Exception e) {
+	        // TODO: handle exception
+	    }
+	    
+	    contentService.insertContent(cont);
+	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      
 	}
 	
 }

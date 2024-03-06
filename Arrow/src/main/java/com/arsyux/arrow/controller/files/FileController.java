@@ -33,7 +33,7 @@ public class FileController {
       try {
     	if(!uploadFile.isEmpty()) {
         	System.out.println("file isn't Empty : ");
-        	fileService.fileUpload(uploadFile);
+        	fileService.fileCheck(uploadFile);
         	
         }else {
         	System.out.println("file is Empty : "+uploadFile.toString());
