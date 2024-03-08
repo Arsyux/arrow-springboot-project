@@ -37,6 +37,9 @@
 	<!-- 메인 css -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	
+	<!-- 이미지맵 크기에 따라 변경해주는 JS -->
+	<script src="/js/jquery/jquery.rwdImageMaps.js"></script>
+ 			
 	<!-- 제목 -->
 	<title>영집 궁시박물관 안내</title>
 	
