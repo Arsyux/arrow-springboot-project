@@ -6,7 +6,10 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size; 
+import javax.validation.constraints.Size;
+
+import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +25,8 @@ public class FileDTO {
 	public interface ChangePasswordValidationGroup { } // 비밀번호 변경시 유효성 검사
 	public interface CheckDateValidateGroup{ } // 전시기간 날짜 유효성 검사
 	
-	
+	@NotBlank(groups = { InsertTextValidationGroup.class }, 
+			  message = "제목은 필수 입력 항목입니다.")
 	private String files;
 	private String file_size;
 	private String file_name;

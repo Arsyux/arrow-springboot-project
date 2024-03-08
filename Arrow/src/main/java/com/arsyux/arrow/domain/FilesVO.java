@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilesVO {
-	
+	private int exh_seq;
 	private String files;
 	private String file_size;
 	private String file_name;
