@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.arsyux.arrow.controller.files.FileService;
 import com.arsyux.arrow.domain.ContentsVO;
+import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.dto.ContentsDTO;
 import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
 import com.arsyux.arrow.dto.FileDTO;
@@ -94,10 +95,8 @@ public class PostController {
 
 	    // UserDTO를 통해 유효성 검사 
 	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
-	    //FileUpload file = new FileUpload();
-	    
-	    //fileService.fileUpload(uploadFile);
-	    //String realPath = "/Users/hvvany/Desktop/OISO_BE/last_pjt/trip/src/main/resources/static/imgs";  // 스프링 부트에서 파일 저장 시 상대경로로 하면 경로 못찾음
+	    //FilesVO filevo = new FilesVO();
+	   
 	    try {
 	        String today = new SimpleDateFormat("yyMMdd").format(new Date());
 	        File folder = new File(FILE_PATH);
@@ -106,9 +105,9 @@ public class PostController {
 	        if (!folder.exists()) {
 	            folder.mkdirs();
 	        }
-	        List<FileDTO> fileInfos = new ArrayList<FileDTO>();
+	        List<FilesVO> fileInfos = new ArrayList<FilesVO>();
 	        for (MultipartFile mfile : files) {
-	            FileDTO fileInfo = new FileDTO();
+	            FilesVO fileInfo = new FilesVO();
 	            String originalFileName = mfile.getOriginalFilename();
 
 	            
@@ -126,11 +125,12 @@ public class PostController {
 
 	            fileInfos.add(fileInfo);
 	        }
+	        
+	        contentService.insertContent(cont, fileInfos);
 	    } catch (Exception e) {
 	        // TODO: handle exception
 	    }
 	    
-	    contentService.insertContent(cont);
 	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      
 	}
 	
