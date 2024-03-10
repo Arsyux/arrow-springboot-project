@@ -4,14 +4,14 @@
 
 	<article>
 		
-		<div class="container-fluid p-0 mainBgGradient">
+		<div class="container-fluid mainBackground p-0">
 			
-			<div class="mainBox" align="left">
+			<div class="mainBox p-0" align="left">
 				<!-- 헤드 -->
 				<div class="row m-0 p-0">
 					<!-- 로고 -->
 					<div class="mainBoxTopLeft">
-						<img alt="icon" src="/image/main/icon.svg" width="500" height="500">
+						<img class="infoImage" alt="icon" src="/image/main/icon.svg" width="500" height="500">
 					</div>
 					<!-- 안내 제목 -->
 					<div class="mainBoxTopRight">
@@ -21,7 +21,7 @@
 				
 				<div class="row m-0 p-0">
 					<div class="mainBoxBottomLeft">
-						<img alt="icon" src="/image/image.png" width="500" height="500">
+						<img class="infoImage" alt="icon" src="/image/image.png" width="500" height="500">
 					</div>
 					<div class="mainBoxBottomRight">
 						<div align="center" style="font-size: 2vw;">
@@ -38,7 +38,7 @@
 				
 				<!-- 메인 컨텐츠 -->
 				<div class="mainBoxContent" align="center">
-					<img alt="infoImage" id="infoImage" src="/image/main/infoImage.png" usemap="#infoImageMap" width="701" height="701">
+					<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" usemap="#infoImageMap" width="701" height="701">
 					<map id="infoImageMap" name="infoImageMap">
 						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="#" />
 						<area shape="rect" alt="야외 마당" title="야외 마당" coords="49,301,455,578" href="#" />
