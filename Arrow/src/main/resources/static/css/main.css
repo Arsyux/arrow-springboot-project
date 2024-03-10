@@ -6,105 +6,96 @@
 	src: url('../font/NanumGothic-Regular.ttf') format('truetype');
 }
 
+/* body 설정 */
 body {
+	/* 폰트 사이즈 */
 	font-size: 16px;
-	font-family: 'Nanum Gothic', 맑은 고딕; /* 메인 글꼴 */
+	
+	/* 나눔 고딕 - 메인 글꼴, 맑은 고딕 - 서브 글꼴 */
+	font-family: 'Nanum Gothic', 맑은 고딕;
 }
 
-/* 배경 */
-.mainBackground {
-	
+/* 배경색 - 그라데이션 */
+.background-gradient {	
 	/* 그라데이션 */
 	background-image: linear-gradient(135deg, lightgray, dimgray);
-	
-	/* 최소 높이 (추후 수정) */
-	min-height: 1400px;
-}
-
-/* 메인 박스 */
-.mainBox {
-	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 0);
 	
 	/* 글자색*/
 	color: #000000;
 	
-	/* 위치 지정 */
+	/* 최소 높이 (추후 수정가능) */
+	min-height: 1400px;
+}
+
+/* 배경색 - 하양 */
+.background-white {
+	/* 배경색 */
+	background-color: rgba(255, 255, 255, 1);
+	
+	/* 글자색*/
+	color: #000000;
+}
+
+/* 배경색 - 투명 */
+.background-clear {
+	/* 배경색 */
+	background-color: rgba(255, 255, 255, 0);
+
+	/* 글자색*/
+	color: #000000;
+}
+
+
+/* 메인 박스 */
+.mainBox {
+	/* 위치 */
 	position: absolute;
 	top: 10vw;
 	left: 10vw;
+	
+	/* 크기 */
 	width: 80vw;
-	
 }
 
-/* 메인 박스 좌상단 */
-.mainBoxTopLeft {
-	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 1);
-	
+/* 메인 박스 헤드 왼쪽 */
+.boxHeaderLeft {
+	/* 너비 */
 	width: 20%;
-	border: solid 3px #000000;
-	margin: 0px;
+	
+	/* display 속성 */
 	display: inline;
 }
 
-/* 메인 박스 우하단 */
-.mainBoxBottomLeft {
-	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 1);
-	
-	width: 20%;
-	border-left: solid 3px #000000;
-	border-right: solid 3px #000000;
-	border-bottom: solid 3px #000000;
-	margin: 0px;
-	display: inline;
-}
-
-/* 메인 박스 우상단 */
-.mainBoxTopRight {
-	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 1);
-	
+/* 메인 박스 헤드 오른쪽 */
+.boxHeaderRight {
+	/* 너비 */
 	width: 80%;
-	border-top: solid 3px #000000;
-	border-right: solid 3px #000000;
-	border-bottom: solid 3px #000000;
-	margin: 0px;
+	
+	/* display 속성 */
 	display: inline;
 }
 
-/* 메인 박스 우하단 */
-.mainBoxBottomRight {
+/* 메인 박스 헤드, 컨텐츠간 여백 */
+.boxWhiteSpace {
+	/* 너비 */
+	width: 100%;
 	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 1);
+	/* 높이 */
+	min-height: 10vw;
 	
-	width: 80%;
-	border-right: solid 3px #000000;
-	border-bottom: solid 3px #000000;
-	margin: 0px;
+	/* display 속성 */
 	display: inline;
 }
 
-.mainBoxContent {
-	
-	/* 배경색 */
-	background-color: rgba(255, 255, 255, 1);
-	
-	border: solid 3px #000000;
-	
-	margin: 0px;
-}
-
-/* 이미지 설정 */
+/* info화면 이미지 설정 */
 .infoImage {
+	/* 선 없음 */
 	border: none;
+	
+	/* 너비 */
 	width: auto;
 	max-width: 100%;
+	
+	/* 높이 */
 	height: auto;
 }
