@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp"%>
-
+		
+	<!-- 제목 -->
+	<title>영집 궁시박물관</title>
+	
+</head>
+<body>
+	<header><!-- 키오스크이므로 헤더 및 푸터는 구현하지않음 --></header>
+	
 	<article>
 		
 		<div class="container-fluid background-gradient p-0">
@@ -22,13 +29,13 @@
 				<div class="row m-0 p-0">
 					<!-- QR 코드 -->
 					<div class="boxHeaderLeft background-white border-start border-end border-bottom border-dark border-2">
-						<img class="infoImage" alt="icon" src="/image/image.png" width="500" height="500">
+						<img class="infoImage" alt="icon" src="/image/main/QRCode.svg" width="500" height="500">
 					</div>
 					<!-- 안내사항 -->
 					<div class="boxHeaderRight background-white border-bottom border-end border-dark border-2">
-						<div align="center" style="font-size: 2vw; margin-top: 2.5vw">
-							<span>공지 및 문의는 홈페이지나<br>전화로 연락 바랍니다.<br></span>
-							<span style="color: #00b7c3; font-weight: bold;">QR 코드 스캔시 이동</span>
+						<div align="center" style="margin-top: 2.5vw;">
+							<span style="font-size: 2vw;">공지 및 문의는 홈페이지나<br>전화로 연락 바랍니다.<br></span>
+							<span style="color: #00b7c3; font-size: 1.5vw; font-weight: bold;">QR 코드 스캔시 이동</span>
 						</div>
 					</div>
 				</div>
@@ -42,7 +49,7 @@
 				<div class="background-white border border-dark border-2" align="center">
 					<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" usemap="#infoImageMap" width="701" height="701">
 					<map id="infoImageMap" name="infoImageMap">
-						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="#" />
+						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="/contents/exhibition" />
 						<area shape="rect" alt="야외 마당" title="야외 마당" coords="49,301,455,578" href="#" />
 						<area shape="rect" alt="공방" title="공방" coords="21,596,153,681" href="#" />
 						<area shape="rect" alt="활터" title="활터" coords="560,89,671,281" href="#" />

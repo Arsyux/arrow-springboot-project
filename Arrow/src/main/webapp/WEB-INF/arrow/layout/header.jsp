@@ -39,10 +39,4 @@
 	
 	<!-- 이미지맵 크기에 따라 변경해주는 JS -->
 	<script src="/js/jquery/jquery.rwdImageMaps.js"></script>
- 			
-	<!-- 제목 -->
-	<title>영집 궁시박물관 안내</title>
-	
-</head>
-<body>
-	<header><!-- 키오스크이므로 헤더 및 푸터는 구현하지않았음 --></header>
+ 	
