@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -128,7 +130,7 @@ public class PostController {
 	        
 	        contentService.insertContent(cont, fileInfos);
 	    } catch (Exception e) {
-	        // TODO: handle exception
+	        System.out.println("Error");
 	    }
 	    
 	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      

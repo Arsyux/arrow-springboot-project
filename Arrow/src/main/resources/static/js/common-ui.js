@@ -341,10 +341,9 @@ function fnInsertContent() {
 	var formData = new FormData();
 
 	// 파일 이름 추가
-	fileInputs.forEach((input, index) => {
+	fileInputs.forEach((input) => {
 		
-		formData.append("filename"+index, input.files[0]);
-	
+		formData.append("filename", input.files[0]);
 		})
 
 	// 기타 데이터 추가
