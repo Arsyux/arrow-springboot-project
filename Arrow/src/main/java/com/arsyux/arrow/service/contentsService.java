@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.arsyux.arrow.domain.ContentsVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.persistence.contentsDAO;
@@ -21,23 +20,30 @@ public class contentsService {
 	@Autowired
 	private contentsDAO contetntsDAO;
 
-	
-	
+	@Transactional
+	public void insertContent(ContentsVO content) {
+		contetntsDAO.insertContent(content);
+	}
+
 //	public int insertContent(ContentsVO content) {
 //		contetntsDAO.insertContent(content);
 //		return content.getExh_seq();
 //	}
+
 	//글 작성	
 	@Transactional
-	public void insertContent(ContentsVO content, List<FilesVO> file) {
+	public void insertFile(ContentsVO content, List<FilesVO> file) {
 		// 정보 저장
-		
-		int exh_seq = contetntsDAO.insertContent(content);
+
+		int exh_seq = content.getExh_seq();
+
 		 for (FilesVO f : file) {
+			 FilesVO vo = file.get(0);
 			 f.setExh_seq(exh_seq);
-		contetntsDAO.insertFileInfo(f);
+			 contetntsDAO.insertFileInfo(vo);
 		 }
+
+
 	}
-	
 	
 }

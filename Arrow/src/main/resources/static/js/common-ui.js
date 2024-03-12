@@ -344,6 +344,7 @@ function fnInsertContent() {
 	fileInputs.forEach((input) => {
 		
 		formData.append("filename", input.files[0]);
+
 		})
 
 	// 기타 데이터 추가

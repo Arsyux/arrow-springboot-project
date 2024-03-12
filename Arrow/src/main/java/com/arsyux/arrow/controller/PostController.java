@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -42,7 +40,6 @@ public class PostController {
 	
 	// 파일이 저장되는 경로
 	private static final String FILE_PATH = "C:/NewFolder";
-	
 	//@Autowired
 	//private PostService postService;
 
@@ -65,14 +62,16 @@ public class PostController {
 	}
 	
 	// 박물관 장소 페이지 이동
-	@GetMapping("/contents/info")
+	@GetMapping("/post/arrowInfo")
 	public String getArrowInfo() {
-		return "contents/info";
+		return "post/arrowInfo";
 	}
 	
 	// 본관 페이지 이동
-	@GetMapping("/contents/exhibition")
+	@GetMapping("/post/exhibit")
 	public String getExhibit() {
+		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
+		
 		return "contents/exhibition";
 	}
 	
@@ -96,8 +95,7 @@ public class PostController {
 
 	    // UserDTO를 통해 유효성 검사 
 	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
-	    //FilesVO filevo = new FilesVO();
-	   
+
 	    try {
 	        String today = new SimpleDateFormat("yyMMdd").format(new Date());
 	        File folder = new File(FILE_PATH);
@@ -108,16 +106,16 @@ public class PostController {
 	        }
 	        List<FilesVO> fileInfos = new ArrayList<FilesVO>();
 	        for (MultipartFile mfile : files) {
-	            FilesVO fileInfo = new FilesVO();
+	        	FilesVO fileInfo = new FilesVO();
 	            String originalFileName = mfile.getOriginalFilename();
 
 	            
 	            if (!originalFileName.isEmpty()) {
-	                String saveFileName = UUID.randomUUID().toString()  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
-	                        + originalFileName.substring(originalFileName.lastIndexOf('.'));
+	                String saveFileName = UUID.randomUUID().toString();  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
+	                originalFileName = originalFileName.substring(originalFileName.lastIndexOf('.'));
 	                fileInfo.setSaveFolder(today);
-	                fileInfo.setOriginFile(originalFileName);
 	                fileInfo.setSaveFile(saveFileName);
+	                fileInfo.setOriginFile(originalFileName);
 	                
 	                mfile.transferTo(new File(folder, saveFileName));
 //	            FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
@@ -127,7 +125,9 @@ public class PostController {
 	            fileInfos.add(fileInfo);
 	        }
 	        
-	        contentService.insertContent(cont, fileInfos);
+	        contentService.insertContent(cont);
+	        System.out.println(cont.getExh_seq());
+	        contentService.insertFile(cont, fileInfos);
 	    } catch (Exception e) {
 	        System.out.println("Error");
 	    }
