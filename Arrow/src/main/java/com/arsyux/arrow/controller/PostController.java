@@ -110,16 +110,18 @@ public class PostController {
 	        for (MultipartFile mfile : files) {
 	        	FilesVO fileInfo = new FilesVO();
 	            String originalFileName = mfile.getOriginalFilename();
-
+	            String fileType = mfile.getContentType();
 	            
 	            if (!originalFileName.isEmpty()) {
-	                String saveFileName = UUID.randomUUID().toString();  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
-	                originalFileName = originalFileName.substring(originalFileName.lastIndexOf('.'));
-	                fileInfo.setSaveFolder(today);
-	                fileInfo.setSaveFile(saveFileName);
-	                fileInfo.setOriginFile(originalFileName);
+	                String saveFileCode = UUID.randomUUID().toString();  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
+	                //originalFileName = originalFileName.substring(originalFileName);
 	                
-	                mfile.transferTo(new File(folder, saveFileName));
+	                fileInfo.setSaveFolder(today);
+	                fileInfo.setFile_type(fileType);
+	                fileInfo.setFile_code(saveFileCode);
+	                fileInfo.setFile_originName(originalFileName);
+	                
+	                mfile.transferTo(new File(folder, saveFileCode));
 //	            FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
 	            }
 
@@ -128,7 +130,6 @@ public class PostController {
 	        }
 	        
 	        contentService.insertContent(cont);
-	        System.out.println(cont.getExh_seq());
 	        contentService.insertFile(cont, fileInfos);
 	    } catch (Exception e) {
 	        System.out.println("Error");
