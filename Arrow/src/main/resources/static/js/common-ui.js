@@ -360,7 +360,7 @@ function fnInsertContent() {
     // Ajax 요청
     $.ajax({
         type: "POST",
-        url: "/post/exhibitionWrite",
+        url: "/contents/function/exhibitionWrite",
         data: formData,
 	    contentType: false,
 	    processData: false,
@@ -370,7 +370,7 @@ function fnInsertContent() {
     	if (data.status == 200) {
             alert("작성 완료되었습니다.");
             
-            //location.href="/post/exhibit";
+            //location.href="/contents/function/exhibit";
         	} else {
         	}
             	

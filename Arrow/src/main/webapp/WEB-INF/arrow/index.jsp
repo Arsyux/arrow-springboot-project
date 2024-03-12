@@ -43,7 +43,7 @@
 				 border-color: black; 
 				 border-style: solid; 
 				 border-width: 1px;"
-				 onclick="location.href='/contents/info'">
+				 onclick="location.href='/contents/view/info'">
 				<h1>입장하기</h1>
 			</div>
 			
