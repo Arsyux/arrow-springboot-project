@@ -21,18 +21,22 @@ public class contentsService {
 	@Autowired
 	private contentsDAO contetntsDAO;
 		
+	
+	@Transactional
+	public void insertContent(ContentsVO content) {
+		contetntsDAO.insertContent(content);
+	}
 	//글 작성	
 	@Transactional
-	public void insertContent(ContentsVO content, List<FilesVO> file) {
+	public void insertFile(ContentsVO content, FilesVO file) {
 		// 정보 저장
 		
-		int exh_seq = contetntsDAO.insertContent(content);
-		 for (FilesVO f : file) {
-			 f.setExh_seq(exh_seq);
-		contetntsDAO.insertFileInfo(file);
+		int exh_seq = content.getExh_seq();
+
+		file.setExh_seq(exh_seq);
+			 contetntsDAO.insertFileInfo(file);
 		
-		 }
+		
 	}
-	
 	
 }

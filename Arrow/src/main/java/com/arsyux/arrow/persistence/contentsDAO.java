@@ -2,8 +2,6 @@ package com.arsyux.arrow.persistence;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,8 +23,8 @@ public class contentsDAO {
 		mybatis.insert("insertContent", content);
 		return content.getExh_seq();
 	}
- 
-    public void insertFileInfo(List<FilesVO> file) {
+
+    public void insertFileInfo(FilesVO file) {
 	   mybatis.insert("insertFileInfo", file);
     }	
 }

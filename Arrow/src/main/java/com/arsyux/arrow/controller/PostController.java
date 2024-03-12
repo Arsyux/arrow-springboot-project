@@ -95,8 +95,7 @@ public class PostController {
 
 	    // UserDTO를 통해 유효성 검사 
 	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
-	    //FilesVO filevo = new FilesVO();
-	   
+
 	    try {
 	        String today = new SimpleDateFormat("yyMMdd").format(new Date());
 	        File folder = new File(FILE_PATH);
@@ -105,30 +104,32 @@ public class PostController {
 	        if (!folder.exists()) {
 	            folder.mkdirs();
 	        }
-	        List<FilesVO> fileInfos = new ArrayList<FilesVO>();
+	        //List<FilesVO> fileInfos = new ArrayList<FilesVO>();
+	        FilesVO fileInfo = new FilesVO();
 	        for (MultipartFile mfile : files) {
-	            FilesVO fileInfo = new FilesVO();
 	            String originalFileName = mfile.getOriginalFilename();
 
 	            
 	            if (!originalFileName.isEmpty()) {
-	                String saveFileName = UUID.randomUUID().toString()  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
-	                        + originalFileName.substring(originalFileName.lastIndexOf('.'));
+	                String saveFileName = UUID.randomUUID().toString();  // UUID는 이미지 이름 중복 방지 위해 랜덤하게 생성된 고유값
+	                originalFileName = originalFileName.substring(originalFileName.lastIndexOf('.'));
 	                fileInfo.setSaveFolder(today);
-	                fileInfo.setOriginFile(originalFileName);
 	                fileInfo.setSaveFile(saveFileName);
+	                fileInfo.setOriginFile(originalFileName);
 	                
 	                mfile.transferTo(new File(folder, saveFileName));
 //	            FileCopyUtils.copy(mfile.getInputStream(), new FileOutputStream(realPath + Paths.get(saveFileName).toFile()));
 	            }
 
 
-	            fileInfos.add(fileInfo);
+	            //fileInfos.add(fileInfo);
 	        }
 	        
-	        contentService.insertContent(cont, fileInfos);
+	        contentService.insertContent(cont);
+	        System.out.println(cont.getExh_seq());
+	        contentService.insertFile(cont, fileInfo);
 	    } catch (Exception e) {
-	        // TODO: handle exception
+	        System.out.println("Error");
 	    }
 	    
 	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      
