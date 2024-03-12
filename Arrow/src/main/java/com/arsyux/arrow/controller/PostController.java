@@ -69,10 +69,12 @@ public class PostController {
 		return "contents/info";
 	}
 	
-	// 본관 페이지 이동
+
 	@GetMapping("/contents/view/exhibition")
 	public String getExhibit() {
 		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
+		
+
 		
 		return "contents/exhibition";
 	}
