@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class FilesVO {
 	private int exh_seq;
 	private String files;
-	private String file_size;
-	private String file_name;
+	private String file_type;
+	private String file_code;
 	private Date createDt;
-	private String file;
+	private String file_originName;
 	private String image_exhibhit;
 	
 	

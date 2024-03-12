@@ -22,8 +22,8 @@ public interface contentsMapper {
 	public ContentsVO insertContent(ContentsVO content);
 	
 	@Insert("INSERT INTO arrorw_fileinfo"
-			+ "(exh_seq, file, file_name, createDt)"
-			+ "VALUES(#{exh_seq}, NULL, #{OriginFile}, current_timestamp());")
+			+ "(exh_seq, file_name, originFile_name, file_type, createDt)"
+			+ "VALUES(#{exh_seq}, #{file_code}, #{file_originName}, #{file_type}, current_timestamp());")
 	public void insertFileInfo(FilesVO file);
 	
 	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, createDt, tag_exhibit, image_exhibhit"
