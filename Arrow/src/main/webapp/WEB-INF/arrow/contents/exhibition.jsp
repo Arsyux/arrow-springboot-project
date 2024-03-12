@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
 
-<%@ include file="../../layout/header.jsp"%>
+<%@ include file="../layout/header.jsp"%>
 		
 	<!-- 제목 -->
 	<title>본관 - 프로그램 안내</title>
@@ -71,4 +71,4 @@
 		
 	</article>
 		
-<%@ include file="../../layout/footer.jsp" %>
+<%@ include file="../layout/footer.jsp" %>

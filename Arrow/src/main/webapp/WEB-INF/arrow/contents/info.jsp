@@ -49,7 +49,7 @@
 				<div class="background-white border border-dark border-2" align="center">
 					<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" usemap="#infoImageMap" width="701" height="701">
 					<map id="infoImageMap" name="infoImageMap">
-						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="/contents/exhibition" />
+						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="/contents/view/exhibition" />
 						<area shape="rect" alt="야외 마당" title="야외 마당" coords="49,301,455,578" href="#" />
 						<area shape="rect" alt="공방" title="공방" coords="21,596,153,681" href="#" />
 						<area shape="rect" alt="활터" title="활터" coords="560,89,671,281" href="#" />

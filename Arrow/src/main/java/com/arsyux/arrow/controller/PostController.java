@@ -40,6 +40,7 @@ public class PostController {
 	
 	// 파일이 저장되는 경로
 	private static final String FILE_PATH = "C:/NewFolder";
+	
 	//@Autowired
 	//private PostService postService;
 
@@ -50,7 +51,8 @@ public class PostController {
     FileService fileService;
 	
     @Autowired
-	private ModelMapper modelMapper;	
+	private ModelMapper modelMapper;
+    
 	// ========================================
 	// 기본 화면 설정
 	// ========================================
@@ -62,13 +64,13 @@ public class PostController {
 	}
 	
 	// 박물관 장소 페이지 이동
-	@GetMapping("/post/arrowInfo")
+	@GetMapping("/contents/view/info")
 	public String getArrowInfo() {
-		return "post/arrowInfo";
+		return "contents/info";
 	}
 	
 	// 본관 페이지 이동
-	@GetMapping("/post/exhibit")
+	@GetMapping("/contents/view/exhibition")
 	public String getExhibit() {
 		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
 		
@@ -76,7 +78,7 @@ public class PostController {
 	}
 	
 	// 게시글 작성 페이지 이동
-	@GetMapping("/post/exhibitionWrite")
+	@GetMapping("/contents/function/exhibitionWrite")
 	public String ExhibitWrite(Model model,  @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
 		System.out.println(LoggingSystem.class);;
 		
@@ -89,7 +91,7 @@ public class PostController {
 	/*
 	 * 게시글 작성 기능
 	 * */
-	@PostMapping("/post/exhibitionWrite")
+	@PostMapping("/contents/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) List<MultipartFile> files,
 	        @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
 
