@@ -29,7 +29,7 @@
 				<div class="row m-0 p-0">
 					<!-- QR 코드 -->
 					<div class="boxHeaderLeft background-white border-start border-end border-bottom border-dark border-2">
-						<img class="infoImage" alt="icon" src="/image/main/QRCode.svg" width="500" height="500">
+						<img class="infoImage" alt="QRCode" src="/image/main/QRCode.svg" width="500" height="500">
 					</div>
 					<!-- 안내사항 -->
 					<div class="boxHeaderRight background-white border-bottom border-end border-dark border-2">
