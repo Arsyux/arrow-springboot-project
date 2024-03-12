@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -40,6 +42,7 @@ public class PostController {
 	
 	// 파일이 저장되는 경로
 	private static final String FILE_PATH = "C:/NewFolder";
+	
 	//@Autowired
 	//private PostService postService;
 
@@ -62,16 +65,14 @@ public class PostController {
 	}
 	
 	// 박물관 장소 페이지 이동
-	@GetMapping("/post/arrowInfo")
+	@GetMapping("/contents/info")
 	public String getArrowInfo() {
-		return "post/arrowInfo";
+		return "contents/info";
 	}
 	
 	// 본관 페이지 이동
-	@GetMapping("/post/exhibit")
+	@GetMapping("/contents/exhibition")
 	public String getExhibit() {
-		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
-		
 		return "contents/exhibition";
 	}
 	

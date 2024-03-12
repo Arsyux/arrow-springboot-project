@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" type="text/css" href="/css/contents.css">
-
 <%@ include file="../layout/header.jsp"%>
 		
 	<!-- 제목 -->
-	<title>본관 - 프로그램 안내</title>
+	<title>영집 궁시박물관</title>
 	
 </head>
 <body>
@@ -24,10 +22,7 @@
 					</div>
 					<!-- 안내 제목 -->
 					<div class="boxHeaderRight background-white border border-start-0 border-dark border-2">
-						<div align="center" style="margin-top: 2vw;">
-							<span style="font-size: 2vw;">영집 궁시박물관안내<br></span>
-							<span style="font-size: 5vw; font-weight: bold;">본관 - 프로그램 안내</span>
-						</div>
+						<div align="center" style="font-size: 5vw; font-weight: bold; margin-top: 3vw;">영집 궁시박물관안내</div>
 					</div>
 				</div>
 				
@@ -51,20 +46,27 @@
 				</div>
 				
 				<!-- 메인 컨텐츠 -->
-				<div class="background-white border border-dark border-2 p-4" align="center">
-					<div align="left">
-						<div align="center" class="border border-dark border-1" 
-						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 3vw; width: 30%">
-							본관/프로그램
-					</div>
-					</div>
-					<div class="border border-dark border-1">
-						<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" width="701" height="701">
-					</div>
+				<div class="background-white border border-dark border-2" align="center">
+					<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" usemap="#infoImageMap" width="701" height="701">
+					<map id="infoImageMap" name="infoImageMap">
+						<area shape="rect" alt="본관" title="본관" coords="49,88,336,282" href="/contents/exhibition" />
+						<area shape="rect" alt="야외 마당" title="야외 마당" coords="49,301,455,578" href="#" />
+						<area shape="rect" alt="공방" title="공방" coords="21,596,153,681" href="#" />
+						<area shape="rect" alt="활터" title="활터" coords="560,89,671,281" href="#" />
+					</map>
+					<script type="text/javascript">
+						$(document).ready(function(e) {
+							$('img[usemap]').rwdImageMaps();
+						});
+					</script>
 				</div>
 			</div>
 			
+			
+			
+		
 		</div>
+		
 		
 	</article>
 		

@@ -43,18 +43,18 @@
 				 border-color: black; 
 				 border-style: solid; 
 				 border-width: 1px;"
-				 onclick="location.href='/post/arrowInfo'">
+				 onclick="location.href='/contents/info'">
 				<h1>입장하기</h1>
 			</div>
 			
 			<div align="center" 
 				 style="position: absolute; 
-				 color: #000000; background-color: rgba(21, 96, 130, 1.0); 
+				 color: #000000; background-color: rgba(255, 255, 255, 1); 
 				 top: 85%; left: 37.5%;
 				 width: 25%; 
 				 font-weight: bold; 
 				 border-color: black; 
-				 border-style: solid; 
+				 border-style: solid;
 				 border-width: 1px;">
 				 <img alt="logo" src="/image/main/logo.svg" width="100%">
 			</div>
