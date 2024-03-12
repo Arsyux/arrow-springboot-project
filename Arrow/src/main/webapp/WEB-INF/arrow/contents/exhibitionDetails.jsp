@@ -5,7 +5,7 @@
 <%@ include file="../layout/header.jsp"%>
 		
 	<!-- 제목 -->
-	<title>본관 - 프로그램 안내</title>
+	<title>상세 안내</title>
 	
 </head>
 <body>
@@ -57,7 +57,7 @@
 						<!-- 안내 -->
 						<div align="center" class="border border-dark border-1" 
 						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 3vw; width: 30%; display: inline;">
-							본관/프로그램
+							상세 정보
 						</div>
 						<!-- 버튼 -->
 						<c:if test="${!empty principal }">
@@ -73,42 +73,26 @@
 						
 							<!-- 반복문 시작 -->
 							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
+								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'" style="min-height: 25vw;">
+									<img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
 								</div>
 								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
+								백각궁<br>
+								번호: kb111<br>
+								위치: 상설전시
 								</div>
 							</div>
 							<!-- 반복문 끝 -->
 							
 							<!-- 더미 데이터 시작 -->
 							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/최씨부자의활이야기.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #e6ce19; color: #ffffff;">
-								행사: 최씨부자의활이야기<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
+								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'">
+									<img class="w-100" alt="exhibition" src="/image/exhibition/details/흑각궁.jpg" style="min-height: 25vw;">
 								</div>
 								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
+								흑각궁<br>
+								번호: kb111<br>
+								위치: 상설전시
 								</div>
 							</div>
 							<!-- 더미 데이터 끝 -->
