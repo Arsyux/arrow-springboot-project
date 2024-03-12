@@ -21,7 +21,6 @@ public interface contentsMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "exh_seq", keyColumn = "exh_seq")
 	public ContentsVO insertContent(ContentsVO content);
 	
-
 	@Insert("INSERT INTO arrorw_fileinfo"
 			+ "(exh_seq, file, file_name, createDt)"
 			+ "VALUES(#{exh_seq}, NULL, #{OriginFile}, current_timestamp());")

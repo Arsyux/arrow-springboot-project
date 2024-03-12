@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
@@ -42,7 +40,6 @@ public class PostController {
 	
 	// 파일이 저장되는 경로
 	private static final String FILE_PATH = "C:/NewFolder";
-	
 	//@Autowired
 	//private PostService postService;
 
@@ -65,14 +62,16 @@ public class PostController {
 	}
 	
 	// 박물관 장소 페이지 이동
-	@GetMapping("/contents/info")
+	@GetMapping("/post/arrowInfo")
 	public String getArrowInfo() {
-		return "contents/info";
+		return "post/arrowInfo";
 	}
 	
 	// 본관 페이지 이동
-	@GetMapping("/contents/exhibition")
+	@GetMapping("/post/exhibit")
 	public String getExhibit() {
+		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
+		
 		return "contents/exhibition";
 	}
 	
@@ -105,9 +104,9 @@ public class PostController {
 	        if (!folder.exists()) {
 	            folder.mkdirs();
 	        }
-	        //List<FilesVO> fileInfos = new ArrayList<FilesVO>();
-	        FilesVO fileInfo = new FilesVO();
+	        List<FilesVO> fileInfos = new ArrayList<FilesVO>();
 	        for (MultipartFile mfile : files) {
+	        	FilesVO fileInfo = new FilesVO();
 	            String originalFileName = mfile.getOriginalFilename();
 
 	            
@@ -123,12 +122,12 @@ public class PostController {
 	            }
 
 
-	            //fileInfos.add(fileInfo);
+	            fileInfos.add(fileInfo);
 	        }
 	        
 	        contentService.insertContent(cont);
 	        System.out.println(cont.getExh_seq());
-	        contentService.insertFile(cont, fileInfo);
+	        contentService.insertFile(cont, fileInfos);
 	    } catch (Exception e) {
 	        System.out.println("Error");
 	    }
