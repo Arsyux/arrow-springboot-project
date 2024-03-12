@@ -65,7 +65,7 @@ public class PostController {
 	
 	// 박물관 장소 페이지 이동
 	@GetMapping("/contents/view/info")
-	public String getArrowInfo() {
+	public String getInfo() {
 		return "contents/info";
 	}
 	
@@ -79,7 +79,7 @@ public class PostController {
 		return "contents/exhibition";
 	}
 	
-	// 게시글 작성 페이지 이동
+	// 본관 게시글 작성 페이지 이동
 	@GetMapping("/contents/function/exhibitionWrite")
 	public String ExhibitWrite(Model model,  @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
 		System.out.println(LoggingSystem.class);;
@@ -89,9 +89,8 @@ public class PostController {
 		return "contents/exhibitionWrite";
 	}
 	
-	
 	/*
-	 * 게시글 작성 기능
+	 * 본관 게시글 작성 기능
 	 * */
 	@PostMapping("/contents/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) List<MultipartFile> files,
@@ -139,5 +138,18 @@ public class PostController {
 	    
 	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      
 	}
+	
+	// 전시 정보 페이지
+	@GetMapping("/contents/view/exhibitionInfo")
+	public String getExhibitionInfo() {
+		return "contents/exhibitionInfo";
+	}
+	
+	// 전시 상세 페이지
+	@GetMapping("/contents/view/exhibitionDetails")
+	public String getExhibitionDetails() {
+		return "contents/exhibitionDetails";
+	}
+	
 	
 }

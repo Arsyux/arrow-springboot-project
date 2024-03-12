@@ -5,7 +5,7 @@
 <%@ include file="../layout/header.jsp"%>
 		
 	<!-- 제목 -->
-	<title>본관 - 프로그램 안내</title>
+	<title>본관 / 전시 2023 지홍전</title>
 	
 </head>
 <body>
@@ -56,64 +56,43 @@
 					<div class="row m-0 p-0">
 						<!-- 안내 -->
 						<div align="center" class="border border-dark border-1" 
-						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 3vw; width: 30%; display: inline;">
-							본관/프로그램
+						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 2vw; width: 70%; display: inline;">
+							본관 / 전시 - 2023 지홍전
 						</div>
 						<!-- 버튼 -->
 						<c:if test="${!empty principal }">
-							<div class="m-0 p-0" align="right" style="width: 70%; display: inline;">
-								<button class="btn" style="background-color: #269630; color: #ffffff;" onclick="location.href='/contents/function/exhibitionWrite'">+ 글쓰기</button>
+							<div class="m-0 p-0" align="right" style="width: 30%; display: inline;">
+								<button class="btn" style="background-color: #00498c; color: #ffffff;" onclick="#">글수정</button>							
+								<button class="btn" style="background-color: crimson; color: #ffffff;" onclick="#">글삭제</button>
 							</div>
 						</c:if>
 					</div>
 					
 					<!-- 메인 화면 -->
-					<div class="border border-dark border-1">
-						<div class="row m-0 p-0">
+					<div class="row m-0 p-0">
+						<!-- 포스터나 홍보 사진 -->
+						<div class="background-white border border-dark border-1 p-0" style="display: inline; width: 60%;">
+							<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
+						</div>
+						<!-- 간단한 설명 -->
+						<div class="background-white border boder-start-0 border-dark border-1 p-0" style="display: inline; width: 40%;">
+							<div align="center" style="margin-top: 2.5vw;">
+								<span style="font-size: 2vw;">간단한 설명</span>
+							</div>
+						</div>
+						<!-- 상세 설명 -->
+						<div class="background-white border border-top-0 border-dark border-1 p-0" style="min-height: 20vw;">
+							<div align="center" style="margin-top: 2.5vw;">
+								<span style="font-size: 2vw;">상세 설명</span>
+							</div>
+						</div>
 						
-							<!-- 반복문 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<!-- 반복문 끝 -->
-							
-							<!-- 더미 데이터 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/최씨부자의활이야기.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #e6ce19; color: #ffffff;">
-								행사: 최씨부자의활이야기<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<!-- 더미 데이터 끝 -->
-							
-							<!-- 페이지네이션 -->
+						<!-- 여백 -->
+						<div class="boxWhiteSpace background-clear m-0 p-0" style="height: 3vw;"></div>
+						
+						<!-- 버튼 -->
+						<div class="row p-0 m-0" style="height: 10vw;">
+							<a class="btn w-100 h-100" href="/contents/view/exhibitionDetails" style="background-color: #005666; color: #ffffff;">전시 상세 소개</a>
 						</div>
 					</div>
 				</div>
