@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
 
-<%@ include file="../layout/header.jsp"%>
+<%@ include file="../../layout/header.jsp"%>
 		
 	<!-- 제목 -->
 	<title>본관 - 프로그램 안내</title>
@@ -34,7 +34,7 @@
 				<div class="row m-0 p-0">
 					<!-- QR 코드 -->
 					<div class="boxHeaderLeft background-white border-start border-end border-bottom border-dark border-2">
-						<img class="infoImage" alt="icon" src="/image/main/QRCode.svg" width="500" height="500">
+						<img class="infoImage" alt="QRCode" src="/image/main/QRCode.svg" width="500" height="500">
 					</div>
 					<!-- 안내사항 -->
 					<div class="boxHeaderRight background-white border-bottom border-end border-dark border-2">
@@ -52,11 +52,14 @@
 				
 				<!-- 메인 컨텐츠 -->
 				<div class="background-white border border-dark border-2 p-4" align="center">
-					<div align="left">
+					<div class="row m-0 p-0">
 						<div align="center" class="border border-dark border-1" 
-						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 3vw; width: 30%">
+						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 3vw; width: 30%; display: inline;">
 							본관/프로그램
-					</div>
+						</div>
+						<div class="m-0 p-0" align="right" style="width: 70%; display: inline;">
+							<button class="btn btn-lg" style="background-color: #269630; color: #ffffff;" onclick="location.href='/contents/function/exhibitionWrite'">+ 글쓰기</button>
+						</div>
 					</div>
 					<div class="border border-dark border-1">
 						<img class="infoImage" alt="infoImage" id="infoImage" src="/image/main/infoImage.png" width="701" height="701">
@@ -68,4 +71,4 @@
 		
 	</article>
 		
-<%@ include file="../layout/footer.jsp" %>
+<%@ include file="../../layout/footer.jsp" %>
