@@ -53,6 +53,28 @@ display: inline-table; padding: 10px; border: 1px solid #cccccc; overflow: hidde
 	outline: dashed 0.5px black;
 }
 
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
 /*datePicker ui*/
 .ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
 
@@ -126,3 +148,4 @@ display: inline-table; padding: 10px; border: 1px solid #cccccc; overflow: hidde
  .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
 
  .inp:focus { outline: none; background-color: #eee; } 
+ /* datepicker  ui E*/

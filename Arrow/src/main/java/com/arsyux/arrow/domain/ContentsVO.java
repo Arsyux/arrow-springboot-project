@@ -4,9 +4,7 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 @Data
@@ -17,9 +15,9 @@ public class ContentsVO {
 	private String name_exhibit;
 	private String subname_exhibit;
 	private String space_exhibit;
-	private Date startDate_exhibit;
-	private Date endDate_exhibit;
-	private Date createDt;
+	private String startDate_exhibit;
+	private String endDate_exhibit;
+	private String createDt;
 	private String tag_exhibit;
 	private String image_exhibhit;
 	private int exh_seq;

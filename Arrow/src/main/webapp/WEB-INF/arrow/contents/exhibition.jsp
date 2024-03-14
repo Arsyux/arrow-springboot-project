@@ -70,57 +70,48 @@
 					<!-- 메인 화면 -->
 					<div class="border border-dark border-1">
 						<div class="row m-0 p-0">
-						
-							<!-- 반복문 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<!-- 반복문 끝 -->
-							
-							<!-- 더미 데이터 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/최씨부자의활이야기.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #e6ce19; color: #ffffff;">
-								행사: 최씨부자의활이야기<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								전시: 2023 지홍전<br>
-								일자: 24.01.01 ~ 24.12.31
-								</div>
-							</div>
-							<!-- 더미 데이터 끝 -->
-							
-							<!-- 페이지네이션 -->
+					    <c:forEach items="${contentsList}" var="contents">
+					        <div class="col-6 m-0 p-4">
+					            <div class="border border-dark border-1">
+					                <img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
+					            </div>
+					            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
+					                <span>전시: ${contents.name_exhibit}</span><br>
+					                <span>부제목: ${contents.subname_exhibit}</span><br>
+					                <span>일자: ${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span>
+					            </div>
+					        </div>
+					    </c:forEach>
+						    
 						</div>
 					</div>
+					
+					<!-- Pagination S-->
+				    <div class="pagination">
+				  		<!-- Previous Page Link -->
+				        <c:if test="${pageNumber > 0}">
+				            <a href="/contents/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}">Previous</a>
+				        </c:if>
+				        <!-- Page Numbers -->
+				        <c:forEach begin="0" end="${totalPages - 1}" var="page">
+				            <c:choose>
+				                <c:when test="${page == pageNumber}">
+				                    <span>${page + 1}</span>
+				                </c:when>
+				                <c:otherwise>
+				                    <a href="/contents/view/exhibition?pageNumber=${page}&pageSize=${pageSize}">${page + 1}</a>
+				                </c:otherwise>
+				            </c:choose>
+				        </c:forEach>
+				        <!-- Next Page Link -->
+				        <c:if test="${pageNumber < totalPages - 1}">
+				            <a href="/contents/view/exhibition?pageNumber=${pageNumber + 1}&pageSize=${pageSize}">Next</a>
+				        </c:if>
+				    </div>
+				    <!-- Pagination E-->
 				</div>
 			</div>
-			
 		</div>
-		
 	</article>
 		
 <%@ include file="../layout/footer.jsp" %>
