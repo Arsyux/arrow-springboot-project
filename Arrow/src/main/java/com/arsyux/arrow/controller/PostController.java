@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,7 +29,6 @@ import com.arsyux.arrow.domain.ContentsVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.dto.ContentsDTO;
 import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
-import com.arsyux.arrow.dto.FileDTO;
 import com.arsyux.arrow.dto.ResponseDTO;
 import com.arsyux.arrow.service.contentsService;
 
@@ -69,20 +66,36 @@ public class PostController {
 		return "contents/info";
 	}
 	
-
+	//
 	@GetMapping("/contents/view/exhibition")
-	public String getExhibit() {
-		System.out.println(LoggingSystem.SYSTEM_PROPERTY);;
+	public String getExhibit(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
+		//page limit, offset 데이터 조회
+		List<ContentsVO> contentsList = contentService.selectAllContent(pageNumber, pageSize);
+		System.out.println(contentsList);
+        // 총 페이지 수 계산
+        int totalPages = contentService.getTotalPages(pageSize);
+        
+        // 페이지 번호를 5개까지만 넘어가게 설정
+        int maxPageNumber = Math.min(totalPages, 5);
+        List<Integer> pageNumbers = new ArrayList<>();
+        
+        for (int i = 0; i < maxPageNumber; i++) {
+            pageNumbers.add(i);
+        }
+        
+        model.addAttribute("totalPages", totalPages); 
+        model.addAttribute("contentsList", contentsList);
+        model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
+        model.addAttribute("pageSize", pageSize); 	
 		
 
-		
 		return "contents/exhibition";
 	}
 	
 	// 본관 게시글 작성 페이지 이동
 	@GetMapping("/contents/function/exhibitionWrite")
 	public String ExhibitWrite(Model model,  @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
-		System.out.println(LoggingSystem.class);;
+		System.out.println("ExhibitWrite Page"+LoggingSystem.class);;
 		
 		model.addAttribute("ContentsVO", contentsVO);
 
@@ -129,6 +142,10 @@ public class PostController {
 
 	            fileInfos.add(fileInfo);
 	        }
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        cont.setStartDate_exhibit(dateFormat.format(cont.getStartDate_exhibit()));
+	        cont.setEndDate_exhibit(dateFormat.format(cont.getEndDate_exhibit()));
+	        cont.setCreateDt(dateFormat.format(cont.getCreateDt()));
 	        
 	        contentService.insertContent(cont);
 	        contentService.insertFile(cont, fileInfos);

@@ -53,8 +53,8 @@ public class ContentsDTO {
 	private String tag_exhibit;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date startDate_exhibit;
+	private String startDate_exhibit;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date endDate_exhibit;
+	private String endDate_exhibit;
 }
