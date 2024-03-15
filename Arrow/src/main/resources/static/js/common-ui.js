@@ -130,88 +130,6 @@ $(document).ready(function(){
 	window.$app = {};
 	$( ".tag_exhibit" ).selectmenu();
 	
-	//file drag-div start
-/*	$(document).on({
-		"dragenter":function(e){
-        	$(this).addClass("over");
-        },
-        "dragleave":function(e){
-        	$(this).removeClass("over");
-        },
-        "dragover":function(e){
-        	e.preventDefault();
-        },
-        "drop":function(e){
-        	
-//        	alert("droped!");
-        	var files = e.originalEvent.dataTransfer.files;
-        	if(files.length > 0){
-        		var fd = new FormData($("#insertForm")[0]);
-        		fd.append('file', files[0]); 	
-        		var nm = files[0].name.split(".");
-        		nm.pop();
-        		var filenm = nm.join(".");
-        		var size = files[0].size;
-        		var sizeMb = size ? size/1024/1024 : 0;
-        		
-        		$app.upload.nm = nm;
-        		$app.upload.size = size;
-        		$app.upload.form = fd;
-        		console.log("file name is ",filenm,", file size is ",size);
-        		
-        		var table_html = '<table summary="업로드할 파일의 정보를 출력합니다.">';
-        		table_html += '<caption class="Hidden">업로드파일 목록</caption>';
-        		table_html += '<colgroup>';
-        		table_html += '<col style="width: 60%;">';
-        		table_html += '<col style="width: 30%;">';
-        		table_html += '<col style="width: 10%;">';
-        		table_html += '</colgroup>';
-        		table_html += '<thead>';
-        		table_html += '<tr>';
-        		table_html += '<th>파일명</th>';
-        		table_html += '<th>파일용량</th>';
-        		table_html += '<th></th>';
-        		table_html += '</tr>';
-        		table_html += '</thead>';
-        		table_html += '<tbody>';
-        		table_html += '</tbody>';
-        		table_html += '</table>';
-        		
-        		var $table = $(table_html);
-        		
-        		var $tr = $("<tr></tr>");
-        		
-        		$tr.append("<td>".concat(nm,"</td>"));
-        		$tr.append("<td>".concat(sizeMb.toFixed(2)," Mb</td>"));
-        		
-        		var $td = $("<td><button></button></td>");
-        		//var $del = $("<button></button>");
-        		$td.find("button").attr("type","button").attr("class","del-file-btn");
-        		
-        		$tr.append($td);
-        		$table.find("tbody").append($tr);
-        		
-        		$td.find("button").on("click", function(){
-        			$(".drag-div").addClass("drag-active").removeClass("BoardList");
-        			$(".drag-div").empty().append('<p class="drag-msg noselect">파일을 드래그하세요.</p>');
-        		});
-        		
-        		$(".drag-div").addClass("BoardList").removeClass("drag-active");
-        		$(".drag-div").empty().append($table);
-        	}
-        	$(this).removeClass("over");
-        	e.preventDefault();
-        	e.stopPropagation();
-        }
-    },".drag-div");*/
-//drag-div end
-	
-	
-	
-	
-	
-	
-
 	/*날짜 조회 조건처리 S*/
 	$('.startDateExhibit').on('change', function (event) {
 		var startDateInput = document.getElementById("startDateExhibit");
@@ -369,17 +287,30 @@ function fnInsertContent() {
         success: function(data) {
     	if (data.status == 200) {
             alert("작성 완료되었습니다.");
-            
-            //location.href="/contents/function/exhibit";
-        	} else {
+
+        	} else {            
+				alert("등록에 실패 하였습니다.");
+            	return false;
         	}
             	
         },
         error: function(xhr, status) {
             // 요청이 실패했을 때 수행할 작업
             alert("등록에 실패 하였습니다.");
-            // 여기에 오류 발생 시 처리할 작업을 추가하세요.
+            return false;
         }
     });
 }
+
+/**
+ * 조사데이터 상세조회
+ * @param contents
+ * @returns
+ */
+function fnFieldBookDetail(exhseq) {
+	
+       window.location.href = "/contents/view/exhibitionInfo?exhseq=" + exhseq;
+
+}
+
 

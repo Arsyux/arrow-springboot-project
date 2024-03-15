@@ -158,10 +158,23 @@ public class PostController {
 	
 	// 전시 정보 페이지
 	@GetMapping("/contents/view/exhibitionInfo")
-	public String getExhibitionInfo() {
+	public String getExhibitionInfo(Model model,@RequestParam("exhseq") String exh_seq) {
+		
+		
+		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
+		
 		return "contents/exhibitionInfo";
 	}
-	
+	// 전시 정보 페이지
+	@PostMapping("/contents/view/exhibitionInfo")
+	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") String exh_seq) {
+		
+		
+		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
+		
+		
+		return  new ResponseDTO<>(HttpStatus.OK.value(), "");      
+	}	
 	// 전시 상세 페이지
 	@GetMapping("/contents/view/exhibitionDetails")
 	public String getExhibitionDetails() {
