@@ -75,14 +75,16 @@
 					            <div class="border border-dark border-1">
 					                <img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
 					            </div>
-					            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
+					            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
+					            onclick="javascript:fnFieldBookDetail('<c:out value="${contents.exh_seq}"/>');">
+					            	<span>번호: ${contents.exh_seq}</span><br>
 					                <span>전시: ${contents.name_exhibit}</span><br>
 					                <span>부제목: ${contents.subname_exhibit}</span><br>
 					                <span>일자: ${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span>
 					            </div>
 					        </div>
 					    </c:forEach>
-						    
+			                                                                                               			    
 						</div>
 					</div>
 					

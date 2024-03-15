@@ -27,7 +27,7 @@ public interface contentsMapper {
 			+ " VALUES(#{exh_seq}, #{file_code}, #{file_originName}, #{file_type}, current_timestamp());")
 	public void insertFileInfo(FilesVO file);
 	
-	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit,date_format(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,date_format(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,date_format(createDt, '%Y-%m-%d' ) as createDt , tag_exhibit, image_exhibhit"
+	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit,date_format(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,date_format(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,createDt , tag_exhibit, image_exhibhit"
 			+ " FROM arrow_exhibition ORDER by createDt DESC LIMIT #{limit} OFFSET #{offset}; ")
 	public  List<ContentsVO> selectAllContent(RowBounds rowBounds);
 	
