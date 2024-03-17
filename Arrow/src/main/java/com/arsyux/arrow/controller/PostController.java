@@ -66,7 +66,39 @@ public class PostController {
 		return "contents/info";
 	}
 	
-	//
+	// 본관 - 프로그램 안내 이동
+	// 주대현 - 작업 240318
+	// 페이지네이션에서 예외가 발생해서 주석 처리 후 작업
+	@GetMapping("/contents/view/exhibition")
+	public String getExhibition(Model model) {
+		
+		// 본관 게시글 조회
+		List<ContentsVO> exhibits = null; //contentService.;
+		
+		model.addAttribute("Exhibits", exhibits);
+		
+		return "contents/exhibition";
+	}
+	
+	// 본관 - 프로그램 안내 글쓰기
+	// 주대현 - 작업 240318
+	// 파일이 내 PC에 복사되는것까지 확인하였음
+	// DB에 파일 정보가 들어가지 않음
+	// 테스트해보는중
+	@PostMapping("/contents/function/exhibitionWrite")
+	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) {
+		/*
+	    // ContentsDTO를 통해 유효성 검사 
+	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
+
+	        
+	    */
+	    return new ResponseDTO<>(HttpStatus.OK.value(), /*cont.getName_exhibit() +*/ "작성되었습니다");      
+	}
+	
+	// 본관 - 프로그램 안내 이동
+	// 이승현 - 백업
+	/*
 	@GetMapping("/contents/view/exhibition")
 	public String getExhibit(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
 		//page limit, offset 데이터 조회
@@ -91,6 +123,7 @@ public class PostController {
 
 		return "contents/exhibition";
 	}
+	*/
 	
 	// 본관 게시글 작성 페이지 이동
 	@GetMapping("/contents/function/exhibitionWrite")
@@ -104,7 +137,8 @@ public class PostController {
 	
 	/*
 	 * 본관 게시글 작성 기능
-	 * */
+	 */
+	/*
 	@PostMapping("/contents/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) List<MultipartFile> files,
 	        @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
@@ -155,6 +189,7 @@ public class PostController {
 	    
 	    return new ResponseDTO<>(HttpStatus.OK.value(), cont.getName_exhibit() + "작성되었습니다");      
 	}
+	*/
 	
 	// 전시 정보 페이지
 	@GetMapping("/contents/view/exhibitionInfo")

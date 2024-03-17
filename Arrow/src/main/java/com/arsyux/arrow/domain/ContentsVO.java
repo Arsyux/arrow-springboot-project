@@ -12,14 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ContentsVO {
 	
-	private String name_exhibit;
-	private String subname_exhibit;
-	private String space_exhibit;
-	private String startDate_exhibit;
-	private String endDate_exhibit;
-	private String createDt;
-	private String tag_exhibit;
-	private String image_exhibhit;
-	private int exh_seq;
+	// 주대현 240318 수정
+	private int exh_seq; // PK?
+	private String name_exhibit; // 제목
+	private String subname_exhibit; // 부제목
+	private String space_exhibit; // 장소
+	private String startDate_exhibit; // 전시 시작일
+	private String endDate_exhibit; // 전시 종료일
+	private String createDt; // 데이터 삽입 날짜
+	private String tag_exhibit; // 태그
+	private String image_exhibhit; // 이미지?
 	
 }

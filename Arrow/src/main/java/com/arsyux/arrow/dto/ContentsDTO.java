@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 public class ContentsDTO {
 
 	// 유효성 검사 그룹
+	public interface InsertExhibitionValidationGroup { } // 전시 - 안내 게시글 작성시 유효성 검사
 	public interface InsertTextValidationGroup { } //text 입력 유효성 검사
-	public interface ChangePasswordValidationGroup { } // 비밀번호 변경시 유효성 검사
 	public interface CheckDateValidateGroup{ } // 전시기간 날짜 유효성 검사
 	
 	

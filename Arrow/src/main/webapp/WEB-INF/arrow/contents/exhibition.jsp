@@ -89,27 +89,7 @@
 					</div>
 					
 					<!-- Pagination S-->
-				    <div class="pagination">
-				  		<!-- Previous Page Link -->
-				        <c:if test="${pageNumber > 0}">
-				            <a href="/contents/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}">Previous</a>
-				        </c:if>
-				        <!-- Page Numbers -->
-				        <c:forEach begin="0" end="${totalPages - 1}" var="page">
-				            <c:choose>
-				                <c:when test="${page == pageNumber}">
-				                    <span>${page + 1}</span>
-				                </c:when>
-				                <c:otherwise>
-				                    <a href="/contents/view/exhibition?pageNumber=${page}&pageSize=${pageSize}">${page + 1}</a>
-				                </c:otherwise>
-				            </c:choose>
-				        </c:forEach>
-				        <!-- Next Page Link -->
-				        <c:if test="${pageNumber < totalPages - 1}">
-				            <a href="/contents/view/exhibition?pageNumber=${pageNumber + 1}&pageSize=${pageSize}">Next</a>
-				        </c:if>
-				    </div>
+				    
 				    <!-- Pagination E-->
 				</div>
 			</div>

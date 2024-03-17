@@ -92,6 +92,118 @@
 	<section style = "margin-top:10px; margin-left:80%; position: relative; ">
 		<button type="button" class="add-btn writeBtn" name="writeBtn" onclick="javascript:fnInsertContent(); return false;">등록</button>
 	</section>
+	
+</c:if>
+
+
+
+
+
+<!-- 대현 테스트 240318 -->
+<hr>
+
+<!-- 본관 - 프로그램 안내 글쓰기 JS -->
+<script src="/js/exhibition.js"></script>
+
+<c:if test="${!empty principal }">
+	<div>
+		<!-- 위치 -->
+		<div class="row m-0 p-0">
+			<div class="col-12 m-0 p-0" style="height: 5vw; background-color: #269630; color: #ffffff; font-size: 3vw; border-radius: 10px;">
+				&lt;&lt; 본관 - 프로그램 안내 &gt;&gt; 글쓰기
+			</div>
+		</div>
+		
+		<form>
+			
+			<!-- 태그 -->
+			<div class="row ms-0 me-0 mt-3 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>태그</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<select class="form-select" style="font-size: 1vw;">
+							<option value="전시" selected>전시</option>
+							<option value="교육">교육</option>
+							<option value="행사">행사</option>
+							<option value="체험">체험</option>
+						</select>
+						<div id="exhibitionTagInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 제목 -->
+			<div class="row ms-0 me-0 mt-0 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>제목</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<input type="text" class="form-control" id="exhibitionTitle" placeholder="제목" style="font-size: 1vw;"></input>
+						<div id="exhibitionTitleInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+				
+			<!-- 간략 설명 -->
+			<div class="row ms-0 me-0 mt-0 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>간략 설명</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<textarea class="form-control" rows="5" id="exhibitionDescription" placeholder="간략 설명" style="resize: none; font-size: 1vw;"></textarea>
+						<div id="exhibitionDescriptionInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 장소 -->
+			<div class="row ms-0 me-0 mt-0 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>장소</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<input type="text" class="form-control" id="exhibitionSpace" placeholder="장소" style="font-size: 1vw;"></input>
+						<div id="exhibitionSpaceInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 오늘 날짜 -->
+			<c:set var="now" value="<%=new java.util.Date()%>" />
+			<c:set var="nowDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+			
+			<!-- 전시 시작 날짜 -->
+			<div class="row ms-0 me-0 mt-0 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>전시 시작 날짜</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<input type="date" class="form-control" id="exhibitionStartDate" style="font-size: 1vw;" value="${ nowDate }"></input>
+						<div id="exhibitionStartDateInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 전시 종료 날짜 -->
+			<div class="row ms-0 me-0 mt-0 mb-3 p-0">
+				<div class="col-2 m-0 p-0"><b>전시 종료 날짜</b></div>
+				<div class="col-8 m-0 p-0">
+					<div class="input-group">
+						<input type="date" class="form-control" id="exhibitionEndDate" style="font-size: 1vw;" value="${ nowDate }"></input>
+						<div id="exhibitionEndDateInvalid" class="invalid-feedback"></div>
+					</div>
+				</div>
+			</div>
+			
+							
+		</form>
+		
+		<!-- 글쓰기 버튼 -->
+		<div class="row ms-0 me-0 mt-3 mb-3 p-0">
+			<div class="col-5 m-0 p-0"></div>
+			<div class="col-2 m-0 p-0">
+				<button id="btn-insertExhibition" class="btn btn-large w-100" style="background-color: #269630; color: #ffffff; font-size: 1vw; font-weight: bold;">글쓰기</button>
+			</div>
+		</div>
+		
+	</div>
+	
 </c:if>
 </article>
 
