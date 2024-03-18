@@ -12,7 +12,7 @@
 	<header><!-- 키오스크이므로 헤더 및 푸터는 구현하지않음 --></header>
 	
 	<article>
-		
+		<c:forEach items="${content}" var="contents">
 		<div class="container-fluid background-gradient p-0">
 			
 			<div class="mainBox p-0" align="left">
@@ -56,8 +56,8 @@
 					<div class="row m-0 p-0">
 						<!-- 안내 -->
 						<div align="center" class="border border-dark border-1" 
-						style="background-color: #269630; color: #ffffff; height: 5vw; font-size: 2vw; width: 70%; display: inline;">
-							본관 / 전시 - 2023 지홍전
+						style="background-color: #40b477; color: #ffffff; height: 6vw; font-size: 1.25rem; font-weight: 300; display: inline; font-family: 'Noto Sans KR', sans-serif;">
+							<p>본관/전시<span>&nbsp;${contents.name_exhibit}<br>${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span></p> 
 						</div>
 						<!-- 버튼 -->
 						<c:if test="${!empty principal }">
@@ -74,18 +74,25 @@
 						<div class="background-white border border-dark border-1 p-0" style="display: inline; width: 60%;">
 							<img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
 						</div>
-						<!-- 간단한 설명 -->
+						<!-- 간단한 설명 날짜-->
 						<div class="background-white border boder-start-0 border-dark border-1 p-0" style="display: inline; width: 40%;">
 							<div align="center" style="margin-top: 2.5vw;">
-								<span style="font-size: 2vw;">간단한 설명</span>
+								<span style="font-size: 2vw; font-weight:bold">전시소개</span>
 							</div>
+								<p style ="display:inline-block; margin-top:20px;padding:10px;line-height: 30px;">상세 설명: &nbsp;<span>${contents.descript_exhibit}</span></p> 
+								<span style ="display:inline-block; margin-top:20px;">전시 제목: ${contents.name_exhibit}</span><br>
+								<span style ="display:inline-block; margin-top:20px;">부제목: ${contents.subname_exhibit}</span><br>
+								<span style ="display:inline-block; margin-top:20px;">전시기간: ${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span>
+								<span style ="display:inline-block; margin-top:20px;">장소: ${contents.space_exhibit}</span><br>
+			
 						</div>
 						<!-- 상세 설명 -->
-						<div class="background-white border border-top-0 border-dark border-1 p-0" style="min-height: 20vw;">
+<!-- 						<div class="background-white border border-top-0 border-dark border-1 p-0" style="display: inline; min-height: 20vw;">
 							<div align="center" style="margin-top: 2.5vw;">
 								<span style="font-size: 2vw;">상세 설명</span>
+
 							</div>
-						</div>
+						</div> -->
 						
 						<!-- 여백 -->
 						<div class="boxWhiteSpace background-clear m-0 p-0" style="height: 3vw;"></div>
@@ -99,7 +106,7 @@
 			</div>
 			
 		</div>
-		
+		</c:forEach>
 	</article>
 		
 <%@ include file="../layout/footer.jsp" %>
