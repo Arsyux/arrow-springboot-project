@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ContentsVO {
 	
+	private int exh_seq;
 	private String name_exhibit;
 	private String subname_exhibit;
 	private String space_exhibit;
@@ -20,6 +21,6 @@ public class ContentsVO {
 	private String createDt;
 	private String tag_exhibit;
 	private String image_exhibhit;
-	private int exh_seq;
+	private String descript_exhibit;
 	
 }
