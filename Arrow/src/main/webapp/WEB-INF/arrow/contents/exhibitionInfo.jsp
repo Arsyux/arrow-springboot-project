@@ -78,21 +78,19 @@
 						<div class="background-white border boder-start-0 border-dark border-1 p-0" style="display: inline; width: 40%;">
 							<div align="center" style="margin-top: 2.5vw;">
 								<span style="font-size: 2vw; font-weight:bold">전시소개</span>
-							</div>
-								<p style ="display:inline-block; margin-top:20px;padding:10px;line-height: 30px;">상세 설명: &nbsp;<span>${contents.descript_exhibit}</span></p> 
+							</div>						
 								<span style ="display:inline-block; margin-top:20px;">전시 제목: ${contents.name_exhibit}</span><br>
 								<span style ="display:inline-block; margin-top:20px;">부제목: ${contents.subname_exhibit}</span><br>
-								<span style ="display:inline-block; margin-top:20px;">전시기간: ${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span>
 								<span style ="display:inline-block; margin-top:20px;">장소: ${contents.space_exhibit}</span><br>
-			
-						</div>
-						<!-- 상세 설명 -->
-<!-- 						<div class="background-white border border-top-0 border-dark border-1 p-0" style="display: inline; min-height: 20vw;">
-							<div align="center" style="margin-top: 2.5vw;">
-								<span style="font-size: 2vw;">상세 설명</span>
-
+								<span style ="display:inline-block; margin-top:20px;">전시기간: ${contents.startDate_exhibit} ~ ${contents.endDate_exhibit}</span><br>
 							</div>
-						</div> -->
+						<!-- 상세 설명 -->
+ 						<div class="background-white border border-top-0 border-dark border-1 p-0" style="display: inline; min-height: 20vw;">
+							<div align="center" style="margin-top: 2.5vw;">
+								<span style="font-size: 2vw; font-weight:bold;">상세 설명</span><br>
+								<span style ="display:inline-block; margin-top:20px; padding:10px;line-height: 30px;">${contents.descript_exhibit}</span>
+							</div>
+						</div> 
 						
 						<!-- 여백 -->
 						<div class="boxWhiteSpace background-clear m-0 p-0" style="height: 3vw;"></div>
