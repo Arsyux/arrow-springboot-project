@@ -42,4 +42,10 @@ public class contentsDAO {
 
       return totalContents;
     }
+    
+    
+    public List<ContentsVO> selectOneContent(int exh_seq) {
+        
+        return mybatis.selectList("selectOneContent", exh_seq);
+    }
 }

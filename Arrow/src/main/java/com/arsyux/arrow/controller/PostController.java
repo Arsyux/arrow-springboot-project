@@ -134,7 +134,7 @@ public class PostController {
 
 		return "contents/exhibitionWrite";
 	}
-	
+
 	/*
 	 * 본관 게시글 작성 기능
 	 */
@@ -193,11 +193,11 @@ public class PostController {
 	
 	// 전시 정보 페이지
 	@GetMapping("/contents/view/exhibitionInfo")
-	public String getExhibitionInfo(Model model,@RequestParam("exhseq") String exh_seq) {
+	public String getExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
 		
+		List<ContentsVO> contentsList = contentService.selectOneContent(exh_seq);
 		
-		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
-		
+		model.addAttribute("content", contentsList);
 		return "contents/exhibitionInfo";
 	}
 	// 전시 정보 페이지
@@ -206,7 +206,6 @@ public class PostController {
 		
 		
 		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
-		
 		
 		return  new ResponseDTO<>(HttpStatus.OK.value(), "");      
 	}	

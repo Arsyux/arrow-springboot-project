@@ -14,10 +14,7 @@
 
 <!-- 오늘일자 -->
 <c:set var="nowDt"><fmt:formatDate value="<%=new Date() %>" pattern="yyyy-mm-dd"/></c:set>
-<head>
-    <title>게시글 작성</title>
-</head>
-<body>
+
 <article class = "BoardList">
 <!-- 관리자 로그인시 div 노출 -->
 <c:if test="${!empty principal }">
@@ -206,7 +203,5 @@
 	
 </c:if>
 </article>
-
-</body>
 
 <%@ include file="../layout/footer.jsp" %>

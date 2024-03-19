@@ -22,5 +22,5 @@ public class ContentsVO {
 	private String createDt; // 데이터 삽입 날짜
 	private String tag_exhibit; // 태그
 	private String image_exhibhit; // 이미지?
-	
+
 }

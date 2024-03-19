@@ -55,4 +55,9 @@ public class contentsService {
 
 	}
 	
+    public List<ContentsVO> selectOneContent(int exh_seq) {
+        
+        return contentsDAO.selectOneContent(exh_seq);
+    }
+	
 }
