@@ -101,7 +101,7 @@ public class PostController {
 
 		return "contents/exhibitionWrite";
 	}
-	
+
 	/*
 	 * 본관 게시글 작성 기능
 	 * */
@@ -161,7 +161,6 @@ public class PostController {
 	public String getExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
 		
 		List<ContentsVO> contentsList = contentService.selectOneContent(exh_seq);
-		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+contentsList);
 		
 		model.addAttribute("content", contentsList);
 		return "contents/exhibitionInfo";

@@ -17,8 +17,8 @@ import com.arsyux.arrow.domain.FilesVO;
 public interface contentsMapper {
 	
 	@Insert("INSERT INTO arrow_exhibition"
-			+ "(exh_seq,name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, tag_exhibit, createDt)"
-			+ " VALUES(0, #{name_exhibit}, #{subname_exhibit}, #{space_exhibit}, #{startDate_exhibit}, #{endDate_exhibit}, #{tag_exhibit}, current_timestamp());")
+			+ "(exh_seq,name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, tag_exhibit,descript_exhibit , createDt)"
+			+ " VALUES(0, #{name_exhibit}, #{subname_exhibit}, #{space_exhibit}, date_format(#{startDate_exhibit},'%Y-%m-%d'), date_format((#{endDate_exhibit},'%Y-%m-%d'),#{descript_exhibit} ,#{tag_exhibit}, current_timestamp());")
 	@Options(useGeneratedKeys = true, keyProperty = "exh_seq", keyColumn = "exh_seq")
 	public ContentsVO insertContent(ContentsVO content);
 	
