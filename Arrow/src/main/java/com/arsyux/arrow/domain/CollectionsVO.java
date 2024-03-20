@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContentsVO {
+public class CollectionsVO {
 	
 	private int exh_seq;
 	private String name_exhibit;
@@ -21,5 +21,6 @@ public class ContentsVO {
 	private String createDt;
 	private String tag_exhibit;
 	private String descript_exhibit;
+
 	
 }
