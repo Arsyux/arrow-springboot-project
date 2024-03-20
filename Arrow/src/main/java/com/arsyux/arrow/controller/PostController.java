@@ -88,7 +88,7 @@ public class PostController {
         model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
         model.addAttribute("pageSize", pageSize); 	
 		
-
+        
 		return "contents/exhibition";
 	}
 	
