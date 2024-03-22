@@ -72,31 +72,25 @@
 						<div class="row m-0 p-0">
 						
 							<!-- 반복문 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'" style="min-height: 25vw;">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								백각궁<br>
-								번호: kb111<br>
-								위치: 상설전시
-								</div>
-							</div>
-							<!-- 반복문 끝 -->
-							
-							<!-- 더미 데이터 시작 -->
-							<div class="col-6 m-0 p-4">
-								<div class="border border-dark border-1" onclick="location.href='/contents/view/exhibitionInfo'">
-									<img class="w-100" alt="exhibition" src="/image/exhibition/details/흑각궁.jpg" style="min-height: 25vw;">
-								</div>
-								<div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;">
-								흑각궁<br>
-								번호: kb111<br>
-								위치: 상설전시
+							<div class="border border-dark border-1">
+								<div class="row m-0 p-0">
+							    <c:forEach items="${contentsList}" var="contents">
+							        <div class="col-6 m-0 p-4">
+							            <div class="border border-dark border-1">
+							                <img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
+							            </div>
+							            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
+							            onclick="javascript:fnFieldBookDetail('<c:out value="${contents.exh_seq}"/>');">
+							            	<span>명칭: ${contents.name_collect}</span><br>
+							                <span>번호: ${contents.codename_collect}</span><br>
+							                <span>재질: ${contents.metarial_collect}</span><br>
+							                <span>연도: ${contents.period_collect}</span>
+							            </div>
+							        </div>
+							    </c:forEach>
+					                                                                                               			    
 								</div>
 							</div>
-							<!-- 더미 데이터 끝 -->
-							
 							<!-- 페이지네이션 -->
 						</div>
 					</div>
