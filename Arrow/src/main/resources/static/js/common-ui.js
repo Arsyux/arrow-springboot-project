@@ -298,10 +298,8 @@ function fnInsertContent() {
  * @returns
  */
 function fnFieldBookDetail(exhseq) {
-	
-       //window.location.href = "/contents/view/exhibitionInfo?exhseq=" + exhseq;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/contents/view/exhibitionInfo?exhseq=" + exhseq, true);
-        xhr.send();
+	var encryptedExhseq = btoa(exhseq); // exhseq를 Base64로 인코딩
+	window.location.href = "/contents/view/exhibitionInfo/" + encryptedExhseq;
+        //window.location.href = "/contents/view/exhibitionInfo/" + exhseq;
 }
 

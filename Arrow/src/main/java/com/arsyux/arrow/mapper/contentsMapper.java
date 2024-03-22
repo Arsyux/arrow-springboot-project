@@ -27,7 +27,7 @@ public interface contentsMapper {
 			+ " VALUES(#{exh_seq}, #{file_code}, #{file_originName}, #{file_type}, current_timestamp());")
 	public void insertFileInfo(FilesVO file);
 	
-	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, str_to_date(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,str_to_date(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,str_to_date(createDt, '%Y-%m-%d %T' ) as createDt, tag_exhibit,descript_exhibit, image_exhibhit"
+	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, str_to_date(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,str_to_date(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,str_to_date(createDt, '%Y-%m-%d %T' ) as createDt, tag_exhibit,descript_exhibit"
 			+ " FROM arrow_exhibition ORDER by createDt DESC LIMIT #{limit} OFFSET #{offset}; ")
 	public  List<ContentsVO> selectAllContent(RowBounds rowBounds);
 	
@@ -36,7 +36,7 @@ public interface contentsMapper {
 	public int getTotalContents();
 	
 	
-	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, str_to_date(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,str_to_date(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,str_to_date(createDt, '%Y-%m-%d %T' ) as createDt, tag_exhibit,descript_exhibit , image_exhibhit"
+	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, str_to_date(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,str_to_date(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,str_to_date(createDt, '%Y-%m-%d %T' ) as createDt, tag_exhibit,descript_exhibit"
 			+ " FROM arrow_exhibition WHERE exh_seq = #{exh_seq}; ")
 	public List<ContentsVO> selectOneContent(int exh_seq);
 

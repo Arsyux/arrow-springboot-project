@@ -61,7 +61,7 @@
 	<!-- 기간 설정 -->
 		<tr>
 		<th>전시 종류</th>
-			<td  style="margin-left: -78%; margin-top:10px;" >
+			<td style="margin-left: -78%; margin-top:10px;" >
 				<select class ="tag_exhibit" id="tag_exhibit">
 					<option value = ""  selected>선택하세요</option>
 					<option value = "전시"/>
