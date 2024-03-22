@@ -3,38 +3,6 @@ window.onload = () => {
 
         //findAllFile();
     }
-    // 전체 파일 조회
-/*    function findAllFile() {
-
-        // 1. 신규 등록/수정 체크
-        const post = [[ '${post}']];
-        if ( !post ) {
-            return false;
-        }
-
-        // 2. API 호출
-        const response = getJson(`/posts/${post.id}/files`);
-
-        // 3. 로직 종료
-        if ( !response.length ) {
-            return false;
-        }
-
-        // 4. 업로드 영역 추가
-        for (let i = 0, len = (response.length - 1); i < len; i++) {
-            addFile();
-        }
-
-        // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
-        const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
-        filenameInputs.forEach((input, i) => {
-            const fileInput = input.nextElementSibling.firstElementChild;
-            const fileRemoveBtn = input.parentElement.nextElementSibling;
-            fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
-            fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
-            input.value = response[i].originalName;
-        })
-    }*/
 
 $(document).ready(function(){
 	
@@ -46,44 +14,7 @@ $(document).ready(function(){
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null
 		  });
-	//데이트피커 기본 옵션 
-	$.datepicker.setDefaults($.datepicker.regional['ko']);
-	
-	var dateDefOpts = {
-		changeMonth: true, 
-        changeYear: true,
-        nextText: '다음 달',
-        prevText: '이전 달', 
-        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		dayNamesShort: ['일','월','화','수','목','금','토'],
-		dayNamesMin: ['일','월','화','수','목','금','토'],
-		dayNames: ['일','월','화','수','목','금','토'],
-        dateFormat: "yy-mm-dd",
-        maxDate: '+2y',
-        showAnim:"slideDown",
-		showMonthAfterYear: true,
-		minDate: new Date(2021, 1, 1),
-		onClose: function (date, inst) {
-			var id = inst.id;
-		if(date != ''){
-			if (id.indexOf('Start') > 0) {
-				var name = id.replace('Start', 'End');
-				var range = "minDate";
-			} else if (id.indexOf('End') > 0) {
-				var name = id.replace('End', 'Start');
-				var range = "maxDate"; 
-			}
-
-			$("#" + name).datepicker("option", range, date);
-			}
-		}
-	};
-	
-	/*전시 기간*/
-	$( "#startDateExhibit" ).datepicker(dateDefOpts); 	
-	$( "#endDateExhibit" ).datepicker(dateDefOpts); 	
-	
+		  
 		/*날짜 조회 조건처리 S*/
 	$('.startDateExhibit').on('change', function (event) {
 		var startDateInput = document.getElementById("startDateExhibit");
@@ -300,6 +231,6 @@ function fnInsertContent() {
 function fnFieldBookDetail(exhseq) {
 	var encryptedExhseq = btoa(exhseq); // exhseq를 Base64로 인코딩
 	window.location.href = "/contents/view/exhibitionInfo/" + encryptedExhseq;
-        //window.location.href = "/contents/view/exhibitionInfo/" + exhseq;
+    
 }
 

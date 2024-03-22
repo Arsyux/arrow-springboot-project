@@ -7,41 +7,41 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.arsyux.arrow.domain.ContentsVO;
+import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
-import com.arsyux.arrow.persistence.contentsDAO;
+import com.arsyux.arrow.persistence.ExhibitionDAO;
 
 
 
 
 
 @Service
-public class contentsService {
+public class ExhibitionService {
 
 	@Autowired
-	private contentsDAO contentsDAO;
+	private ExhibitionDAO exhibitionDAO;
 
 	@Transactional
-	public void insertContent(ContentsVO content) {
-		contentsDAO.insertContent(content);
+	public void insertContent(ExhibitionVO content) {
+		exhibitionDAO.insertContent(content);
 	}
 
 	@Transactional
-	public List<ContentsVO> selectAllContent(int pageNumber, int pageSize) {
+	public List<ExhibitionVO> selectAllContent(int pageNumber, int pageSize) {
 		int offset = pageNumber * pageSize;
-		return contentsDAO.selectAllContent(offset, pageSize);
+		return exhibitionDAO.selectAllContent(offset, pageSize);
 	}
 	@Transactional
     public int getTotalPages(int pageSize) {
         // 총 게시글 수를 가져와서 페이지 수 계산
-        int totalContents = contentsDAO.getTotalPages(pageSize);
+        int totalContents = exhibitionDAO.getTotalPages(pageSize);
         int totalPages = (int) Math.ceil((double) totalContents / pageSize);
         return totalPages;
     }
 
 	//글 작성	
 	@Transactional
-	public void insertFile(ContentsVO content, List<FilesVO> file) {
+	public void insertFile(ExhibitionVO content, List<FilesVO> file) {
 		// 정보 저장
 
 		int exh_seq = content.getExh_seq();
@@ -49,15 +49,15 @@ public class contentsService {
 		 for (FilesVO f : file) {
 			 FilesVO vo = file.get(0);
 			 f.setExh_seq(exh_seq);
-			 contentsDAO.insertFileInfo(vo);
+			 exhibitionDAO.insertFileInfo(vo);
 		 }
 
 
 	}
 	
-    public List<ContentsVO> selectOneContent(int exh_seq) {
+    public List<ExhibitionVO> selectOneContent(int exh_seq) {
         
-        return contentsDAO.selectOneContent(exh_seq);
+        return exhibitionDAO.selectOneContent(exh_seq);
     }
 	
 }

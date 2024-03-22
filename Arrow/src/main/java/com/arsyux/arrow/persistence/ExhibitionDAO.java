@@ -6,13 +6,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.arsyux.arrow.domain.ContentsVO;
+import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 
 
 
 @Repository
-public class contentsDAO {
+public class ExhibitionDAO {
 	
 	@Autowired
 	private SqlSessionTemplate mybatis;
@@ -22,7 +22,7 @@ public class contentsDAO {
 //	    Page<ContentsVO> findAll(Pageable pageable);
 //	}
  
-	public int insertContent(ContentsVO content) {
+	public int insertContent(ExhibitionVO content) {
 		mybatis.insert("insertContent", content);
 		return content.getExh_seq();
 	}
@@ -31,7 +31,7 @@ public class contentsDAO {
 	   mybatis.insert("insertFileInfo", file);
     }	
     
-    public List<ContentsVO> selectAllContent(int offset, int limit) {
+    public List<ExhibitionVO> selectAllContent(int offset, int limit) {
         RowBounds rowBounds = new RowBounds(offset, limit);
         return mybatis.selectList("selectAllContent", rowBounds);
     }
@@ -44,7 +44,7 @@ public class contentsDAO {
     }
     
     
-    public List<ContentsVO> selectOneContent(int exh_seq) {
+    public List<ExhibitionVO> selectOneContent(int exh_seq) {
         
         return mybatis.selectList("selectOneContent", exh_seq);
     }
