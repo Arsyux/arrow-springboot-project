@@ -12,10 +12,12 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.arsyux.arrow.controller.files.FileService;
-import com.arsyux.arrow.service.ExhibitionService;
+import com.arsyux.arrow.domain.CollectionsVO;
+import com.arsyux.arrow.service.CollectionService;
 
 @Controller
 public class CollectionController {
@@ -27,7 +29,7 @@ public class CollectionController {
 	//private PostService postService;
 
 	@Autowired
-	private ExhibitionService exhibitionService;
+	private CollectionService collectionService;
 	
     @Autowired
     FileService fileService;
@@ -41,14 +43,17 @@ public class CollectionController {
 	
 	// 전시 상세 페이지
 	@GetMapping("/contents/view/collection")
-	public String getExhibitionDetails() {
+	public String getCollections(Model model) {
 		System.out.println("/exhibition/view/exhibitionDetails");
-		
-		
-		
+		int exh_seq = 1;
+		List<CollectionsVO> contentsList = collectionService.selectCollection(exh_seq);
+		System.out.println(contentsList);
+		model.addAttribute("contentsList", contentsList);
 		
 		return "exhibition/collection/collection";
 	}
+	
+	
 	
 	
 }

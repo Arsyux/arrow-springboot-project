@@ -14,7 +14,7 @@ import com.arsyux.arrow.domain.FilesVO;
 
 
 @Mapper
-public interface contentsMapper {
+public interface ExhibitionMapper {
 	
 	@Insert("INSERT INTO arrow_exhibition"
 			+ "(exh_seq,name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, tag_exhibit,descript_exhibit , createDt)"
