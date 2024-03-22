@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -32,6 +34,8 @@ import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
 import com.arsyux.arrow.dto.ResponseDTO;
 import com.arsyux.arrow.service.contentsService;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor 
 @Controller
 public class PostController {
 	
@@ -157,9 +161,13 @@ public class PostController {
 	}
 	
 	// 전시 정보 페이지
-	@GetMapping("/contents/view/exhibitionInfo")
-	public String getExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
+	@GetMapping("/contents/view/exhibitionInfo/{encryptedExhseq}")
+	public String getExhibitionInfo(Model model,@PathVariable("encryptedExhseq") String encryptedExhseq) {
 		
+		encryptedExhseq = new String(Base64.getDecoder().decode(encryptedExhseq));
+		    
+		    // exhseq를 정수형으로 변환하여 사용할 수 있음
+		int exh_seq = Integer.parseInt(encryptedExhseq);
 		List<ContentsVO> contentsList = contentService.selectOneContent(exh_seq);
 		
 		model.addAttribute("content", contentsList);
@@ -167,10 +175,9 @@ public class PostController {
 	}
 	// 전시 정보 페이지
 	@PostMapping("/contents/view/exhibitionInfo")
-	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") String exh_seq) {
+	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
 		
 		
-		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
 		
 		return  new ResponseDTO<>(HttpStatus.OK.value(), "");      
 	}	
