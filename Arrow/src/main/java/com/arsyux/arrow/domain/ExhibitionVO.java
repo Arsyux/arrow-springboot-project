@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContentsVO {
+public class ExhibitionVO {
 	
 	private int exh_seq;
 	private String name_exhibit;
