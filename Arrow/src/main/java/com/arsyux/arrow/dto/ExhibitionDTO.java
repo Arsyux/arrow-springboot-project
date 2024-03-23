@@ -2,9 +2,7 @@ package com.arsyux.arrow.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContentsDTO {
+public class ExhibitionDTO {
 
 	// 유효성 검사 그룹
 	public interface InsertExhibitionValidationGroup { } // 전시 - 안내 게시글 작성시 유효성 검사

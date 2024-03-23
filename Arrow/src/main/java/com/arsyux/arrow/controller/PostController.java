@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -25,13 +27,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.arsyux.arrow.controller.files.FileService;
-import com.arsyux.arrow.domain.ContentsVO;
+import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
-import com.arsyux.arrow.dto.ContentsDTO;
-import com.arsyux.arrow.dto.ContentsDTO.InsertTextValidationGroup;
+import com.arsyux.arrow.dto.ExhibitionDTO;
+import com.arsyux.arrow.dto.ExhibitionDTO.InsertTextValidationGroup;
 import com.arsyux.arrow.dto.ResponseDTO;
-import com.arsyux.arrow.service.contentsService;
+import com.arsyux.arrow.service.ExhibitionService;
 
+import lombok.RequiredArgsConstructor;
+@RequiredArgsConstructor 
 @Controller
 public class PostController {
 	
@@ -42,7 +46,7 @@ public class PostController {
 	//private PostService postService;
 
 	@Autowired
-	private contentsService contentService;
+	private ExhibitionService exhibitionService;
 	
     @Autowired
     FileService fileService;
@@ -63,7 +67,7 @@ public class PostController {
 	// 박물관 장소 페이지 이동
 	@GetMapping("/contents/view/info")
 	public String getInfo() {
-		return "contents/info";
+		return "exhibition/info";
 	}
 	
 	// 본관 - 프로그램 안내 이동
@@ -102,10 +106,10 @@ public class PostController {
 	@GetMapping("/contents/view/exhibition")
 	public String getExhibit(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
 		//page limit, offset 데이터 조회
-		List<ContentsVO> contentsList = contentService.selectAllContent(pageNumber, pageSize);
+		List<ExhibitionVO> contentsList = exhibitionService.selectAllContent(pageNumber, pageSize);
 		System.out.println(contentsList);
         // 총 페이지 수 계산
-        int totalPages = contentService.getTotalPages(pageSize);
+        int totalPages = exhibitionService.getTotalPages(pageSize);
         
         // 페이지 번호를 5개까지만 넘어가게 설정
         int maxPageNumber = Math.min(totalPages, 5);
@@ -120,19 +124,19 @@ public class PostController {
         model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
         model.addAttribute("pageSize", pageSize); 	
 		
-
-		return "contents/exhibition";
+        
+		return "exhibition/exhibition";
 	}
 	*/
 	
 	// 본관 게시글 작성 페이지 이동
 	@GetMapping("/contents/function/exhibitionWrite")
-	public String ExhibitWrite(Model model,  @ModelAttribute("ContentsVO") ContentsVO contentsVO) {
+	public String ExhibitWrite(Model model,  @ModelAttribute("ExhibitionVO") ExhibitionVO ExhibitionVO) {
 		System.out.println("ExhibitWrite Page"+LoggingSystem.class);;
 		
-		model.addAttribute("ContentsVO", contentsVO);
+		model.addAttribute("ExhibitionVO", ExhibitionVO);
 
-		return "contents/exhibitionWrite";
+		return "exhibition/exhibitionWrite";
 	}
 
 	/*
@@ -141,10 +145,10 @@ public class PostController {
 	/*
 	@PostMapping("/contents/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> postBoard(@RequestPart(value = "filename", required = false) List<MultipartFile> files,
-	        @Validated(InsertTextValidationGroup.class) ContentsDTO contentsDTO, BindingResult bindingResult) throws Exception, IOException {
+	        @Validated(InsertTextValidationGroup.class) ExhibitionDTO exhibitionDTO, BindingResult bindingResult) throws Exception, IOException {
 
 	    // UserDTO를 통해 유효성 검사 
-	    ContentsVO cont = modelMapper.map(contentsDTO, ContentsVO.class);
+	    ExhibitionVO cont = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
 
 	    try {
 	        String today = new SimpleDateFormat("yyMMdd").format(new Date());
@@ -181,8 +185,8 @@ public class PostController {
 	        cont.setEndDate_exhibit(dateFormat.format(cont.getEndDate_exhibit()));
 	        cont.setCreateDt(dateFormat.format(cont.getCreateDt()));
 	        
-	        contentService.insertContent(cont);
-	        contentService.insertFile(cont, fileInfos);
+	        exhibitionService.insertContent(cont);
+	        exhibitionService.insertFile(cont, fileInfos);
 	    } catch (Exception e) {
 	        System.out.println("Error");
 	    }
@@ -192,28 +196,27 @@ public class PostController {
 	*/
 	
 	// 전시 정보 페이지
-	@GetMapping("/contents/view/exhibitionInfo")
-	public String getExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
+	@GetMapping("/contents/view/exhibitionInfo/{encryptedExhseq}")
+	public String getExhibitionInfo(Model model,@PathVariable("encryptedExhseq") String encryptedExhseq) {
 		
-		List<ContentsVO> contentsList = contentService.selectOneContent(exh_seq);
+		encryptedExhseq = new String(Base64.getDecoder().decode(encryptedExhseq));
+		    
+		    // exhseq를 정수형으로 변환하여 사용할 수 있음
+		int exh_seq = Integer.parseInt(encryptedExhseq);
+		List<ExhibitionVO> contentsList = exhibitionService.selectOneContent(exh_seq);
 		
 		model.addAttribute("content", contentsList);
-		return "contents/exhibitionInfo";
+		return "exhibition/exhibitionInfo";
 	}
 	// 전시 정보 페이지
 	@PostMapping("/contents/view/exhibitionInfo")
-	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") String exh_seq) {
+	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
 		
 		
-		System.out.println("@GetMapping(\"/contents/view/exhibitionInfo/{exh_seq}\")"+exh_seq);
 		
 		return  new ResponseDTO<>(HttpStatus.OK.value(), "");      
 	}	
-	// 전시 상세 페이지
-	@GetMapping("/contents/view/exhibitionDetails")
-	public String getExhibitionDetails() {
-		return "contents/exhibitionDetails";
-	}
+
 	
 	
 }

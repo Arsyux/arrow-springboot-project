@@ -39,4 +39,8 @@
 	
 	<!-- 이미지맵 크기에 따라 변경해주는 JS -->
 	<script src="/js/jquery/jquery.rwdImageMaps.js"></script>
+	
+	<!-- content 관련 JS -->
+	<script src="/js/common-ui.js"></script>
+ 	
  	

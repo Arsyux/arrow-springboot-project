@@ -1,41 +1,141 @@
-    window.onload = () => {
+window.onload = () => {
         //renderPostInfo();
 
         //findAllFile();
     }
-    // 전체 파일 조회
-    function findAllFile() {
 
-        // 1. 신규 등록/수정 체크
-        const post = [[ '${post}']];
-        if ( !post ) {
-            return false;
-        }
+$(document).ready(function(){
+	
+	//window.$app = {};
+	
+	//$( ".tag_exhibit" ).selectmenu();
+	$("#descript").summernote({
+		  height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null
+		  });
+		  
+		/*날짜 조회 조건처리 S*/
+	$('.startDateExhibit').on('change', function (event) {
+		var startDateInput = document.getElementById("startDateExhibit");
+		var endDateInput = document.getElementById("endDateExhibit");
+		
+		var startDate = new Date(startDateInput.value);
+	    var endDate = new Date(endDateInput.value);
+		
+		if (startDate > endDate) {
+		    
+	        alert("시작일은 종료일보다 이전 날짜여야 합니다.");
+	 		$("#startDateExhibit").val('시작일자');
+	 		$("#endDateExhibit").val('마감일자');
+	    }
+	    
+		});
+		
+	$('.endDateExhibit').on('change', function (event) {
+		var startDateInput = document.getElementById("startDateExhibit");
+		var endDateInput = document.getElementById("endDateExhibit");
+		
+		var startDate = new Date(startDateInput.value);
+	    var endDate = new Date(endDateInput.value);
+		
+ 		if (startDate > endDate) {
+	   
+	        alert("종료일은 시작일보다 이후 날짜여야 합니다.");
+	 		$("#startDateExhibit").val('시작일자');
+	 		$("#endDateExhibit").val('마감일자');
+	    } 
+		
+	});	
+	/*날짜 조회 조건처리 E*/
 
-        // 2. API 호출
-        const response = getJson(`/posts/${post.id}/files`);
 
-        // 3. 로직 종료
-        if ( !response.length ) {
-            return false;
-        }
+});
 
-        // 4. 업로드 영역 추가
-        for (let i = 0, len = (response.length - 1); i < len; i++) {
-            addFile();
-        }
 
-        // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
-        const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
-        filenameInputs.forEach((input, i) => {
-            const fileInput = input.nextElementSibling.firstElementChild;
-            const fileRemoveBtn = input.parentElement.nextElementSibling;
-            fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
-            fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
-            input.value = response[i].originalName;
-        })
-    }
+/**
+ * @author shlee
+ * @name fncSearch
+ * @param {String}
+ * url - request url
+ * @param {JSON}
+ * param - request param
+ * @param {Function}
+ * callback - callback function
+ * @returns
+ * @description 공통조회
+ */
+function fncSearch(url, param, callback) {
+	$.ajax({
+		url : url,
+		data : param,
+		dataType : 'json',
+		success : callback
+	})
+}
+function fnInsertContent() {
+    // 필요한 데이터 수집
+    var name_exhibit = document.getElementById('name_exhibit').value;
+    var subname_exhibit = document.getElementById('subname_exhibit').value;
+    var space_exhibit = document.getElementById('space_exhibit').value;
     
+    var startDate_exhibit = document.getElementById('startDateExhibit').value;
+    var endDate_exhibit = document.getElementById('endDateExhibit').value;
+    var tag_exhibit = document.getElementById('tag_exhibit').value;
+	//var decript_exhibit = document.getElementById('decript_exhibit').value;
+	
+	if(!startDate_exhibit.length > 0  && endDate_exhibit.length > 0){
+		alert("날짜 기간을 설정해주세요");
+		
+		return false;
+	}
+	
+	var fileInputs = document.querySelectorAll('.file_list input[type="file"]');
+	var formData = new FormData();
+
+	// 파일 이름 추가
+	fileInputs.forEach((input) => {
+		
+		formData.append("filename", input.files[0]);
+
+		})
+
+	// 기타 데이터 추가
+	formData.append("name_exhibit", name_exhibit);
+	formData.append("subname_exhibit", subname_exhibit);
+	formData.append("space_exhibit", space_exhibit);
+	formData.append("startDate_exhibit", startDate_exhibit);
+	formData.append("endDate_exhibit", endDate_exhibit);
+	formData.append("tag_exhibit", tag_exhibit);
+	//formData.append("decript_exhibit", decript_exhibit);
+	//formData.append("data", JSON.stringify(data));
+	
+    // Ajax 요청
+    $.ajax({
+        type: "POST",
+        url: "/contents/function/exhibitionWrite",
+        data: formData,
+	    contentType: false,
+	    processData: false,
+	 	enctype: 'multipart/form-data',   
+		dataType: "json",
+        success: function(data) {
+    	if (data.status == 200) {
+            alert("작성 완료되었습니다.");
+
+        	} else {            
+				alert("등록에 실패 하였습니다.");
+            	return false;
+        	}
+            	
+        },
+        error: function(xhr, status) {
+            // 요청이 실패했을 때 수행할 작업
+            alert("등록에 실패 하였습니다.");
+            return false;
+        }
+    });
+}
     //첨부파일 1 row 추가
     function addFile() {
         const fileDiv = document.createElement('div');
@@ -122,185 +222,6 @@
         }
         element.parentElement.remove();
     }
- 
-
-
-
-$(document).ready(function(){
-	window.$app = {};
-	$( ".tag_exhibit" ).selectmenu();
-	
-	/*날짜 조회 조건처리 S*/
-	$('.startDateExhibit').on('change', function (event) {
-		var startDateInput = document.getElementById("startDateExhibit");
-		var endDateInput = document.getElementById("endDateExhibit");
-		
-		var startDate = new Date(startDateInput.value);
-	    var endDate = new Date(endDateInput.value);
-		
-		if (startDate > endDate) {
-		    
-	        alert("시작일은 종료일보다 이전 날짜여야 합니다.");
-	 		$("#startDateExhibit").val('시작일자');
-	 		$("#endDateExhibit").val('마감일자');
-	    }
-	    
-		});
-		
-	$('.endDateExhibit').on('change', function (event) {
-		var startDateInput = document.getElementById("startDateExhibit");
-		var endDateInput = document.getElementById("endDateExhibit");
-		
-		var startDate = new Date(startDateInput.value);
-	    var endDate = new Date(endDateInput.value);
-		
- 		if (startDate > endDate) {
-	   
-	        alert("종료일은 시작일보다 이후 날짜여야 합니다.");
-	 		$("#startDateExhibit").val('시작일자');
-	 		$("#endDateExhibit").val('마감일자');
-	    } 
-		
-	});	
-	/*날짜 조회 조건처리 E*/
-	
-
-	
-	/*조사 상세검색  조회 처리  S*/
-	$(".writeBtn").on("click", function (event) {
-		
-		//var name = event.target.name.substr(0,3);
-		
-		/* 설정 날짜 값 */
-		var startDateInput = document.getElementById("startDateExhibit").value;
-		var endDateInput = document.getElementById("endDateExhibit").value;		
-	
-		if(!endDateInput.length > 0  && startDateInput.length > 0){
-		 	alert("날짜 기간을 설정해주세요");
-			return false;		
-		}
-		
-	});
-	/*조사 상세검색  조회 처리  E*/
-
-	//데이트피커 기본 옵션 
-	$.datepicker.setDefaults($.datepicker.regional['ko']);
-	
-	var dateDefOpts = {
-		changeMonth: true, 
-        changeYear: true,
-        nextText: '다음 달',
-        prevText: '이전 달', 
-        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-		dayNamesShort: ['일','월','화','수','목','금','토'],
-		dayNamesMin: ['일','월','화','수','목','금','토'],
-		dayNames: ['일','월','화','수','목','금','토'],
-        dateFormat: "yy-mm-dd",
-        maxDate: '+2y',
-        showAnim:"slideDown",          
-		showMonthAfterYear: true,
-		minDate: new Date(2021, 1, 1),
-		onClose: function (date, inst) {
-			var id = inst.id;
-		if(date != ''){
-			if (id.indexOf('Start') > 0) {
-				var name = id.replace('Start', 'End');
-				var range = "minDate";
-			} else if (id.indexOf('End') > 0) {
-				var name = id.replace('End', 'Start');
-				var range = "maxDate"; 
-			}
-	
-			$("#" + name).datepicker("option", range, date);
-			}
-		}
-	};
-	
-	/*전시 기간*/
-	$( "#startDateExhibit" ).datepicker(dateDefOpts); 	
-	$( "#endDateExhibit" ).datepicker(dateDefOpts); 	
-});
-
-
-/**
- * @author shlee
- * @name fncSearch
- * @param {String}
- * url - request url
- * @param {JSON}
- * param - request param
- * @param {Function}
- * callback - callback function
- * @returns
- * @description 공통조회
- */
-function fncSearch(url, param, callback) {
-	$.ajax({
-		url : url,
-		data : param,
-		dataType : 'json',
-		success : callback
-	})
-}
-function fnInsertContent() {
-    // 필요한 데이터 수집
-    var name_exhibit = document.getElementById('name_exhibit').value;
-    var subname_exhibit = document.getElementById('subname_exhibit').value;
-    var space_exhibit = document.getElementById('space_exhibit').value;
-    
-    var startDate_exhibit = document.getElementById('startDateExhibit').value;
-    var endDate_exhibit = document.getElementById('endDateExhibit').value;
-    var tag_exhibit = document.getElementById('tag_exhibit').value;
-
-	
-	
-	var fileInputs = document.querySelectorAll('.file_list input[type="file"]');
-	var formData = new FormData();
-
-	// 파일 이름 추가
-	fileInputs.forEach((input) => {
-		
-		formData.append("filename", input.files[0]);
-
-		})
-
-	// 기타 데이터 추가
-	formData.append("name_exhibit", name_exhibit);
-	formData.append("subname_exhibit", subname_exhibit);
-	formData.append("space_exhibit", space_exhibit);
-	formData.append("startDate_exhibit", startDate_exhibit);
-	formData.append("endDate_exhibit", endDate_exhibit);
-	formData.append("tag_exhibit", tag_exhibit);
-
-	//formData.append("data", JSON.stringify(data));
-	
-    // Ajax 요청
-    $.ajax({
-        type: "POST",
-        url: "/contents/function/exhibitionWrite",
-        data: formData,
-	    contentType: false,
-	    processData: false,
-	 	enctype: 'multipart/form-data',   
-		dataType: "json",
-        success: function(data) {
-    	if (data.status == 200) {
-            alert("작성 완료되었습니다.");
-
-        	} else {            
-				alert("등록에 실패 하였습니다.");
-            	return false;
-        	}
-            	
-        },
-        error: function(xhr, status) {
-            // 요청이 실패했을 때 수행할 작업
-            alert("등록에 실패 하였습니다.");
-            return false;
-        }
-    });
-}
 
 /**
  * 조사데이터 상세조회
@@ -308,9 +229,8 @@ function fnInsertContent() {
  * @returns
  */
 function fnFieldBookDetail(exhseq) {
-	
-       window.location.href = "/contents/view/exhibitionInfo?exhseq=" + exhseq;
-
+	var encryptedExhseq = btoa(exhseq); // exhseq를 Base64로 인코딩
+	window.location.href = "/contents/view/exhibitionInfo/" + encryptedExhseq;
+    
 }
-
 
