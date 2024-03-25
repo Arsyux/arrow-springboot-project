@@ -39,3 +39,5 @@ spring:
     user:
       name: ${ADMIN_ID}
       password: ${ADMIN_PASSWORD}
+  
+FILE_PATH: ${FILE_PATH}

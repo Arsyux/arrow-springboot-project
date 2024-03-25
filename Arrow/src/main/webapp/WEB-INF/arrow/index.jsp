@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="./layout/header.jsp"%>
-
+	
+	<!-- 제목 -->
+	<title>영집 궁시박물관</title>
+	
+</head>
+<body>
 	<article>
 	
 		<div class="container-fluid p-0" style="position: relative;">
@@ -43,7 +48,7 @@
 				 border-color: black; 
 				 border-style: solid; 
 				 border-width: 1px;"
-				 onclick="location.href='/contents/view/info'">
+				 onclick="location.href='exhibition/view/info'">
 				<h1>입장하기</h1>
 			</div>
 			

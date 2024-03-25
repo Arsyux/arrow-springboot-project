@@ -21,5 +21,5 @@ public class ExhibitionVO {
 	private String createDt;
 	private String tag_exhibit;
 	private String descript_exhibit;
-	
+
 }

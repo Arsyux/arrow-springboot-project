@@ -3,13 +3,13 @@
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
 
 <%@ include file="../layout/header.jsp"%>
+
 <head>		
 	<!-- 제목 -->
 	<title>본관 - 프로그램 안내</title>
 	
 </head>
 <body>
-	<header><!-- 키오스크이므로 헤더 및 푸터는 구현하지않음 --></header>
 	
 	<article>
 		
@@ -62,7 +62,7 @@
 						<!-- 버튼 -->
 						<c:if test="${!empty principal }">
 							<div class="m-0 p-0" align="right" style="width: 70%; display: inline;">
-								<button class="btn" style="background-color: #269630; color: #ffffff;" onclick="location.href='/contents/function/exhibitionWrite'">+ 글쓰기</button>
+								<button class="btn" style="background-color: #269630; color: #ffffff;" onclick="location.href='/exhibition/function/exhibitionWrite'">+ 글쓰기</button>
 							</div>
 						</c:if>
 					</div>
