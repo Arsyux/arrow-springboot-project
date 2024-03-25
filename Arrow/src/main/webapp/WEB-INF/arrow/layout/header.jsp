@@ -8,7 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- 시큐리티가 제공하는 커스텀 라이브러리에 대한 태그 라이브러리 설정 -->
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
+<%@ page import="java.lang.Math" %>
 <!-- 로그인 인증에 성공한 브라우저만 접근할 수 있는 영역 -->
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication var="principal" property="principal"/>

@@ -31,8 +31,8 @@ public class ExhibitionDAO {
 	   mybatis.insert("insertFileInfo", file);
     }	
     
-    public List<ExhibitionVO> selectAllContent(int offset, int limit) {
-        RowBounds rowBounds = new RowBounds(offset, limit);
+    public List<ExhibitionVO> selectAllContent(RowBounds rowBounds) {
+    
         return mybatis.selectList("selectAllContent", rowBounds);
     }
     

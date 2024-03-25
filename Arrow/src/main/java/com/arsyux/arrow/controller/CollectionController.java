@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.arsyux.arrow.controller.files.FileService;
 import com.arsyux.arrow.domain.CollectionsVO;
@@ -43,12 +44,30 @@ public class CollectionController {
 	
 	// 전시 상세 페이지
 	@GetMapping("/contents/view/collection")
-	public String getCollections(Model model) {
-		System.out.println("/exhibition/view/exhibitionDetails");
+	public String getCollections(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
+		
 		int exh_seq = 1;
-		List<CollectionsVO> contentsList = collectionService.selectCollection(exh_seq);
+		List<CollectionsVO> contentsList = collectionService.selectCollect(exh_seq, pageNumber, pageSize);
 		System.out.println(contentsList);
-		model.addAttribute("contentsList", contentsList);
+		int totalPages = collectionService.getTotalPages(pageSize);
+		
+		
+        int maxPageNumber = Math.min(totalPages, 5);
+        List<Integer> pageNumbers = new ArrayList<>();
+        
+        for (int i = 0; i < maxPageNumber; i++) {
+            pageNumbers.add(i);
+        }	
+        
+		
+        model.addAttribute("contentsList", contentsList);
+        model.addAttribute("totalPages", totalPages); 
+        model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
+        model.addAttribute("pageSize", pageSize); 	
+		
+		
+		
+		
 		
 		return "exhibition/collection/collection";
 	}

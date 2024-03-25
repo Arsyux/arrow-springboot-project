@@ -178,9 +178,10 @@ public class PostController {
         }
         
         model.addAttribute("totalPages", totalPages); 
-        model.addAttribute("contentsList", contentsList);
         model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
+        model.addAttribute("pageNumbers", pageNumbers); // 현재 페이지 번호 전달
         model.addAttribute("pageSize", pageSize); 	
+        model.addAttribute("contentsList", contentsList);
 		
         
 		return "exhibition/exhibition";
