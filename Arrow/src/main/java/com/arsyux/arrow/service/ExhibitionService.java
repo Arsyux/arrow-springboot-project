@@ -26,12 +26,13 @@ public class ExhibitionService {
 		exhibitionDAO.insertContent(content);
 	}
 
-	@Transactional
+
 	public List<ExhibitionVO> selectAllContent(int pageNumber, int pageSize) {
 		int offset = pageNumber * pageSize;
-		return exhibitionDAO.selectAllContent(offset, pageSize);
+		 RowBounds rowBounds = new RowBounds(offset, pageSize);
+		return exhibitionDAO.selectAllContent(rowBounds);
 	}
-	@Transactional
+
     public int getTotalPages(int pageSize) {
         // 총 게시글 수를 가져와서 페이지 수 계산
         int totalContents = exhibitionDAO.getTotalPages(pageSize);

@@ -26,23 +26,19 @@ public class CollectionService {
 
 	
 
-//	@Transactional
-//	public List<ExhibitionVO> selectAllContent(int pageNumber, int pageSize) {
-//		int offset = pageNumber * pageSize;
-//		return collectionDAO.selectAllContent(offset, pageSize);
-//	}
-//	@Transactional
-//    public int getTotalPages(int pageSize) {
-//        // 총 게시글 수를 가져와서 페이지 수 계산
-//        int totalContents = collectionDAO.getTotalPages(pageSize);
-//        int totalPages = (int) Math.ceil((double) totalContents / pageSize);
-//        return totalPages;
-//    }
 
-	
-    public List<CollectionsVO> selectCollection(int exh_seq) {
-        
-        return collectionDAO.selectCollection(exh_seq);
+	public List<CollectionsVO> selectCollect(int exh_seq,int pageNumber, int pageSize) {
+		int offset = pageNumber * pageSize;
+		return collectionDAO.selectCollect(exh_seq,offset, pageSize);
+	}
+
+    public int getTotalPages(int pageSize) {
+        // 총 게시글 수를 가져와서 페이지 수 계산
+        int totalContents = collectionDAO.getTotalPages(pageSize);
+        int totalPages = (int) Math.ceil((double) totalContents / pageSize);
+        return totalPages;
     }
+
+
 	
 }

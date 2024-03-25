@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
 
 <%@ include file="../layout/header.jsp"%>
-		
+<head>		
 	<!-- 제목 -->
 	<title>본관 - 프로그램 안내</title>
 	
@@ -89,27 +89,34 @@
 					</div>
 					
 					<!-- Pagination S-->
-				    <div class="pagination">
-				  		<!-- Previous Page Link -->
-				        <c:if test="${pageNumber > 0}">
-				            <a href="/contents/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}">Previous</a>
-				        </c:if>
-				        <!-- Page Numbers -->
-				        <c:forEach begin="0" end="${totalPages - 1}" var="page">
-				            <c:choose>
-				                <c:when test="${page == pageNumber}">
-				                    <span>${page + 1}</span>
-				                </c:when>
-				                <c:otherwise>
-				                    <a href="/contents/view/exhibition?pageNumber=${page}&pageSize=${pageSize}">${page + 1}</a>
-				                </c:otherwise>
-				            </c:choose>
-				        </c:forEach>
-				        <!-- Next Page Link -->
-				        <c:if test="${pageNumber < totalPages - 1}">
-				            <a href="/contents/view/exhibition?pageNumber=${pageNumber + 1}&pageSize=${pageSize}">Next</a>
-				        </c:if>
-				    </div>
+					<div class="pagination" id="pagination">
+					    <!-- Previous Page Link -->
+					    <c:if test="${pageNumber > 0}">
+					        <a href="/contents/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
+					    </c:if>
+					    
+					    <!-- Page Numbers -->
+					    <script>
+					        var totalPages = ${totalPages};
+					        var pageNumber = ${pageNumber};
+					        var pageSize = ${pageSize};
+					        
+					        var paginationHTML = '';
+					        for (var page = pageNumber + 1; page <= Math.min(pageNumber + 5, totalPages); page++) {
+					            if (page == pageNumber + 1) {
+					                paginationHTML += '<span>' + page + '</span>';
+					            } else {
+					                paginationHTML += '<a href="/contents/view/exhibition?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
+					            }
+					        }
+					        document.getElementById('pagination').innerHTML += paginationHTML;
+					    </script>
+					    
+					    <!-- Next Page Link -->
+					    <c:if test="${pageNumber + 5 < totalPages}">
+					        <a href="/contents/view/exhibition?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
+					    </c:if>
+					</div>
 				    <!-- Pagination E-->
 				</div>
 			</div>
