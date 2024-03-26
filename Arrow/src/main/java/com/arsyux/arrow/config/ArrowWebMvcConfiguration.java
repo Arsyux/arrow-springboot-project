@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -45,4 +46,21 @@ public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
 		return localeChangeInterceptor;
 	}
 	
+	// 썸머노트 이미지 업로드시 정적 자원 루트 지정 (이미지 파일 업로드)
+	
+    // 주소창 입력값
+    private String connectPath = "/image/test/**";
+
+    // 업로드 파일  위치
+    private String resourcePath = "file:///C:/DEV/eclipse-workspace/arrow-springboot-project/Arrow/src/main/resources/static/image/test/";
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        
+        // 업로드 이미지 정적 리소스 설정
+        registry.addResourceHandler(connectPath).addResourceLocations(resourcePath);
+
+        // 기본 정적 파일 설정
+        registry.addResourceHandler("resources/**").addResourceLocations("classpath:/static/");
+    }
 }

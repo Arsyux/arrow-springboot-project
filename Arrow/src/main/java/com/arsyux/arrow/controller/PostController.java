@@ -116,12 +116,11 @@ public class PostController {
 		// 업로드 경로
 		//String fileRoot = Paths.get("C:", "DEV", "eclipse-workspace", "arrow-springboot-project", 
 		//		"Arrow", "src", "main", "resources", "static", "image", "test").toString();
-		String fileRoot = "C:/DEV/eclipse/arrow-springboot-project/Arrow/src/main/resources/static/image/test/";
+		String fileRoot = "C:/DEV/eclipse-workspace/arrow-springboot-project/Arrow/src/main/resources/static/image/test/";
 		//fileRoot ="/resources/static/image/test/";
-		fileRoot = Paths.get("C:", "DEV", "eclipse-workspace", "arrow-springboot-project", 
-				"Arrow", "src", "main", "resources", "static", "image", "test").toString();
-		
-		fileRoot = fileRoot + "/";
+		//fileRoot = Paths.get("C:", "DEV", "eclipse-workspace", "arrow-springboot-project", 
+		//		"Arrow", "src", "main", "resources", "static", "image", "test").toString();
+		//fileRoot = fileRoot + "/";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
@@ -153,7 +152,8 @@ public class PostController {
 			ioe.printStackTrace();
 		}
 		//String a = jsonObject.toString();
-		return new ResponseDTO<>(HttpStatus.OK.value(), fileRoot + savedFileName);
+		System.out.println("저장 경로 : " + "/image/test/" + savedFileName);
+		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/test/" + savedFileName);
 	}
 	
 	

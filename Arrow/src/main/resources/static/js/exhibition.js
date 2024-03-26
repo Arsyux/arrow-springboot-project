@@ -52,6 +52,7 @@ let exhibitionObject = {
 			data = new FormData();
 			data.append("file", file);
 			$.ajax({
+				async : false,
 				data : data,
 				type : "POST",
 				url : "/exhibition/function/uploadSummernoteImageFile",
@@ -60,7 +61,10 @@ let exhibitionObject = {
 				processData : false,
 				success : function(response) {
 					console.log(response["data"]);
-					$("test").src = response["data"];
+					//$("test").src = response["data"];
+					
+					//alert(response["data"]);
+					
 					$(el).summernote('editor.insertImage', response["data"]);
 				}
 			});
