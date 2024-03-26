@@ -1,6 +1,7 @@
 package com.arsyux.arrow.config;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,10 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 // 다국어 설정
 @Configuration
 public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
+
+	// 썸머노트 이미지를 저장할 임시 파일 경로
+	@Value("${FILE_PATH}")
+	private String FILE_PATH;
 	
 	// 스프링 컨테이너가 ModelMapper를 생성할 수 있도록 @Bean 어노테이션 등록
 	@Bean
@@ -47,12 +52,13 @@ public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
 	}
 	
 	// 썸머노트 이미지 업로드시 정적 자원 루트 지정 (이미지 파일 업로드)
-	
+		
     // 주소창 입력값
-    private String connectPath = "/image/test/**";
+    private String connectPath = "/image/temp/**";
 
     // 업로드 파일  위치
-    private String resourcePath = "file:///C:/DEV/eclipse-workspace/arrow-springboot-project/Arrow/src/main/resources/static/image/test/";
+    //private String resourcePath = "file:///C:/DEV/eclipse-workspace/arrow-springboot-project/Arrow/src/main/resources/static/image/temp/";
+    private String resourcePath = "file:///" + FILE_PATH;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
