@@ -60,6 +60,7 @@ let exhibitionObject = {
 				enctype : 'multipart/form-data',
 				processData : false,
 				success : function(response) {
+					console.log("이미지를 서버에 전송하였습니다. 이미지 경로: " + response["data"]);
 					$(el).summernote('editor.insertImage', response["data"]);
 				}
 			});
@@ -67,9 +68,6 @@ let exhibitionObject = {
 		
 		// 본관 - 프로그램 안내 글쓰기
 		$("#btn-insertExhibition").on("click", () => {
-			//let doc = document.documentElement;
-		
-			//if(doc.requestFullscreen) { doc.requestFullscreen(); }
 			_this.insertExhibition();
 		});
 		
@@ -79,11 +77,22 @@ let exhibitionObject = {
 	insertExhibition: function() {
 				
 		let exhibition = {
+			exhibitionTag: $("#exhibitionTag").val(),
 			exhibitionTitle: $("#exhibitionTitle").val(),
-			
+			exhibitionDescription: $("#exhibitionDescription").val(),
+			exhibitionStartDate: $("#exhibitionStartDate").val(),
+			exhibitionEndDate: $("#exhibitionEndDate").val(),
+			exhibitionSpace: $("#exhibitionSpace").val(),
+			exhibitionDetails: $("#exhibitionDetails").val()
 		}
 		
+		console.log(exhibition.exhibitionTag);
 		console.log(exhibition.exhibitionTitle);
+		console.log(exhibition.exhibitionDescription);
+		console.log(exhibition.exhibitionStartDate);
+		console.log(exhibition.exhibitionEndDate);
+		console.log(exhibition.exhibitionSpace);
+		console.log(exhibition.exhibitionDetails);
 		
 		
 	},

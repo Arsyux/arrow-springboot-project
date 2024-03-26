@@ -18,10 +18,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
 
-	// 썸머노트 이미지를 저장할 임시 파일 경로
-	@Value("${FILE_PATH}")
-	private String FILE_PATH;
-	
 	// 스프링 컨테이너가 ModelMapper를 생성할 수 있도록 @Bean 어노테이션 등록
 	@Bean
 	public ModelMapper modelMapper() { return new ModelMapper(); }
@@ -52,17 +48,31 @@ public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
 	}
 	
 	// 썸머노트 이미지 업로드시 정적 자원 루트 지정 (이미지 파일 업로드)
-		
+	
+	// 썸머노트 이미지를 저장할 임시 파일 경로
+	@Value("${FILE_PATH}")
+	private String FILE_PATH;
+	
     // 주소창 입력값
-    private String connectPath = "/image/temp/**";
-
+	//private String connectPath = "/image/temp/**";
+	
     // 업로드 파일  위치
     //private String resourcePath = "file:///C:/DEV/eclipse-workspace/arrow-springboot-project/Arrow/src/main/resources/static/image/temp/";
-    private String resourcePath = "file:///" + FILE_PATH;
+    //private String resourcePath = "file:///" + FILE_PATH;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         
+    	// @Value를 사용해 환경변수로 FILE_PATH를 지정하게 하였음.
+    	// 하지만 메소드 밖에서 resourcePath = "file:///" + FILE_PATH; 와 같이 사용할때 resourcePath값이 null 값으로 들어가는 문제가 있었음.
+    	// 메소드 안에서 사용시 정상으로 동작하는 것을 확인하였음.
+    	
+    	// 주소창 입력값
+    	String connectPath = "/image/temp/**";
+    	
+    	// 업로드 파일  위치
+    	String resourcePath = "file:///" + FILE_PATH;
+    	
         // 업로드 이미지 정적 리소스 설정
         registry.addResourceHandler(connectPath).addResourceLocations(resourcePath);
 

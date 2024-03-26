@@ -41,7 +41,7 @@
 						<div class="col-10">
 							<div class="input-group">
 								<!-- 태그 -->
-								<select class="form-select" style="width: 20%; font-size: 2vw; justify-content: center;">
+								<select id="exhibitionTag" class="form-select" style="width: 20%; font-size: 2vw; justify-content: center;">
 									<option value="전시" selected>전시</option>
 									<option value="교육">교육</option>
 									<option value="행사">행사</option>
@@ -121,7 +121,6 @@
 				</div>
 			</div>
 			
-		
 		</article>
 	</div>
 </c:if>
