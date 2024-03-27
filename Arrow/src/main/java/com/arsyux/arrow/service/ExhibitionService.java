@@ -7,6 +7,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.arsyux.arrow.controller.PostController.Pagination;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.persistence.ExhibitionDAO;
@@ -27,17 +29,17 @@ public class ExhibitionService {
 	}
 
 
-	public List<ExhibitionVO> selectAllContent(int pageNumber, int pageSize) {
-		int offset = pageNumber * pageSize;
-		 RowBounds rowBounds = new RowBounds(offset, pageSize);
-		return exhibitionDAO.selectAllContent(rowBounds);
+	public List<ExhibitionVO> selectAllContent(Pagination page) {
+		//int offset = pageNumber * pageSize;
+		//RowBounds rowBounds = new RowBounds(offset, pageSize);
+		return exhibitionDAO.selectAllContent(page);
 	}
 
-    public int getTotalPages(int pageSize) {
+    public int getTotalPages() {
         // 총 게시글 수를 가져와서 페이지 수 계산
-        int totalContents = exhibitionDAO.getTotalPages(pageSize);
-        int totalPages = (int) Math.ceil((double) totalContents / pageSize);
-        return totalPages;
+        int totalContents = exhibitionDAO.getTotalPages();
+
+        return totalContents;
     }
 
 	//글 작성	

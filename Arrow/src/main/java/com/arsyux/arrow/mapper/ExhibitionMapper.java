@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
+import com.arsyux.arrow.controller.PostController.Pagination;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 
@@ -28,8 +29,8 @@ public interface ExhibitionMapper {
 	public void insertFileInfo(FilesVO file);
 	/*전시 메인화면*/
 	@Select("SELECT exh_seq, name_exhibit, subname_exhibit, space_exhibit, str_to_date(startDate_exhibit, '%Y-%m-%d' ) as startDate_exhibit ,str_to_date(endDate_exhibit, '%Y-%m-%d' ) as endDate_exhibit ,str_to_date(createDt, '%Y-%m-%d %T' ) as createDt, tag_exhibit,descript_exhibit"
-			+ " FROM arrow_exhibition ORDER by createDt DESC LIMIT #{limit} OFFSET #{offset}; ")
-	public  List<ExhibitionVO> selectAllContent(RowBounds rowBounds);
+			+ " FROM arrow_exhibition ORDER by createDt DESC LIMIT #{listSize} OFFSET #{startList}; ")
+	public  List<ExhibitionVO> selectAllContent(Pagination page);
 	
 	@Select("SELECT count(*)"
 			+ " FROM arrow_exhibition; ")

@@ -87,38 +87,60 @@
 			                                                                                               			    
 						</div>
 					</div>
-					
+				<div id="paginationBox">
+			<div class="pagination">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></li>
+				</c:if>
+				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+					<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></li>
+				</c:forEach>
+				<c:if test="${pagination.next}">
+					<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></li>
+				</c:if>
+			</div>
+		</div>			
 					<!-- Pagination S-->
-					<c:if test ="#{totalpages > 0}">
-					<div class="pagination" id="pagination">
-					    <!-- Previous Page Link -->
-					    <c:if test="${pageNumber > 0}">
-					        <a href="/exhibition/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
-					    </c:if>
-					    
-					    <!-- Page Numbers -->
-					    <script>
-					        var totalPages = ${totalPages};
-					        var pageNumber = ${pageNumber};
-					        var pageSize = ${pageSize};
-					        
-					        var paginationHTML = '';
-					        for (var page = pageNumber + 1; page <= Math.min(pageNumber + 5, totalPages); page++) {
-					            if (page == pageNumber + 1) {
-					                paginationHTML += '<span>' + page + '</span>';
-					            } else {
-					                paginationHTML += '<a href="/exhibition/view/exhibition?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
-					            }
-					        }
-					        document.getElementById('pagination').innerHTML += paginationHTML;
-					    </script>
-					    
-					    <!-- Next Page Link -->
-					    <c:if test="${pageNumber + 5 < totalPages}">
-					        <a href="/exhibition/view/exhibition?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
-					    </c:if>
-					</div>
-					</c:if>
+<script>
+
+//이전 버튼 이벤트
+function fn_prev(page, range, rangeSize) {
+
+		var page = ((range - 2) * rangeSize) + 1;
+		var range = range - 1;
+		var url = "/exhibition/view";
+		url = url + "/exhibition?pageNumber=" + page;
+		url = url + "&pageSize=" + range;
+
+		location.href = url;
+
+	}
+
+//페이지 번호 클릭
+function fn_pagination(page, range, rangeSize, searchType, keyword) {
+	var url = "/exhibition/view";
+	url = url + "/exhibition?pageNumber=" + page;
+	url = url + "&pageSize=" + range;
+
+		location.href = url;	
+	}
+
+
+//다음 버튼 이벤트
+function fn_next(page, range, rangeSize) {
+		var page = parseInt((range * rangeSize)) + 1;
+		var range = parseInt(range) + 1;
+		
+		var url = "/exhibition/view";
+		url = url + "/exhibition?pageNumber=" + page;
+		url = url + "&pageSize=" + range;
+
+		location.href = url;
+	}
+
+
+
+</script>
 				    <!-- Pagination E-->
 				</div>
 			</div>
