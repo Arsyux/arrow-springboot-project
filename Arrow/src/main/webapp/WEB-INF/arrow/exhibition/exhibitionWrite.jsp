@@ -20,7 +20,7 @@
 			<!-- 헤더 -->
 			<div class="row m-0 p-0">
 				<div class="col-12 m-0 p-0 border-bottom border-1 border-dark" style="background-color: #269630; color: #ffffff; font-size: 5vw;" align="center">
-					게시글 작성
+					전시글 작성
 				</div>
 			</div>
 		</header>
@@ -41,7 +41,7 @@
 						<div class="col-10">
 							<div class="input-group">
 								<!-- 태그 -->
-								<select class="form-select" style="width: 20%; font-size: 2vw; justify-content: center;">
+								<select id="exhibitionTag" class="form-select" style="width: 20%; font-size: 2vw; justify-content: center;">
 									<option value="전시" selected>전시</option>
 									<option value="교육">교육</option>
 									<option value="행사">행사</option>
@@ -121,7 +121,6 @@
 				</div>
 			</div>
 			
-		
 		</article>
 	</div>
 </c:if>

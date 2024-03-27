@@ -67,24 +67,23 @@ public class PostController {
 		return "index";
 	}
 	
+	// 로그인 페이지
+	@GetMapping("/adm")
+	public String login(@RequestParam(value = "error", required = false)String error,
+						@RequestParam(value = "exception", required = false)String exception,
+						Model model) {
+		// 로그인 실패시 error를 담음
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
+		return "user/loginUser";
+	}
+	
 	// 박물관 장소 페이지 이동
 	@GetMapping("/exhibition/view/info")
 	public String getInfo() {
 		return "exhibition/info";
 	}
 	
-	// 주대현 - 240318
-	// 전시(본관 - 프로그램) 안내 이동
-//	@GetMapping("/exhibition/view/exhibition")
-//	public String getExhibition(Model model) {
-//		
-//		// 본관 게시글 조회
-//		List<ExhibitionVO> exhibits = null; //contentService.;
-//		
-//		model.addAttribute("Exhibits", exhibits);
-//		
-//		return "exhibition/exhibition";
-//	}
 	
 	// 전시 글쓰기 이미지 파일 업로드
 	// 주대현 - 240326
@@ -94,6 +93,7 @@ public class PostController {
 		// 저장 경로
 		String fileRoot = FILE_PATH;
 		System.out.println(fileRoot);
+
 		
 		
 		// 오리지날 파일명
@@ -117,6 +117,64 @@ public class PostController {
 		// 저장 경로를 반환
 		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
 	}
+	
+
+	// 전시 글쓰기 기능 구현
+	// 주대현 - 240326
+	@PostMapping("/exhibition/function/exhibitionWrite")
+	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) ExhibitionDTO exhibitionDTO, BindingResult bindingResult) {
+		
+		// ExhibitionDTO를 통해 유효성 검사
+		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
+		
+		
+		
+	    return new ResponseDTO<>(HttpStatus.OK.value(), /*cont.getName_exhibit() +*/ "작성되었습니다");      
+	}
+	
+	// 전시 글쓰기 페이지 이동
+	@GetMapping("/exhibition/function/exhibitionWrite")
+	public String ExhibitWrite() {
+		return "exhibition/exhibitionWrite";
+	}
+	
+	// 전시 글쓰기 이미지 파일 업로드
+	// 주대현 - 240326
+	@PostMapping("/exhibition/function/uploadImageFile")
+	public @ResponseBody ResponseDTO<?> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile)  {
+		
+		// 저장 경로
+		System.out.println("[전시 글쓰기] 파일 저장 경로 : " + FILE_PATH);
+		
+		// 폴더가 없을 경우 폴더 생성
+		File folder = new File(FILE_PATH);
+		if(!folder.exists()) { folder.mkdir(); }
+		
+		// 오리지날 파일명
+		String originalFileName = multipartFile.getOriginalFilename();
+		// 파일 확장자
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		// 저장될 파일명
+		String savedFileName = UUID.randomUUID() + extension;
+		
+		// 파일 객체 생성
+		File targetFile = new File(FILE_PATH +savedFileName);
+		
+		try {
+			// 파일을 임시 폴더에 복사
+			multipartFile.transferTo(targetFile);
+			
+			System.out.println("[전시 글쓰기] 파일 저장 완료");
+		} catch (IOException ioe) {
+			System.out.println("[전시 글쓰기] 파일 저장 실패");
+			ioe.printStackTrace();
+		}
+		
+		// 저장 경로를 반환
+		System.out.println("[전시 글쓰기] 이미지 경로 반환 : " + "/image/temp/" + savedFileName);
+		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
+	}
+
 	
 	// 전시 글쓰기 기능 구현
 	// 주대현 - 240326
@@ -165,15 +223,7 @@ public class PostController {
 	}
 	
 	
-	// 본관 게시글 작성 페이지 이동
-	@GetMapping("/exhibition/function/exhibitionWrite")
-	public String ExhibitWrite(Model model,  @ModelAttribute("ExhibitionVO") ExhibitionVO ExhibitionVO) {
-		System.out.println("ExhibitWrite Page"+LoggingSystem.class);;
-		
-		model.addAttribute("ExhibitionVO", ExhibitionVO);
-
-		return "exhibition/exhibitionWrite";
-	}
+	
 
 	/*
 	 * 본관 게시글 작성 기능
