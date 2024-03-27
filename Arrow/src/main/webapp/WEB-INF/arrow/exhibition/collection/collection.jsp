@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
-
+<%@ page import="java.lang.Math" %>
 <%@ include file="../../layout/header.jsp"%>
 		
 	<!-- 제목 -->
@@ -14,7 +14,6 @@
 	<article>
 		
 		<div class="container-fluid background-gradient p-0">
-			
 			<div class="mainBox p-0" align="left">
 				<!-- 헤더 영역 -->
 				<div class="row m-0 p-0">
@@ -74,17 +73,17 @@
 							<!-- 반복문 시작 -->
 							<div class="border border-dark border-1">
 								<div class="row m-0 p-0">
-							    <c:forEach items="${contentsList}" var="contents">
+							    <c:forEach items="${contentsList}" var="collect">
 							        <div class="col-6 m-0 p-4">
 							            <div class="border border-dark border-1">
 							                <img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
 							            </div>
 							            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
-							            onclick="javascript:fnFieldBookDetail('<c:out value="${contents.exh_seq}"/>');">
-							            	<span>명칭: ${contents.name_collect}</span><br>
-							                <span>번호: ${contents.codename_collect}</span><br>
-							                <span>재질: ${contents.metarial_collect}</span><br>
-							                <span>연도: ${contents.period_collect}</span>
+							            onclick="javascript:fnCollectDetail();">
+							            	<span>명칭: ${collect.name_collect}</span><br>
+							                <span>번호: ${collect.codename_collect}</span><br>
+							                <span>재질: ${collect.metarial_collect}</span><br>
+							                <span>연도: ${collect.period_collect}</span>
 							            </div>
 							        </div>
 							    </c:forEach>
@@ -94,30 +93,39 @@
 							<!-- 페이지네이션 -->
 						</div>
 					</div>
-				</div>
-									<!-- Pagination S-->
-				    <div class="pagination">
+				<!-- Pagination S-->
+				<c:if test="${totalPages > 0}">
+ 				    <div class="pagination" id="pagination">
 				  		<!-- Previous Page Link -->
-				        <c:if test="${pageNumber > 0}">
-				            <a href="/contents/view/collection?pageNumber=${pageNumber - 1}&pageSize=${pageSize}">Previous</a>
-				        </c:if>
-				        <!-- Page Numbers -->
-				        <c:forEach begin="0" end="${totalPages - 1}" var="page">
-				            <c:choose>
-				                <c:when test="${page == pageNumber}">
-				                    <span>${page + 1}</span>
-				                </c:when>
-				                <c:otherwise>
-				                    <a href="/contents/view/collection?pageNumber=${page}&pageSize=${pageSize}">${page + 1}</a>
-				                </c:otherwise>
-				            </c:choose>
-				        </c:forEach>
-				        <!-- Next Page Link -->
-				        <c:if test="${pageNumber < totalPages - 1}">
-				            <a href="/contents/view/collection?pageNumber=${pageNumber + 1}&pageSize=${pageSize}">Next</a>
-				        </c:if>
-				    </div>
+				    <c:if test="${pageNumber > 0}">
+					        <a href="/exhibition/view/collection?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
+					    </c:if>
+					    
+					    <!-- Page Numbers -->
+					    <script>
+					        var totalPages = ${totalPages};
+					        var pageNumber = ${pageNumber};
+					        var pageSize = ${pageSize};
+					        
+					        var paginationHTML = '';
+					        for (var page = pageNumber + 1; page <= Math.min(pageNumber + 5, totalPages); page++) {
+					            if (page == pageNumber + 1) {
+					                paginationHTML += '<span>' + page + '</span>';
+					            } else {
+					                paginationHTML += '<a href="/exhibition/view/collection?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
+					            }
+					        }
+					        document.getElementById('pagination').innerHTML += paginationHTML;
+					    </script>
+					    
+					    <!-- Next Page Link -->
+					    <c:if test="${pageNumber + 5 < totalPages}">
+					        <a href="/exhibition/view/collection?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
+					    </c:if>
+				    </div> 				    
+				</c:if>
 				    <!-- Pagination E-->
+				</div>
 			</div>
 			
 		</div>

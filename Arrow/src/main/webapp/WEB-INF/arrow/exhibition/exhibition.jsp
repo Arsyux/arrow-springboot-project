@@ -89,10 +89,11 @@
 					</div>
 					
 					<!-- Pagination S-->
+					<c:if test ="#{totalpages > 0}">
 					<div class="pagination" id="pagination">
 					    <!-- Previous Page Link -->
 					    <c:if test="${pageNumber > 0}">
-					        <a href="/contents/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
+					        <a href="/exhibition/view/exhibition?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
 					    </c:if>
 					    
 					    <!-- Page Numbers -->
@@ -106,7 +107,7 @@
 					            if (page == pageNumber + 1) {
 					                paginationHTML += '<span>' + page + '</span>';
 					            } else {
-					                paginationHTML += '<a href="/contents/view/exhibition?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
+					                paginationHTML += '<a href="/exhibition/view/exhibition?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
 					            }
 					        }
 					        document.getElementById('pagination').innerHTML += paginationHTML;
@@ -114,9 +115,10 @@
 					    
 					    <!-- Next Page Link -->
 					    <c:if test="${pageNumber + 5 < totalPages}">
-					        <a href="/contents/view/exhibition?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
+					        <a href="/exhibition/view/exhibition?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
 					    </c:if>
 					</div>
+					</c:if>
 				    <!-- Pagination E-->
 				</div>
 			</div>
