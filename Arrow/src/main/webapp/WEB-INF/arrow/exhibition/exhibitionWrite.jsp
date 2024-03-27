@@ -20,7 +20,7 @@
 			<!-- 헤더 -->
 			<div class="row m-0 p-0">
 				<div class="col-12 m-0 p-0 border-bottom border-1 border-dark" style="background-color: #269630; color: #ffffff; font-size: 5vw;" align="center">
-					게시글 작성
+					전시글 작성
 				</div>
 			</div>
 		</header>
