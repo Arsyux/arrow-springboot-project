@@ -39,6 +39,10 @@ public class CollectionService {
         return totalPages;
     }
 
-
+    
+    public List<CollectionsVO> selectOneCollect(String encryptedCode){
+    	
+    	return collectionDAO.selectOneCollect(encryptedCode);
+    }
 	
 }
