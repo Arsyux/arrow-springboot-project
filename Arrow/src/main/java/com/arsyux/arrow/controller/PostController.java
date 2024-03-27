@@ -73,21 +73,53 @@ public class PostController {
 		return "exhibition/info";
 	}
 	
-	// 주대현 - 작업 240318
+	// 주대현 - 240318
 	// 전시(본관 - 프로그램) 안내 이동
-	@GetMapping("/exhibition/view/exhibition")
-	public String getExhibition(Model model) {
+//	@GetMapping("/exhibition/view/exhibition")
+//	public String getExhibition(Model model) {
+//		
+//		// 본관 게시글 조회
+//		List<ExhibitionVO> exhibits = null; //contentService.;
+//		
+//		model.addAttribute("Exhibits", exhibits);
+//		
+//		return "exhibition/exhibition";
+//	}
+	
+	// 전시 글쓰기 이미지 파일 업로드
+	// 주대현 - 240326
+	@PostMapping("/exhibition/function/uploadImageFile")
+	public @ResponseBody ResponseDTO<?> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile)  {
 		
-		// 본관 게시글 조회
-		List<ExhibitionVO> exhibits = null; //contentService.;
+		// 저장 경로
+		String fileRoot = FILE_PATH;
+		System.out.println(fileRoot);
 		
-		model.addAttribute("Exhibits", exhibits);
 		
-		return "exhibition/exhibition";
+		// 오리지날 파일명
+		String originalFileName = multipartFile.getOriginalFilename();
+		// 파일 확장자
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		// 저장될 파일명
+		String savedFileName = UUID.randomUUID() + extension;
+		
+		// 파일 객체 생성
+		File targetFile = new File(fileRoot +savedFileName);
+		
+		try {
+			// 파일을 임시 폴더에 복사
+			multipartFile.transferTo(targetFile);
+			
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		// 저장 경로를 반환
+		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
 	}
 	
-	// 본관 - 프로그램 안내 글쓰기
-	// 주대현 - 작업 240324
+	// 전시 글쓰기 기능 구현
+	// 주대현 - 240326
 	@PostMapping("/exhibition/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) ExhibitionDTO exhibitionDTO, BindingResult bindingResult) {
 		
@@ -99,68 +131,13 @@ public class PostController {
 	    return new ResponseDTO<>(HttpStatus.OK.value(), /*cont.getName_exhibit() +*/ "작성되었습니다");      
 	}
 	
-	// 파일 업로드
-	//@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-	@PostMapping("/exhibition/function/uploadSummernoteImageFile")
-	public @ResponseBody ResponseDTO<?> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile)  {
-		
-		System.out.println("파일 업로드 진입");
-		//JsonObject jsonObject = new JsonObject();
-		
-		// 내부경로로 저장
-		//String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		//String fileRoot = contextRoot+"resources/fileupload/";
-		
-		//String fileRoot = FILE_PATH + "/";
-		
-		// 업로드 경로
-		//String fileRoot = Paths.get("C:", "DEV", "eclipse-workspace", "arrow-springboot-project", 
-		//		"Arrow", "src", "main", "resources", "static", "image", "test").toString();
-		String fileRoot = "C:/DEV/eclipse/arrow-springboot-project/Arrow/src/main/resources/static/image/test/";
-		//fileRoot ="/resources/static/image/test/";
-		fileRoot = Paths.get("C:", "DEV", "eclipse-workspace", "arrow-springboot-project", 
-				"Arrow", "src", "main", "resources", "static", "image", "test").toString();
-		
-		fileRoot = fileRoot + "/";
-		
-		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-		
-		File targetFile = new File(fileRoot +savedFileName);	
-		try {
-			multipartFile.transferTo(targetFile);
-			
-			//InputStream fileStream = multipartFile.getInputStream();
-			
-			//FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			//jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-			//jsonObject.addProperty("responseCode", "success");
-			System.out.println("파일 저장 성공 " + fileRoot + savedFileName);
-		} catch (IOException ioe) {
-
-			System.out.println("파일 저장 실패");
-			File deleteFile = new File(FILE_PATH + savedFileName);
-			
-			try { if(deleteFile.exists()) { deleteFile.delete(); } } 
-			catch (Exception e) { 
-				e.printStackTrace();
-				/*throw new RuntimeException(e);*/
-			}
-			
-			//FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-			//jsonObject.addProperty("responseCode", "error");
-			ioe.printStackTrace();
-		}
-		//String a = jsonObject.toString();
-		return new ResponseDTO<>(HttpStatus.OK.value(), fileRoot + savedFileName);
-	}
+	
 	
 	
 	
 	// 본관 - 프로그램 안내 이동
 	// 이승현 - 백업
-	/*
+	
 	@GetMapping("/contents/view/exhibition")
 	public String getExhibit(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
 		//page limit, offset 데이터 조회
@@ -186,7 +163,7 @@ public class PostController {
         
 		return "exhibition/exhibition";
 	}
-	*/
+	
 	
 	// 본관 게시글 작성 페이지 이동
 	@GetMapping("/exhibition/function/exhibitionWrite")
@@ -267,6 +244,7 @@ public class PostController {
 		model.addAttribute("content", contentsList);
 		return "exhibition/exhibitionInfo";
 	}
+	
 	// 전시 정보 페이지
 	@PostMapping("/exhibition/view/exhibitionInfo")
 	public @ResponseBody ResponseDTO<?> postExhibitionInfo(Model model,@RequestParam("exhseq") int exh_seq) {
