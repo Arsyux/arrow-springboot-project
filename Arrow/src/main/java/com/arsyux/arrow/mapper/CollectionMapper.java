@@ -2,15 +2,11 @@ package com.arsyux.arrow.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
+
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
-
 import com.arsyux.arrow.domain.CollectionsVO;
-import com.arsyux.arrow.domain.ExhibitionVO;
-import com.arsyux.arrow.domain.FilesVO;
 
 
 
@@ -33,6 +29,9 @@ public interface CollectionMapper {
 			+ " FROM arrow_collection; ")
 	public int getTotalCollect();
 	
-
+	/*전시 상세페이지*/
+	@Select("SELECT exh_seq, name_collect, codename_collect, period_collect, tag_exhibit, metarial_collect, size_collect, usage_collect, feature_collect, descript_collect, str_to_date(createDt,'%Y-%m-%d')as createDt"
+			+ " FROM arrow_collection WHERE codename_collect = #{encryptedCode} ")
+	public List<CollectionsVO> selectOneCollect(String encryptedCode);
 
 }

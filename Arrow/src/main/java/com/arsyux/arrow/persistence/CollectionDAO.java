@@ -30,4 +30,9 @@ public class CollectionDAO {
       return totalContents;
     }
     
+    public List<CollectionsVO> selectOneCollect(String encryptedCode){
+    	
+    	return mybatis.selectList("selectOneCollect", encryptedCode);
+    }
+    
 }
