@@ -90,17 +90,18 @@
 				<div id="paginationBox">
 			<div class="pagination">
 				<c:if test="${pagination.prev}">
-					<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></li>
+					<div class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></div>
 				</c:if>
-				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
-					<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></li>
+				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx" step="1"> 
+					<div class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
+					<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></div>
 				</c:forEach>
 				<c:if test="${pagination.next}">
-					<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></li>
+					<div class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></div>
 				</c:if>
 			</div>
 		</div>			
-					<!-- Pagination S-->
+		
 <script>
 
 //이전 버튼 이벤트
@@ -109,18 +110,18 @@ function fn_prev(page, range, rangeSize) {
 		var page = ((range - 2) * rangeSize) + 1;
 		var range = range - 1;
 		var url = "/exhibition/view";
-		url = url + "/exhibition?pageNumber=" + page;
-		url = url + "&pageSize=" + range;
+		url = url + "/exhibition?page=" + page;
+		url = url + "&range=" + range;
 
 		location.href = url;
 
 	}
 
 //페이지 번호 클릭
-function fn_pagination(page, range, rangeSize, searchType, keyword) {
+function fn_pagination(page, range, rangeSize) {
 	var url = "/exhibition/view";
-	url = url + "/exhibition?pageNumber=" + page;
-	url = url + "&pageSize=" + range;
+	url = url + "/exhibition?page=" + page;
+	url = url + "&range=" + range;
 
 		location.href = url;	
 	}
@@ -133,7 +134,7 @@ function fn_next(page, range, rangeSize) {
 		
 		var url = "/exhibition/view";
 		url = url + "/exhibition?pageNumber=" + page;
-		url = url + "&pageSize=" + range;
+		url = url + "&range=" + range;
 
 		location.href = url;
 	}

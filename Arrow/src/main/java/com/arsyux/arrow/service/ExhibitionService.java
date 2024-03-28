@@ -32,6 +32,7 @@ public class ExhibitionService {
 	public List<ExhibitionVO> selectAllContent(Pagination page) {
 		//int offset = pageNumber * pageSize;
 		//RowBounds rowBounds = new RowBounds(offset, pageSize);
+		System.out.println("page: "+page.getListSize()+"@@"+page.getStartList());
 		return exhibitionDAO.selectAllContent(page);
 	}
 
