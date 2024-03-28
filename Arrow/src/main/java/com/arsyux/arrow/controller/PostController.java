@@ -84,6 +84,7 @@ public class PostController {
 		return "exhibition/info";
 	}
 
+
 	// 전시 글쓰기 기능 구현
 	// 주대현 - 240326
 	@PostMapping("/exhibition/function/exhibitionWrite")
@@ -139,11 +140,6 @@ public class PostController {
 		System.out.println("[전시 글쓰기] 이미지 경로 반환 : " + "/image/temp/" + savedFileName);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
 	}
-
-	
-	
-	
-	
 	
 	
 	// 본관 - 프로그램 안내 이동
