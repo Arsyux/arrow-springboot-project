@@ -228,9 +228,8 @@ function fnInsertContent() {
  * @param contents
  * @returns
  */
-function fnFieldBookDetail(exhseq) {
+function fnContentDetail(exhseq) {
 	var encryptedExhseq = btoa(exhseq); // exhseq를 Base64로 인코딩
-	window.location.href = "/contents/view/exhibitionInfo/" + encryptedExhseq;
+	window.location.href = "/exhibition/view/exhibitionInfo/" + encryptedExhseq;
     
 }
-

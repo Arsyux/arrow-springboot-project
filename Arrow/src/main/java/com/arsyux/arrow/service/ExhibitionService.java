@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.arsyux.arrow.controller.PostController.Pagination;
+
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
+import com.arsyux.arrow.domain.Pagination;
 import com.arsyux.arrow.persistence.ExhibitionDAO;
 
 
@@ -30,9 +31,7 @@ public class ExhibitionService {
 
 
 	public List<ExhibitionVO> selectAllContent(Pagination page) {
-		//int offset = pageNumber * pageSize;
-		//RowBounds rowBounds = new RowBounds(offset, pageSize);
-		System.out.println("page: "+page.getListSize()+"@@"+page.getStartList());
+
 		return exhibitionDAO.selectAllContent(page);
 	}
 

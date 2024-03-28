@@ -6,11 +6,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.session.RowBounds;
-
-import com.arsyux.arrow.controller.PostController.Pagination;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
+import com.arsyux.arrow.domain.Pagination;
 
 
 

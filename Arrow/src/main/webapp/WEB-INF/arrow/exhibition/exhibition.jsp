@@ -76,7 +76,7 @@
 					                <img class="w-100" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
 					            </div>
 					            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
-					            onclick="javascript:fnFieldBookDetail('<c:out value="${contents.exh_seq}"/>');">
+					            onclick="javascript:fnContentDetail('<c:out value="${contents.exh_seq}"/>');">
 					            	<span>번호: ${contents.exh_seq}</span><br>
 					                <span>전시: ${contents.name_exhibit}</span><br>
 					                <span>부제목: ${contents.subname_exhibit}</span><br>
@@ -87,23 +87,27 @@
 			                                                                                               			    
 						</div>
 					</div>
-				<div id="paginationBox">
-			<div class="pagination">
-				<c:if test="${pagination.prev}">
-					<div class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></div>
-				</c:if>
-				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx" step="1"> 
-					<div class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
-					<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></div>
-				</c:forEach>
-				<c:if test="${pagination.next}">
-					<div class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></div>
-				</c:if>
+					<!-- Pagination S-->
+					<div id="paginationBox">
+						<div class="pagination">
+							<c:if test="${pagination.prev}">
+								<div class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></div>
+							</c:if>
+							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx" step="1"> 
+								<div class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
+								<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></div>
+							</c:forEach>
+							<c:if test="${pagination.next}">
+								<div class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></div>
+							</c:if>
+						</div>
+					</div>			
+				    <!-- Pagination E-->
+				</div>
 			</div>
-		</div>			
-		
+		</div>
+	</article>	
 <script>
-
 //이전 버튼 이벤트
 function fn_prev(page, range, rangeSize) {
 
@@ -138,15 +142,7 @@ function fn_next(page, range, rangeSize) {
 
 		location.href = url;
 	}
-
-
-
 </script>
-				    <!-- Pagination E-->
-				</div>
-			</div>
-		</div>
-	</article>
 	</body>
 		
 <%@ include file="../layout/footer.jsp" %>
