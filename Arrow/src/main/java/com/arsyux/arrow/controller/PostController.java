@@ -83,8 +83,7 @@ public class PostController {
 	public String getInfo() {
 		return "exhibition/info";
 	}
-	
-	
+
 
 	// 전시 글쓰기 기능 구현
 	// 주대현 - 240326
@@ -143,36 +142,30 @@ public class PostController {
 	}
 	
 	
-	
 	// 본관 - 프로그램 안내 이동
 	// 이승현 - 백업
 	
-	@GetMapping("/contents/view/exhibition")
-	public String getExhibit(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
+	@GetMapping("/exhibition/view/exhibition")
+	public String getExhibit(Model model, @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "1") int range) {
 		//page limit, offset 데이터 조회
-		List<ExhibitionVO> contentsList = exhibitionService.selectAllContent(pageNumber, pageSize);
-		System.out.println(contentsList);
+		 Pagination pagination = new Pagination();
+
         // 총 페이지 수 계산
-        int totalPages = exhibitionService.getTotalPages(pageSize);
+        int totalPages = exhibitionService.getTotalPages();
+        System.out.println("totalPages"+totalPages);
+
+		pagination.pageInfo(pageNumber, range, totalPages);
         
-        // 페이지 번호를 5개까지만 넘어가게 설정
-        int maxPageNumber = Math.min(totalPages, 5);
-        List<Integer> pageNumbers = new ArrayList<>();
-        
-        for (int i = 0; i < maxPageNumber; i++) {
-            pageNumbers.add(i);
-        }
-        
-        model.addAttribute("totalPages", totalPages); 
-        model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
-        model.addAttribute("pageNumbers", pageNumbers); // 현재 페이지 번호 전달
-        model.addAttribute("pageSize", pageSize); 	
+		// 페이지 번호를 5개까지만 넘어가게 설정
+		List<ExhibitionVO> contentsList = exhibitionService.selectAllContent(pagination);
+		System.out.println(contentsList);
+
+		model.addAttribute("pagination", pagination);
         model.addAttribute("contentsList", contentsList);
 		
         
 		return "exhibition/exhibition";
 	}
-	
 	
 	
 
@@ -254,7 +247,127 @@ public class PostController {
 		
 		return  new ResponseDTO<>(HttpStatus.OK.value(), "");      
 	}	
+	
+	
+	
+	//20240327 페이징 기능 수정중
+	//이승현
+	public class Pagination {
+		private int listSize = 5;                //초기값으로 목록개수를 10으로 셋팅
+		private int rangeSize = 5;            //초기값으로 페이지범위를 10으로 셋팅
+		private int page;
+		private int range;
+		private int listCnt;
+		private int pageCnt;
+		private int startPage;
+		private int startList;
+		private int endPage;
+		private boolean prev;
+		private boolean next;
 
+		public int getRangeSize() {
+			return rangeSize;
+		}
+
+		public int getPage() {
+			return page;
+		}
+
+		public void setPage(int page) {
+			this.page = page;
+		}
+
+		public int getRange() {
+			return range;
+
+		}
+
+		public void setRange(int range) {
+			this.range = range;
+		}
+
+		public int getStartPage() {
+			return startPage;
+		}
+
+
+		public void setStartPage(int startPage) {
+			this.startPage = startPage;
+		}
+
+		public int getEndPage() {
+			return endPage;
+		}
+
+		public void setEndPage(int endPage) {
+			this.endPage = endPage;
+		}
+
+		public boolean isPrev() {
+			return prev;
+		}
+
+		public void setPrev(boolean prev) {
+			this.prev = prev;
+		}
+
+		public boolean isNext() {
+			return next;
+		}
+
+		public void setNext(boolean next) {
+			this.next = next;
+		}
+
+		public int getListSize() {
+			return listSize;
+		}
+
+		public void setListSize(int listSize) {
+			this.listSize = listSize;
+		}
+
+		public int getListCnt() {
+			return listCnt;
+		}
+
+		public void setListCnt(int listCnt) {
+			this.listCnt = listCnt;
+		}
+
+		public int getStartList() {
+			return startList;
+		}
+
+		public void pageInfo(int page, int range, int listCnt) {
+			this.page = page;
+			this.range = range;
+			this.listCnt = listCnt;
+
+			//전체 페이지수 
+			this.pageCnt = (int) Math.ceil(listCnt/listSize);			
+
+			//시작 페이지
+			this.startPage = (range - 1) * rangeSize + 1 ;
+
+			//끝 페이지
+			this.endPage = range * rangeSize;
+
+			//게시판 시작번호
+			this.startList = (page - 1) * listSize;
+
+			//이전 버튼 상태
+			this.prev = range == 1 ? false : true;
+
+			//다음 버튼 상태
+			this.next = endPage > pageCnt ? false : true;
+			
+			if (this.endPage > this.pageCnt) {
+				this.endPage = this.pageCnt;
+				this.next = false;
+			}
+		}
+	}
 	
 	
 }

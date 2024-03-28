@@ -6,6 +6,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.arsyux.arrow.controller.PostController.Pagination;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 
@@ -31,13 +33,13 @@ public class ExhibitionDAO {
 	   mybatis.insert("insertFileInfo", file);
     }	
     
-    public List<ExhibitionVO> selectAllContent(RowBounds rowBounds) {
+    public List<ExhibitionVO> selectAllContent(Pagination rowBounds) {
     
         return mybatis.selectList("selectAllContent", rowBounds);
     }
     
     
-    public int getTotalPages(int pageSize) {
+    public int getTotalPages() {
 	  int totalContents = mybatis.selectOne("getTotalContents");
 
       return totalContents;
