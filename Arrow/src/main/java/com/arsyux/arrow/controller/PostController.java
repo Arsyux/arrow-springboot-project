@@ -146,7 +146,7 @@ public class PostController {
 	// 이승현 - 백업
 	
 	@GetMapping("/exhibition/view/exhibition")
-	public String getExhibit(Model model, @RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "1") int range) {
+	public String getExhibit(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int range) {
 		//page limit, offset 데이터 조회
 		 Pagination pagination = new Pagination();
 
@@ -154,7 +154,7 @@ public class PostController {
         int totalPages = exhibitionService.getTotalPages();
         System.out.println("totalPages"+totalPages);
 
-		pagination.pageInfo(pageNumber, range, totalPages);
+		pagination.pageInfo(page, range, totalPages);
         
 		// 페이지 번호를 5개까지만 넘어가게 설정
 		List<ExhibitionVO> contentsList = exhibitionService.selectAllContent(pagination);
@@ -253,7 +253,7 @@ public class PostController {
 	//20240327 페이징 기능 수정중
 	//이승현
 	public class Pagination {
-		private int listSize = 5;                //초기값으로 목록개수를 10으로 셋팅
+		private int listSize = 4;                //초기값으로 목록개수를 10으로 셋팅
 		private int rangeSize = 5;            //초기값으로 페이지범위를 10으로 셋팅
 		private int page;
 		private int range;
