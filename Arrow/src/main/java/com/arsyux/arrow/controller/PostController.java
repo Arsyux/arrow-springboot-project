@@ -85,39 +85,6 @@ public class PostController {
 	}
 	
 	
-	// 전시 글쓰기 이미지 파일 업로드
-	// 주대현 - 240326
-	@PostMapping("/exhibition/function/uploadImageFile")
-	public @ResponseBody ResponseDTO<?> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile)  {
-		
-		// 저장 경로
-		String fileRoot = FILE_PATH;
-		System.out.println(fileRoot);
-
-		
-		
-		// 오리지날 파일명
-		String originalFileName = multipartFile.getOriginalFilename();
-		// 파일 확장자
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-		// 저장될 파일명
-		String savedFileName = UUID.randomUUID() + extension;
-		
-		// 파일 객체 생성
-		File targetFile = new File(fileRoot +savedFileName);
-		
-		try {
-			// 파일을 임시 폴더에 복사
-			multipartFile.transferTo(targetFile);
-			
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
-		// 저장 경로를 반환
-		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
-	}
-	
 
 	// 전시 글쓰기 기능 구현
 	// 주대현 - 240326
@@ -174,22 +141,6 @@ public class PostController {
 		System.out.println("[전시 글쓰기] 이미지 경로 반환 : " + "/image/temp/" + savedFileName);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
 	}
-
-	
-	// 전시 글쓰기 기능 구현
-	// 주대현 - 240326
-	@PostMapping("/exhibition/function/exhibitionWrite")
-	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) ExhibitionDTO exhibitionDTO, BindingResult bindingResult) {
-		
-		// ExhibitionDTO를 통해 유효성 검사
-		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
-		
-		
-		
-	    return new ResponseDTO<>(HttpStatus.OK.value(), /*cont.getName_exhibit() +*/ "작성되었습니다");      
-	}
-	
-	
 	
 	
 	
