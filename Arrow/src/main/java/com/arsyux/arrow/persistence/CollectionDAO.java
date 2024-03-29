@@ -18,16 +18,15 @@ public class CollectionDAO {
 	private SqlSessionTemplate mybatis;
 	
     
-    public List<CollectionsVO> selectCollect(int exh_seq,int offset, int limit) {
-        RowBounds rowBounds = new RowBounds(offset, limit);
+    public List<CollectionsVO> selectCollect(int exh_seq,RowBounds rowBounds) {
+
         return mybatis.selectList("selectCollect",exh_seq ,rowBounds);
     }
     
     
-    public int getTotalPages(int pageSize) {
-	  int totalContents = mybatis.selectOne("getTotalCollect");
-
-      return totalContents;
+    public int getTotalPages() {
+	  
+      return mybatis.selectOne("getTotalCollect");
     }
     
     public List<CollectionsVO> selectOneCollect(String encryptedCode){

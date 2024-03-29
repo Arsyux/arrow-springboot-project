@@ -1,13 +1,8 @@
 package com.arsyux.arrow.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.arsyux.arrow.controller.files.FileService;
 import com.arsyux.arrow.domain.CollectionsVO;
-import com.arsyux.arrow.domain.ExhibitionVO;
+import com.arsyux.arrow.domain.Pagination;
 import com.arsyux.arrow.service.CollectionService;
 
 @Controller
@@ -46,37 +41,35 @@ public class CollectionController {
 	
 	// 전시 상세 페이지
 	@GetMapping("/exhibition/view/collection")
-	public String getCollections(Model model, @RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "4") int pageSize) {
-		
+	public String getCollections(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int range) {
+		Pagination pagination = new Pagination();
 		int exh_seq = 1;
-		List<CollectionsVO> contentsList = collectionService.selectCollect(exh_seq, pageNumber, pageSize);
 		
-		int totalPages = collectionService.getTotalPages(pageSize);
-        int maxPageNumber = Math.min(totalPages, 5);
-        List<Integer> pageNumbers = new ArrayList<>();
+		int totalPages = collectionService.getTotalPages();
+		System.out.println(totalPages);
+		pagination.pageInfo(page, range, totalPages);
+		
+
+		List<CollectionsVO> collectList = collectionService.selectCollect(exh_seq, pagination);
         
-        for (int i = 0; i < maxPageNumber; i++) {
-            pageNumbers.add(i);
-        }
-        
-        model.addAttribute("contentsList", contentsList);
-        model.addAttribute("pageNumbers", pageNumbers); 
-        model.addAttribute("totalPages", totalPages); 
-        model.addAttribute("pageNumber", pageNumber); // 현재 페이지 번호 전달
-        model.addAttribute("pageSize", pageSize); 	
+		
+        model.addAttribute("collectList", collectList);
+        model.addAttribute("pagination", pagination); 
+
 		
 		return "exhibition/collection/collection";
 	}
 	
 	// 전시 정보 페이지
-	@GetMapping("/exhibition/view/CollectionInfo/{encryptedCode}")
-	public String getCollectInfo(Model model,@PathVariable("encryptedCode") String encryptedCode) {
+	@GetMapping("/exhibition/view/CollectionInfo/{encryptedCodeName}")
+	public String getCollectInfo(Model model,@PathVariable("encryptedCodeName") String encryptedCode) {
 		 
 		encryptedCode = new String(Base64.getDecoder().decode(encryptedCode));
-		
-		System.out.println("List<CollectionsVO> contentsList = collectionService.selectOneCollect(exh_seq);"+encryptedCode);
-		
+	
 		List<CollectionsVO> collectionList = collectionService.selectOneCollect(encryptedCode);
+		
+		
+		
 		model.addAttribute("collect", collectionList);
 		return "exhibition/collection/collectionInfo";
 	}

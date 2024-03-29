@@ -97,7 +97,7 @@
 						
 						<!-- 버튼 -->
 						<div class="row p-0 m-0" style="height: 10vw;">
-							<a class="btn w-100 h-100" href="/contents/view/collection" style="background-color: #005666; color: #ffffff;">전시 상세 소개</a>
+							<a class="btn w-100 h-100" href="/exhibition/view/collection" style="background-color: #005666; color: #ffffff;">전시 상세 소개</a>
 						</div>
 					</div>
 				</div>

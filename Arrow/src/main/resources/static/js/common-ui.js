@@ -1,11 +1,39 @@
 window.onload = () => {
-        //renderPostInfo();
 
-        //findAllFile();
-    }
+
+}
 
 $(document).ready(function(){
-	
+	    var slides = document.querySelector('.slides'),
+        slide = document.querySelectorAll('.slide_wrapper .slides li'),
+        currentIdx = 0,
+        slideCount = slide.length,
+        slideWidth = 300,
+        slideMargin = 30;
+
+  $(slides).css('width', (slideWidth + slideMargin) * slideCount - slideMargin + 'px');
+    
+    // ul 요소의 스타일 변경
+    $('.slides').css('width', $(slides).css('width')); // slides의 너비와 동일하게 설정
+    function moveSlide(num){
+        slides.style.left = -num * 330 + 'px';
+        currentIdx = num;
+    }
+
+
+$('.next').on('click', function() {
+    if (currentIdx < slideCount - 3) {
+        moveSlide(currentIdx + 1);
+    }
+});
+$('.prev').on('click', function() {
+        if(currentIdx > 0){
+            moveSlide(currentIdx-1);
+    }
+});
+    
+    
+    
 	//window.$app = {};
 	
 	//$( ".tag_exhibit" ).selectmenu();
@@ -228,9 +256,31 @@ function fnInsertContent() {
  * @param contents
  * @returns
  */
-function fnFieldBookDetail(exhseq) {
+function fnContentDetail(exhseq) {
 	var encryptedExhseq = btoa(exhseq); // exhseq를 Base64로 인코딩
-	window.location.href = "/contents/view/exhibitionInfo/" + encryptedExhseq;
+	window.location.href = "/exhibition/view/exhibitionInfo/" + encryptedExhseq;
     
 }
 
+
+function fnCollectDetail(codename_collect) {
+	var encryptedCodeName = btoa(codename_collect); // exhseq를 Base64로 인코딩
+	window.location.href = "/exhibition/view/CollectionInfo/" + encryptedCodeName;
+    
+}
+
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

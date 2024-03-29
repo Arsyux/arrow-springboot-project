@@ -7,9 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.arsyux.arrow.controller.PostController.Pagination;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
+import com.arsyux.arrow.domain.Pagination;
 
 
 
@@ -33,9 +33,9 @@ public class ExhibitionDAO {
 	   mybatis.insert("insertFileInfo", file);
     }	
     
-    public List<ExhibitionVO> selectAllContent(Pagination rowBounds) {
+    public List<ExhibitionVO> selectAllContent(Pagination page) {
     
-        return mybatis.selectList("selectAllContent", rowBounds);
+        return mybatis.selectList("selectAllContent", page);
     }
     
     

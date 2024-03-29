@@ -149,3 +149,48 @@ display: inline-table; padding: 10px; border: 1px solid #cccccc; overflow: hidde
 
  .inp:focus { outline: none; background-color: #eee; } 
  /* datepicker  ui E*/
+ 
+ 
+ 
+ 
+ /** 이미지 슬라이드*/
+.custom-slide-wrapper {
+
+    padding: 10px;
+    margin: 0;
+ 
+}
+li{list-style:none;}
+.row > .slide_wrapper{
+  position: relative;
+  width: 960px;
+  margin:0 auto;
+  height: 300px;
+  overflow:hidden;
+}
+
+.slides{
+  position: absolute;
+  left:0; top:0;
+  transition:left 0.5s ease-out;
+}
+.slides li:not(.last-child){
+  float: left;
+  margin-right:30px;
+}
+.controls{
+  text-align: center;
+  margin-top: 50px;
+}
+.controls button{
+  background: #333;
+  color: #fff;
+  padding:10px 20px;
+  margin:0px 10px;
+
+}
+ 
+ 
+ 
+ 
+ 

@@ -73,13 +73,13 @@
 							<!-- 반복문 시작 -->
 							<div class="border border-dark border-1">
 								<div class="row m-0 p-0">
-							    <c:forEach items="${contentsList}" var="collect">
+							    <c:forEach items="${collectList}" var="collect">
 							        <div class="col-6 m-0 p-4">
 							            <div class="border border-dark border-1">
 							                <img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
 							            </div>
 							            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
-							            onclick="javascript:fnCollectDetail();">
+							            onclick="javascript:fnCollectDetail('<c:out value="${collect.codename_collect}"/>');">
 							            	<span>명칭: ${collect.name_collect}</span><br>
 							                <span>번호: ${collect.codename_collect}</span><br>
 							                <span>재질: ${collect.metarial_collect}</span><br>
@@ -93,37 +93,21 @@
 							<!-- 페이지네이션 -->
 						</div>
 					</div>
-				<!-- Pagination S-->
-				<c:if test="${totalPages > 0}">
- 				    <div class="pagination" id="pagination">
-				  		<!-- Previous Page Link -->
-				    <c:if test="${pageNumber > 0}">
-					        <a href="/exhibition/view/collection?pageNumber=${pageNumber - 1}&pageSize=${pageSize}" id="prevPage">Previous</a>
-					    </c:if>
-					    
-					    <!-- Page Numbers -->
-					    <script>
-					        var totalPages = ${totalPages};
-					        var pageNumber = ${pageNumber};
-					        var pageSize = ${pageSize};
-					        
-					        var paginationHTML = '';
-					        for (var page = pageNumber + 1; page <= Math.min(pageNumber + 5, totalPages); page++) {
-					            if (page == pageNumber + 1) {
-					                paginationHTML += '<span>' + page + '</span>';
-					            } else {
-					                paginationHTML += '<a href="/exhibition/view/collection?pageNumber=' + (page - 1) + '&pageSize=' + pageSize + '">' + page + '</a>';
-					            }
-					        }
-					        document.getElementById('pagination').innerHTML += paginationHTML;
-					    </script>
-					    
-					    <!-- Next Page Link -->
-					    <c:if test="${pageNumber + 5 < totalPages}">
-					        <a href="/exhibition/view/collection?pageNumber=${pageNumber + 5}&pageSize=${pageSize}" id="nextPage">Next</a>
-					    </c:if>
-				    </div> 				    
-				</c:if>
+					<!-- Pagination S-->
+					<div id="paginationBox">
+						<div class="pagination">
+							<c:if test="${pagination.prev}">
+								<div class="page-item"><a class="page-link" href="#" onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}')">Previous</a></div>
+							</c:if>
+							<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx" step="1"> 
+								<div class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
+								<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}')"> ${idx} </a></div>
+							</c:forEach>
+							<c:if test="${pagination.next}">
+								<div class="page-item"><a class="page-link" href="#" onClick="fn_next('${pagination.range}', '${pagination.range}', '${pagination.rangeSize}')" >Next</a></div>
+							</c:if>
+						</div>
+					</div>			
 				    <!-- Pagination E-->
 				</div>
 			</div>
@@ -131,5 +115,44 @@
 		</div>
 		
 	</article>
-		
+	<script>
+	//이전 버튼 이벤트
+	function fn_prev(page, range, rangeSize) {
+
+			var page = ((range - 2) * rangeSize) + 1;
+			var range = range - 1;
+			var url = "/exhibition/view";
+			url = url + "/collection?page=" + page;
+			url = url + "&range=" + range;
+
+			location.href = url;
+
+		}
+
+	//페이지 번호 클릭
+	function fn_pagination(page, range, rangeSize) {
+		var url = "/exhibition/view";
+		url = url + "/collection?page=" + page;
+		url = url + "&range=" + range;
+
+			location.href = url;	
+		}
+
+
+	//다음 버튼 이벤트
+	function fn_next(page, range, rangeSize) {
+			var page = parseInt((range * rangeSize)) + 1;
+			var range = parseInt(range) + 1;
+			
+			var url = "/exhibition/view";
+			url = url + "/collection?pageNumber=" + page;
+			url = url + "&range=" + range;
+
+			location.href = url;
+		}
+
+	
+	
+	</script>
+	</body>	
 <%@ include file="../../layout/footer.jsp" %>
