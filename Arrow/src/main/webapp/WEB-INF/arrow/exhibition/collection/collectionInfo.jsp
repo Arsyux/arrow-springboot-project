@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <link rel="stylesheet" type="text/css" href="/css/contents.css">
-
 <%@ include file="../../layout/header.jsp"%>
 		
 	<!-- 제목 -->
@@ -14,7 +13,6 @@
 	<article>
 		<c:forEach items="${collect}" var="collects">
 		<div class="container-fluid background-gradient p-0">
-			
 			<div class="mainBox p-0" align="left">
 				<!-- 헤더 영역 -->
 				<div class="row m-0 p-0">
@@ -70,12 +68,12 @@
 					
 					<!-- 메인 화면 -->
 					<div class="row m-0 p-0">
-						<!-- 포스터나 홍보 사진 -->
-						<div class="background-white border border-dark border-1 p-0 w-50 p-50" style="display: inline;">
-							<img class="" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
+						<!-- 썸네일 -->
+						<div class="background-white border border-dark border-1 p-0 w-50" style="display: inline;">
+							<img class="img-fluid" alt="exhibition" src="/image/exhibition/2023지홍전.jpg">
 						</div>
 						<!-- 간단한 설명 날짜-->
-						<div class="background-white border boder-start-0 border-dark border-1 p-0 " style="display: inline; width: 40%;">
+						<div class="background-white border boder-start-0 border-dark border-1 p-0 w-50" style="display: inline; width: 40%;">
 							<div align="center" style="margin-top: 2.5vw;">
 								<span style="font-size: 2vw; font-weight:bold">전시소개</span>
 							</div>						
@@ -99,9 +97,38 @@
 						<div class="boxWhiteSpace background-clear m-0 p-0" style="height: 3vw;"></div>
 						
 						<!-- 버튼 -->
-						<div class="row p-0 m-0" style="height: 5vw;">
-							
-						</div>
+<%--  						<div class="row p-0 m-0" style="height: 5vw;">
+							<div class=" ">
+								<c:forEach begin="0" end="4" step="1" >
+									<div class="item"><img src="/image/exhibition/2023지홍전.jpg" /></div>
+								</c:forEach>
+							</div>	
+						</div>  --%>
+						<div class= "slide_wrapper custom-slide-wrapper">
+						  <ul class="slides">
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    </ul>
+						  </div>
+						  <p class="controls">
+							<button class="prev">prev</button>
+							<button class="next">next</button>
+						  </p>
+					
+
+    
 					</div>
 				</div>
 			</div>
@@ -109,5 +136,17 @@
 		</div>
 		</c:forEach>
 	</article>
-		
+	<script>
+	var slides = document.querySelector('.slides'),
+    slide = document.querySelectorAll('.slides li'),
+    currentIdx = 0,
+    slideCount = slide.length,
+    slideWidth = 300,
+    slideMargin = 30,
+    prevBtn = document.querySelector('.prev'),
+    nextBtn = document.querySelector('.next');
+
+    slides.style.width = (slideWidth + slideMargin )*slideCount - slideMargin + 'px';
+	</script>
+	</body>
 <%@ include file="../../layout/footer.jsp" %>

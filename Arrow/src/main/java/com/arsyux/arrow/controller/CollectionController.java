@@ -50,10 +50,10 @@ public class CollectionController {
 		pagination.pageInfo(page, range, totalPages);
 		
 
-		List<CollectionsVO> contentsList = collectionService.selectCollect(exh_seq, pagination);
+		List<CollectionsVO> collectList = collectionService.selectCollect(exh_seq, pagination);
         
 		
-        model.addAttribute("contentsList", contentsList);
+        model.addAttribute("collectList", collectList);
         model.addAttribute("pagination", pagination); 
 
 		
@@ -61,14 +61,15 @@ public class CollectionController {
 	}
 	
 	// 전시 정보 페이지
-	@GetMapping("/exhibition/view/CollectionInfo/{encryptedCode}")
-	public String getCollectInfo(Model model,@PathVariable("encryptedCode") String encryptedCode) {
+	@GetMapping("/exhibition/view/CollectionInfo/{encryptedCodeName}")
+	public String getCollectInfo(Model model,@PathVariable("encryptedCodeName") String encryptedCode) {
 		 
 		encryptedCode = new String(Base64.getDecoder().decode(encryptedCode));
-		
-		System.out.println("List<CollectionsVO> contentsList = collectionService.selectOneCollect(exh_seq);"+encryptedCode);
-		
+	
 		List<CollectionsVO> collectionList = collectionService.selectOneCollect(encryptedCode);
+		
+		
+		
 		model.addAttribute("collect", collectionList);
 		return "exhibition/collection/collectionInfo";
 	}
