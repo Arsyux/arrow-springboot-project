@@ -69,14 +69,22 @@ public class PostController {
 	}
 	
 	// 로그인 페이지
-	@GetMapping("/adm")
+	// 로그인 - admin 분리 240330
+	@GetMapping("/login")
 	public String login(@RequestParam(value = "error", required = false)String error,
 						@RequestParam(value = "exception", required = false)String exception,
 						Model model) {
 		// 로그인 실패시 error를 담음
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
-		return "user/loginUser";
+		return "user/login";
+	}
+	
+	// Admin 페이지
+	// 주대현 admin 페이지 구현 240330
+	@GetMapping("/adm")
+	public String admin() {
+		return "user/admin";
 	}
 	
 	// 박물관 장소 페이지 이동
@@ -108,7 +116,7 @@ public class PostController {
 	// 전시 글쓰기 이미지 파일 업로드
 	// 주대현 - 240326
 	@PostMapping("/exhibition/function/uploadImageFile")
-	public @ResponseBody ResponseDTO<?> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile)  {
+	public @ResponseBody ResponseDTO<?> uploadImageFile(@RequestParam("file") MultipartFile multipartFile)  {
 		
 		// 저장 경로
 		System.out.println("[전시 글쓰기] 파일 저장 경로 : " + FILE_PATH);
