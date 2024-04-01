@@ -73,15 +73,15 @@
 							<!-- 반복문 시작 -->
 							<div class="border border-dark border-1">
 								<div class="row m-0 p-0">
-							    <c:forEach items="${collectList}" var="collect">
+							    <c:forEach items="${collectList}" var="collect"  varStatus="i">
 							        <div class="col-6 m-0 p-4">
 							            <div class="border border-dark border-1">
 							                <img class="w-100" alt="exhibition" src="/image/exhibition/details/백각궁.jpg">
 							            </div>
 							            <div class="border border-dark border-top-0 border-1" style="background-color: #005666; color: #ffffff;" 
 							            onclick="javascript:fnCollectDetail('<c:out value="${collect.codename_collect}"/>');">
-							            	<span>명칭: ${collect.name_collect}</span><br>
-							                <span>번호: ${collect.codename_collect}</span><br>
+							            	<span>${i.count }.명칭: ${collect.name_collect}</span><br>
+							                <span>고유번호: ${collect.codename_collect}</span><br>
 							                <span>재질: ${collect.metarial_collect}</span><br>
 							                <span>연도: ${collect.period_collect}</span>
 							            </div>

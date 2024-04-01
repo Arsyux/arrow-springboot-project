@@ -32,6 +32,8 @@ public class CollectionService {
 		int startList = page.getStartList();
 		int listSize = page.getListSize();
 		RowBounds rowBounds = new RowBounds(startList, listSize);
+		System.out.println("row Bounds "+ rowBounds.getOffset()+"+"+rowBounds.getLimit());
+	
 		return collectionDAO.selectCollect(exh_seq, rowBounds);
 	}
 
