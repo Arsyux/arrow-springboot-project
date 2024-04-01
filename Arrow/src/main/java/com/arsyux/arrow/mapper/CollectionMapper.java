@@ -22,7 +22,7 @@ public interface CollectionMapper {
 //	
 	/*소장품 리스트*/
 	@Select("SELECT exh_seq, name_collect, codename_collect, period_collect, tag_exhibit, metarial_collect, size_collect, usage_collect, feature_collect, descript_collect, str_to_date(createDt,'%Y-%m-%d')as createDt"
-			+ " FROM arrow_collection WHERE exh_seq = #{exh_seq} ORDER BY createDt DESC ")
+			+ " FROM arrow.arrow_collection WHERE exh_seq = #{exh_seq} ORDER BY createDt DESC ")
 	public  List<CollectionsVO> selectCollect(int exh_seq, RowBounds rowBounds);
 	
 	@Select("SELECT count(*)"

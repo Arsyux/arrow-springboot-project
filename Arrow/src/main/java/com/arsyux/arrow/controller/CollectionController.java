@@ -46,7 +46,6 @@ public class CollectionController {
 		int exh_seq = 1;
 		
 		int totalPages = collectionService.getTotalPages();
-		System.out.println(totalPages);
 		pagination.pageInfo(page, range, totalPages);
 		
 
