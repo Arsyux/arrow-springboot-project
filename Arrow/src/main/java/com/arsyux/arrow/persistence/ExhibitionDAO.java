@@ -2,7 +2,6 @@ package com.arsyux.arrow.persistence;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,13 @@ public class ExhibitionDAO {
 	
 	@Autowired
 	private SqlSessionTemplate mybatis;
+
+	// 주대현 240404
+	// 게시글 작성 후 PK값 반환
+	public int insertExhibition(ExhibitionVO exhibition) {
+		mybatis.insert("insertExhibition", exhibition);
+		return exhibition.getExh_seq();
+	}
 	
 //	public interface QuestionRepository extends JpaRepository<ContentsVO, Integer> {
 //

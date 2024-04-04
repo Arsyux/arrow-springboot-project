@@ -3,7 +3,6 @@ package com.arsyux.arrow.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +19,20 @@ import com.arsyux.arrow.persistence.ExhibitionDAO;
 
 @Service
 public class ExhibitionService {
-
+	
 	@Autowired
 	private ExhibitionDAO exhibitionDAO;
 
+
+	// 주대현 240404
+	// 게시글 작성 후 PK값 반환
+	@Transactional
+	public int insertExhibition(ExhibitionVO exhibition) {
+		return exhibitionDAO.insertExhibition(exhibition);
+	}
+	
+	
+	
 	@Transactional
 	public void insertContent(ExhibitionVO content) {
 		exhibitionDAO.insertContent(content);

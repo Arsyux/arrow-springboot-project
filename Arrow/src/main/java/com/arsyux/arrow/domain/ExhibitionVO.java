@@ -1,7 +1,5 @@
 package com.arsyux.arrow.domain;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ExhibitionVO {
 	
-	private int exh_seq;
-	private String name_exhibit;
-	private String subname_exhibit;
-	private String space_exhibit;
-	private String startDate_exhibit;
-	private String endDate_exhibit;
-	private String createDt;
-	private String tag_exhibit;
-	private String descript_exhibit;
+	private int exh_seq; // PK
+	private String tag_exhibit; // 태그
+	private String title_exhibit; // 제목
+	private String description_exhibit; // 간략설명
+	private String startDate_exhibit; // 전시 시작 날짜
+	private String endDate_exhibit; // 전시 종료 날짜
+	private String space_exhibit; // 장소
+	private String details_exhibit; // 상세 내용
+	private String createDt; // 글 작성 날짜
 
 }

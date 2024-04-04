@@ -73,5 +73,4 @@ public class CollectionController {
 		return "exhibition/collection/collectionInfo";
 	}
 	
-	
 }

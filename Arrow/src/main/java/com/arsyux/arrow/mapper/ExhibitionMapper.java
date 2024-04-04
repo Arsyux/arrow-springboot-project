@@ -15,6 +15,15 @@ import com.arsyux.arrow.domain.Pagination;
 @Mapper
 public interface ExhibitionMapper {
 	
+	// 주대현 240404
+	// 게시글 작성 후 PK값 반환
+	@Insert("INSERT INTO arrow_exhibition"
+		  + "(tag_exhibit, title_exhibit, description_exhibit, startDate_exhibit, endDate_exhibit, space_exhibit, details_exhibit, createDt)"
+		  + " VALUES(#{tag_exhibit}, #{title_exhibit}, #{description_exhibit}, date_format(#{startDate_exhibit},'%Y-%m-%d'), date_format(#{endDate_exhibit},'%Y-%m-%d'), #{space_exhibit}, #{details_exhibit}, #{createDt});")
+	@Options(useGeneratedKeys = true, keyProperty = "exh_seq", keyColumn = "exh_seq")
+	public ExhibitionVO insertExhibition(ExhibitionVO exhibition);
+	
+	
 	@Insert("INSERT INTO arrow_exhibition"
 			+ "(exh_seq,name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, tag_exhibit,descript_exhibit , createDt)"
 			+ " VALUES(0, #{name_exhibit}, #{subname_exhibit}, #{space_exhibit}, date_format(#{startDate_exhibit},'%Y-%m-%d'), date_format((#{endDate_exhibit},'%Y-%m-%d'),#{descript_exhibit} ,#{tag_exhibit}, current_timestamp());")

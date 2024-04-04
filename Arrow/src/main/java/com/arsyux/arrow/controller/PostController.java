@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,11 +83,17 @@ public class PostController {
 		return "user/login";
 	}
 	
-	// Admin 페이지
-	// 주대현 admin 페이지 구현 240330
-	@GetMapping("/adm")
-	public String admin() {
-		return "user/admin";
+	// Admin 페이지 -> 전시, 전시품 글쓰기와 통합
+	// 전시 글쓰기 페이지 이동
+	@GetMapping({"/adm", "/user/exhibitionWrite"})
+	public String getExhibitWrite() {
+		return "user/exhibitionWrite";
+	}
+	
+	// 전시품 글쓰기 페이지 이동
+	@GetMapping("user/collectionWrite")
+	public String getCollectionWrite() {
+		return "user/collectionWrite";
 	}
 	
 	// 박물관 장소 페이지 이동
@@ -93,33 +102,13 @@ public class PostController {
 		return "exhibition/info";
 	}
 
-
-	// 전시 글쓰기 기능 구현
-	// 주대현 - 240326
-	@PostMapping("/exhibition/function/exhibitionWrite")
-	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) ExhibitionDTO exhibitionDTO, BindingResult bindingResult) {
-		
-		// ExhibitionDTO를 통해 유효성 검사
-		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
-		
-		
-		
-	    return new ResponseDTO<>(HttpStatus.OK.value(), /*cont.getName_exhibit() +*/ "작성되었습니다");      
-	}
-	
-	// 전시 글쓰기 페이지 이동
-	@GetMapping("/exhibition/function/exhibitionWrite")
-	public String ExhibitWrite() {
-		return "exhibition/exhibitionWrite";
-	}
-	
-	// 전시 글쓰기 이미지 파일 업로드
+	// 전시 글쓰기 - 임시 경로에 이미지 파일 업로드
 	// 주대현 - 240326
 	@PostMapping("/exhibition/function/uploadImageFile")
 	public @ResponseBody ResponseDTO<?> uploadImageFile(@RequestParam("file") MultipartFile multipartFile)  {
 		
-		// 저장 경로
-		System.out.println("[전시 글쓰기] 파일 저장 경로 : " + FILE_PATH);
+		// 임시 저장 경로
+		//System.out.println("[전시 글쓰기] 임시 파일 저장 경로 : " + FILE_PATH);
 		
 		// 폴더가 없을 경우 폴더 생성
 		File folder = new File(FILE_PATH);
@@ -139,17 +128,49 @@ public class PostController {
 			// 파일을 임시 폴더에 복사
 			multipartFile.transferTo(targetFile);
 			
-			System.out.println("[전시 글쓰기] 파일 저장 완료");
+			//System.out.println("[전시 글쓰기] 임시 파일 저장 완료");
 		} catch (IOException ioe) {
-			System.out.println("[전시 글쓰기] 파일 저장 실패");
+			//System.out.println("[전시 글쓰기] 임시 파일 저장 실패");
 			ioe.printStackTrace();
 		}
 		
 		// 저장 경로를 반환
-		System.out.println("[전시 글쓰기] 이미지 경로 반환 : " + "/image/temp/" + savedFileName);
+		//System.out.println("[전시 글쓰기] 임시 파일 이미지 경로 반환 : " + "/image/temp/" + savedFileName);
 		return new ResponseDTO<>(HttpStatus.OK.value(), "/image/temp/" + savedFileName);
 	}
 	
+	// 전시 글쓰기 기능 구현
+	// 주대현 - 240404
+	@PostMapping("/exhibition/function/exhibitionWrite")
+	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) @RequestBody ExhibitionDTO exhibitionDTO,BindingResult bindingResult) {
+		
+		// ExhibitionDTO를 통해 유효성 검사
+		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
+		
+		// 게시글 작성 날짜
+		// 2024-04-04 -> 20240404
+		LocalDateTime nowTime = LocalDateTime.now();
+		String nowTimeStr = nowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		String nowTimeDate = nowTime.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+		System.out.println("날짜: " + nowTimeStr);
+		System.out.println("날짜: " + nowTimeDate);
+		
+		String localDate = LocalDateTime.now().toLocalDate().toString().replace("-", "");
+		
+		//exhibit.setCreateDt(localDate);
+		
+		// 상세 내용에 저장된 임시 이미지 경로를 저장될 폴더 경로로 수정
+		exhibit.setDetails_exhibit(exhibit.getDetails_exhibit().replace("src=\"/image/temp/", "src=\"/image/" + localDate +"/"));
+		
+		// 게시글을 작성하고 해당 게시글 번호를 반환받기
+		//int exhibitionPK = exhibitionService.insertExhibition(exhibit);
+		
+		// 파일 옮기기
+
+	    return new ResponseDTO<>(HttpStatus.OK.value(), "작성되었습니다");
+	    //return new ResponseDTO<>(HttpStatus.OK.value(), exhibitionPK + " 작성되었습니다");      
+	}
 	
 	// 본관 - 프로그램 안내 이동
 	// 이승현 - 백업

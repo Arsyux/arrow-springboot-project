@@ -76,7 +76,8 @@ let exhibitionObject = {
 	
 	// 본관 - 프로그램 안내 글쓰기
 	insertExhibition: function() {
-				
+		
+		/*	
 		let exhibition = {
 			exhibitionTag: $("#exhibitionTag").val(),
 			exhibitionTitle: $("#exhibitionTitle").val(),
@@ -86,22 +87,38 @@ let exhibitionObject = {
 			exhibitionSpace: $("#exhibitionSpace").val(),
 			exhibitionDetails: $("#exhibitionDetails").val()
 		}
+		*/
+		let exhibition = {
+			tag_exhibit: $("#exhibitionTag").val(),
+			title_exhibit: $("#exhibitionTitle").val(),
+			description_exhibit: $("#exhibitionDescription").val(),
+			startDate_exhibit: $("#exhibitionStartDate").val(),
+			endDate_exhibit: $("#exhibitionEndDate").val(),
+			space_exhibit: $("#exhibitionSpace").val(),
+			details_exhibit: $("#exhibitionDetails").val()
+		}
 		
-		console.log(exhibition.exhibitionTag);
-		console.log(exhibition.exhibitionTitle);
-		console.log(exhibition.exhibitionDescription);
-		console.log(exhibition.exhibitionStartDate);
-		console.log(exhibition.exhibitionEndDate);
-		console.log(exhibition.exhibitionSpace);
-		console.log(exhibition.exhibitionDetails);
+		/*
+		console.log(exhibition.tag_exhibit);
+		console.log(exhibition.title_exhibit);
+		console.log(exhibition.description_exhibit);
+		console.log(exhibition.startDate_exhibit);
+		console.log(exhibition.endDate_exhibit);
+		console.log(exhibition.space_exhibit);
+		console.log(exhibition.details_exhibit);
+		*/
 		
 		$.ajax({
 			type: "POST",
-			url: "/post/insertPost",
-			data: JSON.stringify(post),
+			url: "/exhibition/function/exhibitionWrite",
+			data: JSON.stringify(exhibition),
 			contentType: "application/json; charset=utf-8"
 		}).done(function(response) {
-			let status = response["status"];
+			//let status = response["status"];
+			
+			console.log(response["status"]);
+			console.log(response["data"]);
+			/*
 			if(status == 200) {
 				let postid = response["data"];
 				
@@ -162,6 +179,7 @@ let exhibitionObject = {
 				if(errors.arrivals_extraAddress != null) { warn = warn + errors.arrivals_extraAddress }
 				alert(warn);
 			}
+			*/
 		}).fail(function(error) {
 			let message = error["data"];
 			alert("에러 발생 : " + message);
