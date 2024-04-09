@@ -148,20 +148,17 @@ public class PostController {
 		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
 		
 		// 게시글 작성 날짜
-		// 2024-04-04 -> 20240404
-		LocalDateTime nowTime = LocalDateTime.now();
-		String nowTimeStr = nowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		String nowTimeDate = nowTime.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		LocalDateTime now = LocalDateTime.now();
+		// 2024-04-04 00:00:00
+		String nowDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		// 2024-04-04 00:00:00 -> 20240404
+		String nowDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-		System.out.println("날짜: " + nowTimeStr);
-		System.out.println("날짜: " + nowTimeDate);
-		
-		String localDate = LocalDateTime.now().toLocalDate().toString().replace("-", "");
-		
-		//exhibit.setCreateDt(localDate);
+		// 날짜 세팅
+		exhibit.setCreateDt(nowDateTime);
 		
 		// 상세 내용에 저장된 임시 이미지 경로를 저장될 폴더 경로로 수정
-		exhibit.setDetails_exhibit(exhibit.getDetails_exhibit().replace("src=\"/image/temp/", "src=\"/image/" + localDate +"/"));
+		exhibit.setDetails_exhibit(exhibit.getDetails_exhibit().replace("src=\"/image/temp/", "src=\"/image/" + nowDate +"/"));
 		
 		// 게시글을 작성하고 해당 게시글 번호를 반환받기
 		//int exhibitionPK = exhibitionService.insertExhibition(exhibit);
