@@ -49,7 +49,7 @@ public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
 	
 	// 썸머노트 이미지 업로드시 정적 자원 루트 지정 (이미지 파일 업로드)
 	
-	// 썸머노트 이미지를 저장할 임시 파일 경로
+	// 썸머노트 이미지를 저장할 이미지 폴더 경로
 	@Value("${FILE_PATH}")
 	private String FILE_PATH;
 	
@@ -70,8 +70,8 @@ public class ArrowWebMvcConfiguration implements WebMvcConfigurer {
     	// 주소창 입력값
     	String connectPath = "/image/temp/**";
     	
-    	// 업로드 파일  위치
-    	String resourcePath = "file:///" + FILE_PATH;
+    	// 임시 업로드 파일 위치
+    	String resourcePath = "file:///" + FILE_PATH + "/temp/";
     	
         // 업로드 이미지 정적 리소스 설정
         registry.addResourceHandler(connectPath).addResourceLocations(resourcePath);

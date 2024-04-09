@@ -3,7 +3,11 @@ package com.arsyux.arrow.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.arsyux.arrow.controller.files.FileService;
+import com.arsyux.arrow.domain.ExhibitionImageVO;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.domain.Pagination;
@@ -111,7 +116,7 @@ public class PostController {
 		//System.out.println("[전시 글쓰기] 임시 파일 저장 경로 : " + FILE_PATH);
 		
 		// 폴더가 없을 경우 폴더 생성
-		File folder = new File(FILE_PATH);
+		File folder = new File(FILE_PATH + "/temp/");
 		if(!folder.exists()) { folder.mkdir(); }
 		
 		// 오리지날 파일명
@@ -122,7 +127,7 @@ public class PostController {
 		String savedFileName = UUID.randomUUID() + extension;
 		
 		// 파일 객체 생성
-		File targetFile = new File(FILE_PATH +savedFileName);
+		File targetFile = new File(FILE_PATH + "/temp/" +savedFileName);
 		
 		try {
 			// 파일을 임시 폴더에 복사
@@ -140,10 +145,10 @@ public class PostController {
 	}
 	
 	// 전시 글쓰기 기능 구현
-	// 주대현 - 240404
+	// 주대현 - 240410
 	@PostMapping("/exhibition/function/exhibitionWrite")
 	public @ResponseBody ResponseDTO<?> insertExhibition(@Validated(InsertExhibitionValidationGroup.class) @RequestBody ExhibitionDTO exhibitionDTO,BindingResult bindingResult) {
-		
+
 		// ExhibitionDTO를 통해 유효성 검사
 		ExhibitionVO exhibit = modelMapper.map(exhibitionDTO, ExhibitionVO.class);
 		
@@ -154,24 +159,95 @@ public class PostController {
 		// 2024-04-04 00:00:00 -> 20240404
 		String nowDate = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
+		System.out.println("[" + nowDateTime + "] 전시글 작성 유효성 검사 완료");
+
 		// 날짜 세팅
 		exhibit.setCreateDt(nowDateTime);
-		
-		// 상세 내용에 저장된 임시 이미지 경로를 저장될 폴더 경로로 수정
-		exhibit.setDetails_exhibit(exhibit.getDetails_exhibit().replace("src=\"/image/temp/", "src=\"/image/" + nowDate +"/"));
-		
-		// 게시글을 작성하고 해당 게시글 번호를 반환받기
-		//int exhibitionPK = exhibitionService.insertExhibition(exhibit);
-		
-		// 파일 옮기기
 
-	    return new ResponseDTO<>(HttpStatus.OK.value(), "작성되었습니다");
-	    //return new ResponseDTO<>(HttpStatus.OK.value(), exhibitionPK + " 작성되었습니다");      
+		// 이미지 파일이 있는지 확인
+		boolean containImg = exhibit.getDetails_exhibit().contains("<img");
+
+		if(!containImg) {
+			// 이미지 파일이 없을 경우
+			try {
+				// 전시 정보 insert
+				exhibitionService.insertExhibition(exhibit);
+				System.out.println("[" + nowDateTime + "] 전시글 작성 완료");
+			    return new ResponseDTO<>(HttpStatus.OK.value(), "전시글이 작성되었습니다");
+			}
+			catch (Exception e) {
+				System.out.println("[" + nowDateTime + "] insertExhibition()에서 insertExhibition()중 에러 발생: " + e.toString());
+			    return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "DB에 데이터 삽입중 에러가 발생하였습니다.");
+			}
+		} else {
+			// 이미지가 있을 경우
+			
+			// 임시 폴더 경로
+			File tempFolder = new File(FILE_PATH + "/temp/");
+			
+			// 오늘 날짜의 저장될 폴더 생성
+			File saveFolder = new File(FILE_PATH + "/exhibition/" + nowDate + "/");
+			if(!saveFolder.exists()) { saveFolder.mkdir(); }
+			
+			// 임시 폴더에 있는 파일 목록 가져오기
+			File[] tempFiles = tempFolder.listFiles();
+			
+			// 파일 이름 목록
+			ArrayList<String> fileNames = new ArrayList<>();
+			
+			try {
+				for(int i=0; i<tempFiles.length; i++) {
+					// 파일 이름 담기
+					fileNames.add(tempFiles[i].getName());
+
+					Path oldfile = Paths.get(FILE_PATH + "/temp/" + tempFiles[i].getName());
+					Path newfile = Paths.get(FILE_PATH + "/exhibition/" + nowDate + "/" + tempFiles[i].getName());
+					
+					// 임시 폴더에서 저장될 폴더로 파일을 복사
+					Files.copy(oldfile, newfile, StandardCopyOption.REPLACE_EXISTING);
+				}
+			} catch (Exception e) {
+				System.out.println("[insertExhibition - copy] 이미지 파일 복사중 에러 발생: " + e.toString());
+			    return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미지 파일 복사중 에러가 발생하였습니다.");
+			}
+			//System.out.println("파일 이동 완료");
+			
+			// 상세 내용에 저장된 임시 이미지 경로를 저장될 폴더 경로로 수정
+			exhibit.setDetails_exhibit(exhibit.getDetails_exhibit().replace("src=\"/image/temp/", "src=\"/image/" + nowDate +"/"));
+			
+			// 전시 + 파일 정보 insert
+			try { 
+				exhibitionService.insertExhibitionAndImage(exhibit, fileNames);
+			} catch (Exception e) {
+				// 파일 insert 실패시
+				System.out.println("[insertExhibitionAndImage - insert] insert중 에러 발생: " + e.toString());
+				System.out.println("저장된 파일을 삭제합니다.");
+				try {
+					for (String fileName : fileNames) {
+						Path newfile = Paths.get(FILE_PATH + "/exhibition/" + nowDate + "/" + fileName);
+						Files.delete(newfile);
+					}					
+				} catch (Exception de) {
+					System.out.println("[insertExhibitionAndImage - 파일삭제] 파일 삭제중 에러 발생: " + de.toString());
+				}
+			    return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "DB에 데이터 저장중 에러가 발생하였습니다.");
+			}
+			
+			// 모든 작업이 끝나면 임시 폴더 청소
+			try {
+				for (String fileName : fileNames) {
+					Path oldfile = Paths.get(FILE_PATH + "/temp/" + fileName);
+					Files.delete(oldfile);
+				}
+			} catch (Exception de) {
+				System.out.println("[insertExhibitionAndImage - 기존 파일삭제] 기존 파일 삭제중 에러 발생: " + de.toString());
+			}
+		}
+	    return new ResponseDTO<>(HttpStatus.OK.value(), "게시글이 작성되었습니다");
 	}
 	
 	// 본관 - 프로그램 안내 이동
 	// 이승현 - 백업
-	
 	@GetMapping("/exhibition/view/exhibition")
 	public String getExhibit(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int range) {
 		//page limit, offset 데이터 조회

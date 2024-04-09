@@ -41,7 +41,12 @@ let exhibitionObject = {
         	callbacks : {
 				// 이미지 업로드
 				onImageUpload : function(files) {
+					/*
 					for (let i = files.length - 1; i >= 0; i--) {
+						uploadImageFile(files[i], this);
+        			}
+        			*/
+        			for (let i = 0; i < files.length; i++) {
 						uploadImageFile(files[i], this);
         			}
         		}
@@ -61,7 +66,7 @@ let exhibitionObject = {
 				enctype : 'multipart/form-data',
 				processData : false,
 				success : function(response) {
-					console.log("이미지를 서버에 전송하였습니다. 이미지 경로: " + response["data"]);
+					//console.log("이미지를 서버에 전송하였습니다. 이미지 경로: " + response["data"]);
 					$(el).summernote('editor.insertImage', response["data"]);
 				}
 			});
@@ -69,7 +74,15 @@ let exhibitionObject = {
 		
 		// 본관 - 프로그램 안내 글쓰기
 		$("#btn-insertExhibition").on("click", () => {
-			_this.insertExhibition();
+			let tag = $("#exhibitionTag").val();
+			switch(tag) {
+				case '전시':
+					_this.insertExhibition();
+					break;
+				default:
+					alert('준비중!');
+					break;
+			}
 		});
 		
 	},
@@ -77,17 +90,6 @@ let exhibitionObject = {
 	// 본관 - 프로그램 안내 글쓰기
 	insertExhibition: function() {
 		
-		/*	
-		let exhibition = {
-			exhibitionTag: $("#exhibitionTag").val(),
-			exhibitionTitle: $("#exhibitionTitle").val(),
-			exhibitionDescription: $("#exhibitionDescription").val(),
-			exhibitionStartDate: $("#exhibitionStartDate").val(),
-			exhibitionEndDate: $("#exhibitionEndDate").val(),
-			exhibitionSpace: $("#exhibitionSpace").val(),
-			exhibitionDetails: $("#exhibitionDetails").val()
-		}
-		*/
 		let exhibition = {
 			tag_exhibit: $("#exhibitionTag").val(),
 			title_exhibit: $("#exhibitionTitle").val(),
@@ -98,26 +100,23 @@ let exhibitionObject = {
 			details_exhibit: $("#exhibitionDetails").val()
 		}
 		
-		/*
-		console.log(exhibition.tag_exhibit);
-		console.log(exhibition.title_exhibit);
-		console.log(exhibition.description_exhibit);
-		console.log(exhibition.startDate_exhibit);
-		console.log(exhibition.endDate_exhibit);
-		console.log(exhibition.space_exhibit);
-		console.log(exhibition.details_exhibit);
-		*/
-		
 		$.ajax({
 			type: "POST",
 			url: "/exhibition/function/exhibitionWrite",
 			data: JSON.stringify(exhibition),
 			contentType: "application/json; charset=utf-8"
 		}).done(function(response) {
+			if(response["status"] == 200) {
+				alert(response["data"]);
+				location = '/adm'
+			} else {
+				alert('게시글 작성에 실패하였습니다.');
+				
+			}
+			
 			//let status = response["status"];
 			
-			console.log(response["status"]);
-			console.log(response["data"]);
+			//console.log(response["status"]);
 			/*
 			if(status == 200) {
 				let postid = response["data"];

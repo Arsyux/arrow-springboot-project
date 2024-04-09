@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.arsyux.arrow.domain.ExhibitionImageVO;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.domain.Pagination;
@@ -23,6 +24,12 @@ public class ExhibitionDAO {
 	public int insertExhibition(ExhibitionVO exhibition) {
 		mybatis.insert("insertExhibition", exhibition);
 		return exhibition.getExh_seq();
+	}
+	
+	// 주대현 240410
+	// 이미지 정보 저장
+	public void insertExhibitionImage(ExhibitionImageVO exhibitionImage) {
+		mybatis.insert("insertExhibitionImage", exhibitionImage);
 	}
 	
 //	public interface QuestionRepository extends JpaRepository<ContentsVO, Integer> {

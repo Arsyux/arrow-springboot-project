@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+
+import com.arsyux.arrow.domain.ExhibitionImageVO;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.domain.Pagination;
@@ -18,11 +20,17 @@ public interface ExhibitionMapper {
 	// 주대현 240404
 	// 게시글 작성 후 PK값 반환
 	@Insert("INSERT INTO arrow_exhibition"
-		  + "(tag_exhibit, title_exhibit, description_exhibit, startDate_exhibit, endDate_exhibit, space_exhibit, details_exhibit, createDt)"
-		  + " VALUES(#{tag_exhibit}, #{title_exhibit}, #{description_exhibit}, date_format(#{startDate_exhibit},'%Y-%m-%d'), date_format(#{endDate_exhibit},'%Y-%m-%d'), #{space_exhibit}, #{details_exhibit}, #{createDt});")
+		  + "(tag_exhibit, title_exhibit, description_exhibit, startDate_exhibit, endDate_exhibit, space_exhibit, details_exhibit, createDt) "
+		  + "VALUES(#{tag_exhibit}, #{title_exhibit}, #{description_exhibit}, date_format(#{startDate_exhibit},'%Y-%m-%d'), date_format(#{endDate_exhibit},'%Y-%m-%d'), #{space_exhibit}, #{details_exhibit}, #{createDt});")
 	@Options(useGeneratedKeys = true, keyProperty = "exh_seq", keyColumn = "exh_seq")
 	public ExhibitionVO insertExhibition(ExhibitionVO exhibition);
 	
+	// 주대현 240410
+	// 이미지 정보 저장
+	@Insert("INSERT INTO arrow_exhibitionImage"
+		  + "(exh_seq, name_exhimg) "
+		  + "VALUES(#{exh_seq}, #{name_exhimg});")
+	public ExhibitionVO insertExhibitionImage(ExhibitionImageVO exhibitionImage);
 	
 	@Insert("INSERT INTO arrow_exhibition"
 			+ "(exh_seq,name_exhibit, subname_exhibit, space_exhibit, startDate_exhibit, endDate_exhibit, tag_exhibit,descript_exhibit , createDt)"

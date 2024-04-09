@@ -1,13 +1,14 @@
 package com.arsyux.arrow.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.arsyux.arrow.domain.ExhibitionImageVO;
 import com.arsyux.arrow.domain.ExhibitionVO;
 import com.arsyux.arrow.domain.FilesVO;
 import com.arsyux.arrow.domain.Pagination;
@@ -25,12 +26,24 @@ public class ExhibitionService {
 
 
 	// 주대현 240404
-	// 게시글 작성 후 PK값 반환
-	@Transactional
+	// 전시 게시글 저장
 	public int insertExhibition(ExhibitionVO exhibition) {
 		return exhibitionDAO.insertExhibition(exhibition);
 	}
 	
+	// 주대현 240410
+	// 전시 및 이미지 저장
+	@Transactional
+	public void insertExhibitionAndImage(ExhibitionVO exhibition, ArrayList<String> fileNames) {
+		// 전시 insert 후 PK값 반환
+		int exhibitionPK = exhibitionDAO.insertExhibition(exhibition);
+		
+		// 전시 PK를 사용해 이미지 insert
+		for (String fileName : fileNames) {
+			ExhibitionImageVO exhibitionImage = new ExhibitionImageVO(exhibitionPK, fileName);
+			exhibitionDAO.insertExhibitionImage(exhibitionImage);
+		}
+	}
 	
 	
 	@Transactional
