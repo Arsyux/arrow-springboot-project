@@ -207,6 +207,10 @@ public class PostController {
 					Files.copy(oldfile, newfile, StandardCopyOption.REPLACE_EXISTING);
 				}
 			} catch (Exception e) {
+				// 파일 삭제 추가
+				for (String fileName : fileNames) {
+					//
+				}
 				System.out.println("[insertExhibition - copy] 이미지 파일 복사중 에러 발생: " + e.toString());
 			    return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미지 파일 복사중 에러가 발생하였습니다.");
 			}

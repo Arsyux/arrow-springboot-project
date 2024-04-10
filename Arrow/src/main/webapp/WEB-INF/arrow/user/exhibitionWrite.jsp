@@ -12,17 +12,47 @@
 <!-- 관리자 로그인시에만 div 노출 -->
 <c:if test="${!empty principal }">
 
-	<!-- navbar 삽입형식으로 변경 -->
-	<%@ include file="../layout/navbar.jsp"%>
+	<nav class="navbar navbar-expand-md navbar-light p-0 m-0" style="background-color: #ffffff;">
+		<div class="container">
+			<a class="navbar-brand" href="/adm">
+				<img alt="logo" src="/image/main/logo.svg" style="height: 100px;">
+			</a>
+			<button class="navbar-toggler border border-2" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+				<img alt="icon" src="/image/main/icon.svg" style="height: 50px; width: 1.5em">
+			</button>
+			<div class="collapse navbar-collapse justify-content-center" id="mynavbar">
+				<ul class="navbar-nav" style="font-size: 20px;">
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link active" href="/user/exhibitionWrite" style="color: #269630;">
+							<b>게시글 작성</b>
+						</a>
+					</li>
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link" href="/user/collectionWrite">
+							<b>전시품 등록</b>
+						</a>
+					</li>
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link" href="/logout">
+							<b>로그아웃</b>
+						</a>
+					</li>
+				</ul>
+				</div>
+		</div>
+	</nav>
+	
 	
 	<!-- 대현 수정 240324 -->
 	<div class="container-fluid mt-0 p-0 border border-1 border-dark" align="center">
 		
 		<header>
 			<!-- 헤더 -->
-			<div class="row m-0 p-0">
-				<div class="col-12 m-0 p-0 border-bottom border-1 border-dark" style="background-color: #269630; color: #ffffff; font-size: 5vw;" align="center">
-					게시글 작성
+			<div class="row ms-0 me-0 mb-0 mt-5 p-0">
+				<div class="col-1 m-0 p-0"></div>
+				<div class="col-10 m-0 p-0" style="background-color: #ffffff; color: #333333;" align="center">
+					<h1>게시글 작성</h1>
+					<hr style="width: 95%;">
 				</div>
 			</div>
 		</header>
@@ -73,7 +103,7 @@
 						<div class="col-10">
 							<div class="input-group">
 								<input type="date" class="form-control" id="exhibitionStartDate" data-placeholder="시작 날짜" style="font-size: 2vw;" required></input>
-								<span class="input-group-text" style="width: 10%; font-size: 2vw; justify-content: center;">~</span>
+								<span class="input-group-text" style="width: 10%; background-color: #ffffff; font-size: 2vw; justify-content: center;">~</span>
 								<input type="date" class="form-control" id="exhibitionEndDate" data-placeholder="종료 날짜" style="font-size: 2vw;" required></input>
 								<div id="exhibitionStartDateInvalid" class="invalid-feedback"></div>
 							</div>

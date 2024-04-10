@@ -13,8 +13,36 @@
 
 <c:if test="${!empty principal }">
 
-	<!-- navbar 삽입형식으로 변경 -->
-	<%@ include file="../layout/navbar.jsp"%>
+	<nav class="navbar navbar-expand-md navbar-light p-0 m-0" style="background-color: #ffffff;">
+		<div class="container">
+			<a class="navbar-brand" href="/adm">
+				<img alt="logo" src="/image/main/logo.svg" style="height: 100px;">
+			</a>
+			<button class="navbar-toggler border border-2" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+				<img alt="icon" src="/image/main/icon.svg" style="height: 50px; width: 1.5em">
+			</button>
+			<div class="collapse navbar-collapse justify-content-center" id="mynavbar">
+				<ul class="navbar-nav" style="font-size: 20px;">
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link" href="/user/exhibitionWrite">
+							<b>게시글 작성</b>
+						</a>
+					</li>
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link active" href="/user/collectionWrite" style="color: #269630;">
+							<b>전시품 등록</b>
+						</a>
+					</li>
+					<li class="nav-item ms-5 me-5">
+						<a class="nav-link" href="/logout">
+							<b>로그아웃</b>
+						</a>
+					</li>
+				</ul>
+				</div>
+		</div>
+	</nav>
+	
 	
 	<!-- 대현 수정 240324 -->
 	<div class="container-fluid mt-0 p-0 border border-1 border-dark" align="center">
