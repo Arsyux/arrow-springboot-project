@@ -50,9 +50,9 @@
 			<!-- 헤더 -->
 			<div class="row ms-0 me-0 mb-0 mt-5 p-0">
 				<div class="col-1 m-0 p-0"></div>
-				<div class="col-10 m-0 p-0" style="background-color: #ffffff; color: #333333;" align="center">
-					<h1>게시글 작성</h1>
-					<hr style="width: 95%;">
+				<div class="col-10 m-0 p-0" style="color: #444444; font-size: 4vw; font-weight: bold;" align="center">
+					게시글 작성
+					<hr style="width: 35%;">
 				</div>
 			</div>
 		</header>
