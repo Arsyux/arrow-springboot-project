@@ -106,7 +106,7 @@
 						</div>  --%>
 						<div class= "slide_wrapper custom-slide-wrapper">
 						  <ul class="slides">
-						    <li><img src="http://placehold.it/300x300" alt=""></li>
+						    <li><img src="/image/temp/ad56a20b-422f-4d81-a0f5-b5772e2c70b1.jpg" width="300" height="300"></li>
 						    <li><img src="http://placehold.it/300x300" alt=""></li>
 						    <li><img src="http://placehold.it/300x300" alt=""></li>
 						    <li><img src="http://placehold.it/300x300" alt=""></li>

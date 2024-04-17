@@ -251,7 +251,6 @@ public class PostController {
 	}
 	
 	// 본관 - 프로그램 안내 이동
-	// 이승현 - 백업
 	@GetMapping("/exhibition/view/exhibition")
 	public String getExhibit(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "1") int range) {
 		//page limit, offset 데이터 조회
@@ -335,7 +334,7 @@ public class PostController {
 		
 		encryptedExhseq = new String(Base64.getDecoder().decode(encryptedExhseq));
 		    
-		    // exhseq를 정수형으로 변환하여 사용할 수 있음
+		// exhseq를 정수형으로 변환하여 사용할 수 있음
 		int exh_seq = Integer.parseInt(encryptedExhseq);
 		List<ExhibitionVO> contentsList = exhibitionService.selectOneContent(exh_seq);
 		
